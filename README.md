@@ -1,4 +1,4 @@
-# Bee-alternative (paquete de R · v0.6.2)
+# Bee-alternative (paquete de R · v0.6.3)
 
 App Shiny de solo consulta para identificar alternativas registradas en el ICA a imidacloprid,
 thiamethoxam, clothianidin y fipronil, con su riesgo para abejas y la evidencia científica.
@@ -8,6 +8,8 @@ La app lee `bee_alternative.duckdb`, generada con `modelo_datos/cargar_modelo_du
 **Desde v9 hay que regenerar la base**: se aplicó la regla por composición (una mezcla con imidacloprid, thiamethoxam,
 clothianidin o fipronil es "Molécula a sustituir"; con otro IRAC 4/2B es "No recomendada"). Indicadores esperados en el Panorama:
 cobertura 72 % (30 brechas de 107), 330 químicos y 101 bioinsumos con uso directo.
+
+**App en línea:** https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad
 
 ## Dos usos del mismo repositorio
 - **App pública en Posit Connect Cloud:** `app.R` + `manifest.json`. Guía paso a paso en [`PUBLICAR_CONNECT.md`](PUBLICAR_CONNECT.md).

@@ -2,6 +2,7 @@
 - Corrección para Posit Connect Cloud: Shiny cargaba los archivos de `R/` fuera del paquete y no encontraba `%>%`.
   Se agrega `R/_disable_autoload.R` (la app se carga solo con `pkgload::load_all()`) y se usa la tubería nativa `|>`.
 - Si la base de datos no carga, la app muestra el motivo en pantalla en lugar de desconectarse.
+- **Publicada** en Posit Connect Cloud: https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad
 
 # beealternative 0.6.2 (30/Sep/2026)
 - Estructura de publicación: el mismo repositorio es paquete de R instalable y app para Posit Connect Cloud

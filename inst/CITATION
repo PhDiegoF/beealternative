@@ -4,10 +4,11 @@ bibentry(
   author  = person("Diego Hernando", "Flórez Martínez", comment = c(ORCID = "0000-0002-3904-9543")),
   organization = "Corporación Colombiana de Investigación Agropecuaria – AGROSAVIA",
   year    = "2026",
-  note    = "Diseño y conceptualización: Diego Hernando Flórez Martínez, PhD. Paquete de R versión 0.6.2; datos: Base Unificada v9.",
+  url     = "https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad",
+  note    = "Diseño y conceptualización: Diego Hernando Flórez Martínez, PhD. Paquete de R versión 0.6.3; datos: Base Unificada v9.",
   textVersion = paste(
     "Flórez Martínez, D. H. (2026). Bee-alternative: consulta de alternativas con registro ICA",
-    "a imidacloprid, thiamethoxam, clothianidin y fipronil (paquete de R 0.6.2). AGROSAVIA.",
+    "a imidacloprid, thiamethoxam, clothianidin y fipronil (paquete de R 0.6.3). AGROSAVIA.",
     "ORCID 0000-0002-3904-9543."
   )
 )
