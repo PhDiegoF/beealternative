@@ -57,7 +57,7 @@ mod_riesgo_server <- function(id, datos) {
 
     prods <- reactive({
       riesgo_productos(larga(), input$sistema, input$cultivo, input$grupo, input$tipo, input$origen)
-    }) %>% debounce(300)
+    }) |> debounce(300)
     ings <- reactive(ingredientes_riesgo(datos(), prods()))
 
     output$resumen <- renderUI({
@@ -83,15 +83,15 @@ mod_riesgo_server <- function(id, datos) {
       p <- plotly::plot_ly()
       for (cl in intersect(orden_apistox, t$clase)) {
         s <- t[t$clase == cl, ]
-        p <- p %>% plotly::add_bars(
+        p <- p |> plotly::add_bars(
           x = 100 * s$pct, y = s$origen, name = cl, orientation = "h",
           marker = list(color = colores_apistox[[cl]], line = list(color = "#FFFFFF", width = 2)),
           customdata = s$n,
           hovertemplate = paste0("<b>%{y}</b><br>", cl, ": %{x:.0f} % (%{customdata} productos)<extra></extra>"))
       }
-      p %>% plotly::layout(barmode = "stack", xaxis = list(title = "% de productos", range = c(0, 100), ticksuffix = " %"),
+      p |> plotly::layout(barmode = "stack", xaxis = list(title = "% de productos", range = c(0, 100), ticksuffix = " %"),
                            yaxis = list(title = ""), legend = list(orientation = "h", y = -0.3),
-                           margin = list(l = 10, r = 10, t = 10, b = 10), font = list(family = "Arial")) %>%
+                           margin = list(l = 10, r = 10, t = 10, b = 10), font = list(family = "Arial")) |>
         plotly::config(displaylogo = FALSE, locale = "es")
     })
 
@@ -103,15 +103,15 @@ mod_riesgo_server <- function(id, datos) {
       p <- plotly::plot_ly()
       for (cl in intersect(orden_apistox, x$apistox_clase)) {
         s <- x[x$apistox_clase == cl, ]
-        p <- p %>% plotly::add_bars(
+        p <- p |> plotly::add_bars(
           x = s$n_productos, y = s$nombre_normalizado, name = cl, orientation = "h",
           marker = list(color = colores_apistox[[cl]]),
           hovertemplate = paste0("<b>%{y}</b><br>", cl, "<br>%{x} productos<extra></extra>"))
       }
-      p %>% plotly::layout(barmode = "overlay", xaxis = list(title = "Productos que lo contienen"),
+      p |> plotly::layout(barmode = "overlay", xaxis = list(title = "Productos que lo contienen"),
                            yaxis = list(title = "", categoryorder = "array", categoryarray = levels(x$nombre_normalizado)),
                            legend = list(orientation = "h", y = -0.3), bargap = 0.3,
-                           margin = list(l = 10, r = 10, t = 10, b = 10), font = list(family = "Arial")) %>%
+                           margin = list(l = 10, r = 10, t = 10, b = 10), font = list(family = "Arial")) |>
         plotly::config(displaylogo = FALSE, locale = "es")
     })
 
@@ -137,7 +137,7 @@ mod_riesgo_server <- function(id, datos) {
                                '" target="_blank" rel="noopener">', base, "</a>"), "—")
       t$`URL ficha` <- NULL
       DT::datatable(t, rownames = FALSE, escape = -which(names(t) == "Ficha"), selection = "none",
-                    options = list(pageLength = 15, scrollX = TRUE, dom = "ftip", language = list(url = dt_es))) %>%
+                    options = list(pageLength = 15, scrollX = TRUE, dom = "ftip", language = list(url = dt_es))) |>
         DT::formatStyle("Clase ApisTox", color = "white", fontWeight = "bold",
                         backgroundColor = DT::styleEqual(names(colores_apistox), unname(colores_apistox)))
     })

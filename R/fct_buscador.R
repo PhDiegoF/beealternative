@@ -46,13 +46,13 @@ resumir_buscador <- function(x) {
     paste(v, collapse = "; ")
   }
   orden_origen <- c("Bioinsumo", "Síntesis química", "Molécula a sustituir")
-  x %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(claves))) %>%
+  x |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(claves))) |>
     dplyr::summarise(plagas = una(plaga_etiqueta), blancos_ica = una(texto_blanco_ica),
                      moleculas_sustituidas = una(moleculas_sustituidas), dosis = una(dosis),
                      periodo_carencia = una(periodo_carencia), periodo_reingreso = una(periodo_reingreso),
-                     .groups = "drop") %>%
-    dplyr::arrange(cultivo, grupo_plaga, match(origen, orden_origen), nombre_comercial) %>%
+                     .groups = "drop") |>
+    dplyr::arrange(cultivo, grupo_plaga, match(origen, orden_origen), nombre_comercial) |>
     as.data.frame(stringsAsFactors = FALSE)
 }
 

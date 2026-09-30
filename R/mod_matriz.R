@@ -45,7 +45,7 @@ mod_matriz_server <- function(id, datos) {
 
     m <- reactive({
       matriz_sustitucion(datos(), input$sistema, input$origen, input$apistox, isTRUE(input$solo_neonic))
-    }) %>% debounce(300)
+    }) |> debounce(300)
 
     output$resumen <- renderUI({
       r <- resumen_matriz(m())
@@ -106,12 +106,12 @@ mod_matriz_server <- function(id, datos) {
         zmin = 0.5, zmax = k + 0.5, colorscale = escala, showscale = FALSE, xgap = 2, ygap = 2,
         text = txt, texttemplate = "%{text}", textfont = list(color = "#1E2A24", size = 11),
         customdata = hov, hovertemplate = "%{customdata}<extra></extra>"
-      ) %>%
+      ) |>
         plotly::layout(xaxis = list(title = "", side = "top", tickangle = -30, fixedrange = TRUE),
                        yaxis = list(title = "", fixedrange = TRUE, tickfont = list(size = 11)),
                        margin = list(l = 10, r = 10, t = 120, b = 10), font = list(family = "Arial"),
-                       plot_bgcolor = "#FFFFFF") %>%
-        plotly::config(displaylogo = FALSE, locale = "es") %>%
+                       plot_bgcolor = "#FFFFFF") |>
+        plotly::config(displaylogo = FALSE, locale = "es") |>
         plotly::event_register("plotly_click")
     })
 
@@ -122,7 +122,7 @@ mod_matriz_server <- function(id, datos) {
       validate(need(nrow(x) > 0, "Sin brechas para estos filtros."))
       names(x) <- c("Sistema", "Cultivo", "Grupo de plaga", "Estado", "Productos a sustituir", "Alternativas directas")
       DT::datatable(x, rownames = FALSE, escape = TRUE, selection = "none",
-                    options = list(pageLength = 10, dom = "ftip", language = list(url = dt_es))) %>%
+                    options = list(pageLength = 10, dom = "ftip", language = list(url = dt_es))) |>
         DT::formatStyle("Estado", backgroundColor = DT::styleEqual(names(estados_matriz), unname(estados_matriz)))
     })
 

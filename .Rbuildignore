@@ -9,3 +9,4 @@
 ^PUBLICAR_CONNECT\.md$
 ^README_pipeline\.md$
 ^NEWS\.md$
+^R/_disable_autoload\.R$

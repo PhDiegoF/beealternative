@@ -118,7 +118,7 @@ mod_ficha_server <- function(id, datos, seleccion = reactive(NULL), parent = NUL
       t <- tabla_composicion(ficha()$ingredientes)
       validate(need(nrow(t) > 0, "Sin ingredientes registrados."))
       DT::datatable(t, rownames = FALSE, escape = -which(names(t) == "Ficha"), selection = "none",
-                    options = opciones_dt(10)) %>%
+                    options = opciones_dt(10)) |>
         DT::formatStyle("Clase ApisTox", color = "white", fontWeight = "bold",
                         backgroundColor = DT::styleEqual(names(colores_apistox), unname(colores_apistox)))
     })

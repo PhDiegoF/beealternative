@@ -179,9 +179,9 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 40) {
       pa <- r$por_anio
       validate(need(nrow(pa) > 0, "Sin artículos."))
       plotly::plot_ly(pa, x = ~anio, y = ~articulos, type = "bar", marker = list(color = agro$verde_osc),
-                      hovertemplate = "%{x}: %{y} artículos<extra></extra>") %>%
+                      hovertemplate = "%{x}: %{y} artículos<extra></extra>") |>
         plotly::layout(xaxis = list(title = "", dtick = 2), yaxis = list(title = "Artículos"),
-                       margin = list(l = 10, r = 10, t = 10, b = 10), font = list(family = "Arial"), bargap = 0.3) %>%
+                       margin = list(l = 10, r = 10, t = 10, b = 10), font = list(family = "Arial"), bargap = 0.3) |>
         plotly::config(displaylogo = FALSE, locale = "es")
     })
 

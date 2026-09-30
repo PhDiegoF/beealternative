@@ -100,7 +100,7 @@ mod_buscador_server <- function(id, datos, filtro_externo = reactive(NULL), pare
     filtrado <- reactive({
       f <- filtros()
       filtrar_buscador(base(), f$sistema, f$cultivo, f$grupo, f$plaga, f$tipo, f$origen, f$apistox, f$solo_validadas)
-    }) %>% debounce(300)
+    }) |> debounce(300)
     tabla <- reactive(resumir_buscador(filtrado()))
 
     output$resumen <- renderUI({
@@ -130,7 +130,7 @@ mod_buscador_server <- function(id, datos, filtro_externo = reactive(NULL), pare
         options = list(pageLength = 15, scrollX = TRUE, dom = "ftip", language = list(url = dt_es),
                        columnDefs = list(list(targets = which(names(t) %in% c("Blanco (texto ICA)", "Empresa titular", "Sistema")) - 1,
                                               visible = FALSE)))
-      ) %>%
+      ) |>
         DT::formatStyle(col_apx, color = "white", fontWeight = "bold",
                         backgroundColor = DT::styleEqual(names(colores_apistox), unname(colores_apistox)))
     })

@@ -54,10 +54,10 @@ mod_panorama_server <- function(id, datos) {
       x$sistema <- factor(x$sistema, levels = orden)
       plotly::plot_ly(x, y = ~sistema, x = ~productos, color = ~origen, type = "bar", orientation = "h",
                       colors = c("Bioinsumo" = agro$verde_osc, "Síntesis química" = agro$azul),
-                      hovertemplate = "%{y}<br>%{x} productos<extra>%{fullData.name}</extra>") %>%
+                      hovertemplate = "%{y}<br>%{x} productos<extra>%{fullData.name}</extra>") |>
         plotly::layout(barmode = "stack", xaxis = list(title = "Productos con registro ICA"),
                        yaxis = list(title = ""), legend = list(orientation = "h", y = -0.12),
-                       font = list(family = "Arial")) %>%
+                       font = list(family = "Arial")) |>
         plotly::config(displaylogo = FALSE, locale = "es")
     })
 

@@ -27,11 +27,11 @@ matriz_sustitucion <- function(d, sistema = NULL, origen = NULL, apistox = NULL,
   if (length(apistox)) alt <- alt[alt$apistox_clase_producto %in% apistox, ]
   claves <- c("cultivo", "sistema", "grupo_plaga")
 
-  n_obj <- obj %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(claves))) %>%
+  n_obj <- obj |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(claves))) |>
     dplyr::summarise(n_neonic = dplyr::n_distinct(registro_ica), .groups = "drop")
-  n_alt <- alt %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(claves))) %>%
+  n_alt <- alt |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(claves))) |>
     dplyr::summarise(n_alt  = dplyr::n_distinct(registro_ica),
                      n_bio  = dplyr::n_distinct(registro_ica[origen == "Bioinsumo"]),
                      n_quim = dplyr::n_distinct(registro_ica[origen == "Síntesis química"]),
