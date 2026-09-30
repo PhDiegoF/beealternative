@@ -1,0 +1,37 @@
+Package: beealternative
+Title: Bee-alternative: Consulta de Alternativas a Neonicotinoides y Fipronil
+Version: 0.6.2
+Authors@R: person("Diego Hernando", "Flórez Martínez", role = c("aut", "cre"),
+    email = "dhflorez@agrosavia.co", comment = c(ORCID = "0000-0002-3904-9543",
+        rol = "Diseño y conceptualización"))
+Description: Aplicación Shiny de solo consulta que integra los registros ICA de
+    bioinsumos y plaguicidas químicos, la priorización del equipo de apicultura
+    de AGROSAVIA, la toxicidad para abejas (ApisTox) y la evidencia científica
+    (OpenAlex) para identificar alternativas a imidacloprid, thiamethoxam,
+    clothianidin y fipronil por cultivo y plaga.
+License: file LICENSE
+Language: es
+Encoding: UTF-8
+Depends: R (>= 4.2)
+Imports:
+    shiny (>= 1.8.0),
+    bslib (>= 0.6.0),
+    bsicons,
+    DBI,
+    duckdb,
+    dplyr,
+    DT,
+    plotly,
+    writexl,
+    htmltools,
+    httr2,
+    jsonlite,
+    stats,
+    utils
+Suggests:
+    testthat (>= 3.0.0),
+    pkgload,
+    rsconnect
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

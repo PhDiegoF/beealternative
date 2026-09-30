@@ -1,0 +1,14 @@
+# Nunca subir claves ni historiales
+.Renviron
+.Rhistory
+.RData
+.Rproj.user/
+rsconnect/
+*.Rcheck/
+beealternative_*.tar.gz
+# Los datos SÍ se suben (son públicos y la app los necesita en Connect Cloud):
+#   inst/extdata/bee_alternative.duckdb · inst/extdata/evidencia_catalogo.rds · inst/app/www/logo_*.png|svg
+.Rproj.user
+.httr-oauth
+.DS_Store
+.quarto

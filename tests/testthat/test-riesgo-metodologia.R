@@ -1,0 +1,22 @@
+test_that("riesgo: alternativas directas = 431 productos y 61 % altamente tóxicos (igual al Panorama)", {
+  skip_if_not(file.exists(ruta_base()), "Base DuckDB no disponible")
+  d <- cargar_datos()
+  p <- riesgo_productos(preparar_buscador(d), origen = c("Bioinsumo", "Síntesis química"))
+  expect_equal(nrow(p), 431)
+  expect_equal(sum(p$origen == "Bioinsumo"), 101)
+  i <- indicadores_panorama(d)
+  expect_equal(mean(p$apistox_clase_producto == "Altamente tóxico"), i$pct_alta_tox_directos)
+  t <- distribucion_riesgo(p)
+  expect_equal(sum(t$n), 431)
+  expect_equal(sum(t$pct[t$origen == "Bioinsumo"]), 1)
+})
+
+test_that("riesgo: ingredientes ordenados y metodología resume la validación", {
+  skip_if_not(file.exists(ruta_base()), "Base DuckDB no disponible")
+  d <- cargar_datos()
+  g <- ingredientes_riesgo(d, riesgo_productos(preparar_buscador(d)))
+  expect_equal(g$nombre_normalizado[1], "abamectin")
+  expect_false(is.unsorted(rev(g$n_productos)))
+  v <- resumen_validacion(d)
+  expect_equal(sum(v$Registros), nrow(d$registro_validacion))
+})

@@ -1,0 +1,11 @@
+^dev$
+^app\.R$
+^manifest\.json$
+^rsconnect$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.Renviron$
+^\.github$
+^PUBLICAR_CONNECT\.md$
+^README_pipeline\.md$
+^NEWS\.md$

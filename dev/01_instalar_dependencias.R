@@ -1,0 +1,5 @@
+# Paso 1 · Instalar dependencias (una sola vez)
+pkgs <- c("shiny", "bslib", "bsicons", "DBI", "duckdb", "dplyr", "DT", "plotly", "writexl", "htmltools", "httr2", "jsonlite", "pkgload", "testthat", "rsconnect", "remotes")
+faltan <- setdiff(pkgs, rownames(installed.packages()))
+if (length(faltan)) install.packages(faltan)
+message("[OK] Dependencias listas")
