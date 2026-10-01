@@ -2906,6 +2906,9 @@
     ".Rbuildignore": {
       "checksum": "17f847933966777e7397760158d3dc05"
     },
+    "ACTUALIZAR_APP_v0.6.4.md": {
+      "checksum": "bbee285ce73fb8775cdd9f6f5b3ade75"
+    },
     "app.R": {
       "checksum": "b64aa79a3759ec6c5f293c68db1a9998"
     },
@@ -2913,7 +2916,7 @@
       "checksum": "593131cbbef3a72686a191cf171e7bfa"
     },
     "DESCRIPTION": {
-      "checksum": "ff349bf58095833e52c7f7a452a4cc48"
+      "checksum": "2e38c7898de1126ba08f6ccb55d1be25"
     },
     "inst/app/www/logo_agrosavia.png": {
       "checksum": "b2970ba250241bd03f69d1e395e103f4"
@@ -2925,34 +2928,40 @@
       "checksum": "29ae8816ed41044977f747cb93535638"
     },
     "inst/CITATION": {
-      "checksum": "0afbefd614f287a1f5299877ce1f2b0c"
+      "checksum": "c89d34636ebc34e6d0e323e2371204f0"
     },
     "inst/extdata/bee_alternative.duckdb": {
-      "checksum": "0473bb091eeb0d5dd4ade8b2b7c8908c"
+      "checksum": "9599223b6359b163fce15398bffdb6f0"
     },
     "inst/extdata/evidencia_catalogo.rds": {
-      "checksum": "f53fe0429fcba75334c2ef15b550debb"
+      "checksum": "45ce317e3c8556d9f4d7532611e9222a"
     },
     "inst/extdata/evidencia_catalogo_resumen.csv": {
-      "checksum": "15536f9d9b34295855204cb8b6346f70"
+      "checksum": "bd9ab1d72d9c169ad9ae864cdf48f90a"
     },
     "LICENSE": {
       "checksum": "c980d5b7441d4bd76d9aec5e9f7d7351"
+    },
+    "manifest.json": {
+      "checksum": "12017898c9bf13e7dd078787ae03109f"
     },
     "NAMESPACE": {
       "checksum": "b918c562a80ebe8e20ddf2349aad30d2"
     },
     "NEWS.md": {
-      "checksum": "4cf00c1bfed27a766e96f2f86a58db99"
+      "checksum": "6c77547e57778620e1ae5ae55c884eaa"
     },
     "PUBLICAR_CONNECT.md": {
-      "checksum": "3ed72eaa48fe569861b892911f5e97da"
+      "checksum": "86e143b42880284a6bd2e6211719e7e4"
+    },
+    "R/_disable_autoload.R": {
+      "checksum": "f964514719dce72709b7cb6f094dfda5"
     },
     "R/app_config.R": {
-      "checksum": "6ca3f8c9ae5384b9505a4a1fc41fd185"
+      "checksum": "42584d010caa3709e44c5b27fb7d34d1"
     },
     "R/app_server.R": {
-      "checksum": "b356ec61cdba067670927274c4fb68da"
+      "checksum": "17a4f4a89f441bb13c6a7b5180e97c94"
     },
     "R/app_theme.R": {
       "checksum": "79015611dc9f143fc0604a6bc383d635"
@@ -2964,46 +2973,46 @@
       "checksum": "cac4b2780abc17f7b0a7f526a4fc0315"
     },
     "R/fct_buscador.R": {
-      "checksum": "f404cf948453a00d9d5c1d9d7e8a4145"
+      "checksum": "4c0311de8a45e399de9d17a3c0a9012b"
     },
     "R/fct_datos.R": {
       "checksum": "e3f38bc9890b586a129ac4a5af5315b5"
     },
     "R/fct_evidencia.R": {
-      "checksum": "451742cafb988fadf7add84a74b4f9be"
+      "checksum": "99919d4afca9949cbc271efd28425014"
     },
     "R/fct_ficha.R": {
       "checksum": "94c123d6e946d3add918c38db8d7e460"
     },
     "R/fct_matriz.R": {
-      "checksum": "976d5b199ddfaf8781799154566295b4"
+      "checksum": "7bdd508988a034596b6ddbc4305968db"
     },
     "R/fct_riesgo.R": {
       "checksum": "eefa509fcfe372d39301e9d42c9e6f27"
     },
     "R/mod_buscador.R": {
-      "checksum": "62d46645d8135f81bb19316a8b2ba9f0"
+      "checksum": "c23082e3332d93107db0127092dcd1f1"
     },
     "R/mod_en_construccion.R": {
       "checksum": "ed6f3c6f0e7791e0297dcc83cf53f364"
     },
     "R/mod_evidencia.R": {
-      "checksum": "1867d34a63135e3a16ebee59843099f4"
+      "checksum": "45cc04ba74a1f9b3f2e344be87f33661"
     },
     "R/mod_ficha.R": {
-      "checksum": "60ab017e6c34579a17c2581616616020"
+      "checksum": "24b010c922ba9eeb9b6a857457fdf567"
     },
     "R/mod_matriz.R": {
-      "checksum": "2ed727380804b9b8f83603cccef0e5ff"
+      "checksum": "ece5cbdd05f3f690158eb42e3d5444e9"
     },
     "R/mod_metodologia.R": {
       "checksum": "42897794a43107f108160df06f5b8d6e"
     },
     "R/mod_panorama.R": {
-      "checksum": "47bdabe1a994c259fc326fb191c33638"
+      "checksum": "8f05eaec7b68eb7e428b91212fc03446"
     },
     "R/mod_riesgo.R": {
-      "checksum": "1b9b1eaae82f1168c96f921e09fafd99"
+      "checksum": "94f0a698afcc65dadde759b878e84560"
     },
     "R/run_app.R": {
       "checksum": "f082819e7e152ac2c3fefb4a05bd871e"
@@ -3012,7 +3021,7 @@
       "checksum": "53270490000bdd2ddfdb34d2502f79aa"
     },
     "README.md": {
-      "checksum": "cbbd1a130b53678baa730a70d414570a"
+      "checksum": "cd5432f6f08eca1677ad1312456e92dc"
     }
   },
   "users": null

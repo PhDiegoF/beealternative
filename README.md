@@ -1,13 +1,14 @@
-# Bee-alternative (paquete de R · v0.6.3)
+# Bee-alternative (paquete de R · v0.6.4)
 
 App Shiny de solo consulta para identificar alternativas registradas en el ICA a imidacloprid,
 thiamethoxam, clothianidin y fipronil, con su riesgo para abejas y la evidencia científica.
 
-## Datos (v9, 28/Sep/2026)
-La app lee `bee_alternative.duckdb`, generada con `modelo_datos/cargar_modelo_duckdb.R` a partir de los CSV del modelo v9.
-**Desde v9 hay que regenerar la base**: se aplicó la regla por composición (una mezcla con imidacloprid, thiamethoxam,
-clothianidin o fipronil es "Molécula a sustituir"; con otro IRAC 4/2B es "No recomendada"). Indicadores esperados en el Panorama:
-cobertura 72 % (30 brechas de 107), 330 químicos y 101 bioinsumos con uso directo.
+## Datos (v10, 30/Sep/2026)
+La app lee `bee_alternative.duckdb`, generada con `modelo_datos/cargar_modelo_duckdb.R` a partir de los CSV del modelo v10.
+Reglas vigentes: composición (v9: una mezcla con imidacloprid, thiamethoxam, clothianidin o fipronil es "Molécula a sustituir";
+con otro IRAC 4/2B es "No recomendada") y correcciones de la verificación de ecuaciones (v10: registro 5725 compartido y grupos de plaga armonizados).
+Indicadores esperados en el Panorama: 1.348 productos, cobertura 71 % (31 brechas de 107), 330 químicos y 101 bioinsumos con uso directo.
+Catálogo de evidencia: 156 ecuaciones (v2).
 
 **App en línea:** https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad
 
@@ -51,7 +52,7 @@ Logos: el de AGROSAVIA viene incluido. El del ICA se descarga una vez con `sourc
 | `R/fct_matriz.R`, `R/mod_matriz.R` | Módulo 4: matriz cultivo × grupo de insectos con brechas, filtros por origen y ApisTox, clic hacia el buscador y descarga a Excel (listo) |
 | `R/fct_riesgo.R`, `R/mod_riesgo.R` | Módulo 5: riesgo para abejas por clase ApisTox, origen e ingrediente (listo) |
 | `R/mod_metodologia.R` | Módulo 6: metodología, fuentes, licencias, cita y registro de validación (listo) |
-| `R/fct_evidencia.R`, `R/mod_evidencia.R` | Módulo 7: evidencia científica en OpenAlex (catálogo de 123 ecuaciones y ecuación a la medida desde los diccionarios), gráfico por año y exportación para Context Analysis (listo) |
+| `R/fct_evidencia.R`, `R/mod_evidencia.R` | Módulo 7: evidencia científica en OpenAlex (catálogo v2 de 156 ecuaciones y ecuación a la medida desde los diccionarios), gráfico por año y exportación para Context Analysis (listo) |
 | `dev/05_precalcular_evidencia.R` | Precalcula el catálogo en `inst/extdata/evidencia_catalogo.rds` (requiere `OPENALEX_API_KEY`) |
 | `inst/app/www/` | `logo_agrosavia.png` y `logo_agrosavia_blanco.png` (vector del brandbook a 600 dpi); `logo_ica.svg` se descarga con `dev/04_descargar_logos.R` |
 | `R/mod_en_construccion.R` | Marcador para módulos futuros (evidencia OpenAlex, fase 2) |

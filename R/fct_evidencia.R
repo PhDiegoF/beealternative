@@ -7,7 +7,7 @@ bloque_no_neonic <- paste0('(thiamethoxam OR imidacloprid OR clothianidin OR clo
 bloque_polinizadores <- paste0('("Apis mellifera" OR honeybee OR "honey bee" OR "bumble bee" OR Bombus OR "stingless bee" OR ',
                                'Meliponini OR Trigona OR Melipona OR pollinator OR apidae OR apiculture OR beekeeping OR ',
                                '"bee colony" OR "bee mortality" OR "colony collapse")')
-# Términos de ingredientes que desde v9 no son alternativa (IRAC 4B): se retiran del catálogo
+# Términos de ingredientes que desde v9 no son alternativa (IRAC 4B). El catálogo v2 ya no los trae; se conserva por seguridad
 terminos_excluidos <- c("nicotine")
 
 # Campo donde se busca la ecuación. Por defecto título + resumen (title_and_abstract.search).

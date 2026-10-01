@@ -2,7 +2,7 @@
 
 **Diseño y conceptualización:** Diego Hernando Flórez Martínez, PhD · ORCID [0000-0002-3904-9543](https://orcid.org/0000-0002-3904-9543) · AGROSAVIA
 
-**App publicada (30/Sep/2026, v0.6.3):** https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad
+**App publicada (30/Sep/2026; versión vigente 0.6.4, datos v10):** https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad
 
 El repositorio `beealternative` sirve para dos usos a la vez:
 
@@ -33,7 +33,7 @@ beealternative/
 
 1. **Preparar los datos** (en RStudio, con el proyecto `beealternative.Rproj` abierto):
    ```r
-   source("dev/02_copiar_datos.R")          # base DuckDB v9 → inst/extdata
+   source("dev/02_copiar_datos.R")          # base DuckDB (modelo v10) → inst/extdata
    source("dev/04_descargar_logos.R")       # logo del ICA (opcional)
    source("dev/05_precalcular_evidencia.R") # catálogo OpenAlex (recomendado: ahorra cuota en la app pública)
    source("dev/06_preparar_publicacion.R")  # verifica, corre las pruebas y genera manifest.json
@@ -79,11 +79,11 @@ beealternative/
    4. **Advanced settings → Configure variables → Add variable**: nombre `OPENALEX_API_KEY` y, como valor, tu clave. La clave se escribe solo aquí, nunca en el código.
    5. **Publish**. La primera construcción tarda unos minutos porque instala los paquetes.
 4. **Prueba de humo en línea.** Revisa que funcionen:
-   - el Panorama: 1.347 productos y 72 % de cobertura;
+   - el Panorama: 1.348 productos y 71 % de cobertura;
    - el Buscador con Aguacate + Trips: 14 bioinsumos y 35 químicos;
    - un clic en la Matriz, que debe abrir el Buscador;
    - la Ficha, con sus logos;
-   - una consulta en Evidencia.
+   - una consulta en Evidencia (el catálogo v2 incluye Café y Maíz).
 
 Alternativa sin GitHub: botón **Publish** de RStudio → *Posit Connect Cloud*, con el mismo `app.R`. La ruta por GitHub es preferible porque deja un historial de cada versión publicada.
 
@@ -100,7 +100,9 @@ Alternativa sin GitHub: botón **Publish** de RStudio → *Posit Connect Cloud*,
 1. Si cambian los datos del ICA, correr el flujo de `README_pipeline.md`: actualizador → fase 0 → modelo → base Excel → `cargar_modelo_duckdb.R`.
 2. En `beealternative`, correr `dev/02` → `dev/05` → `dev/06`. Subir el número de versión en `DESCRIPTION` y anotarlo en `NEWS.md`.
 3. *Commit* y *Push* desde la pestaña **Git** de RStudio, y luego **Republish** en Connect Cloud.
-4. Repetir la prueba de humo y comparar con las cifras de referencia de `LINEA_BASE.md`.
+4. Repetir la prueba de humo y comparar con las cifras de referencia de `LINEA_BASE.md` (o de `python modelo_datos/cifras_referencia.py`).
+
+Guía detallada de la actualización a 0.6.4 (modelo v10 y catálogo de ecuaciones v2): [`ACTUALIZAR_APP_v0.6.4.md`](ACTUALIZAR_APP_v0.6.4.md).
 
 ## Instalar como paquete de R (otros usuarios de AGROSAVIA)
 
@@ -115,7 +117,7 @@ Las funciones de datos también se pueden usar sin la app:
 
 ```r
 d <- beealternative::cargar_datos()
-beealternative::resumen_matriz(beealternative::matriz_sustitucion(d))   # 107 · 77 · 30
+beealternative::resumen_matriz(beealternative::matriz_sustitucion(d))   # 107 · 76 · 31
 ```
 
 ## Qué cuidar en una app pública

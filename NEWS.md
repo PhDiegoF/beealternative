@@ -1,3 +1,16 @@
+# beealternative 0.6.4 (30/Sep/2026)
+- Datos del modelo v10 (verificación de las ecuaciones de búsqueda contra el modelo):
+  - El registro ICA 5725 estaba compartido por NEEMAZAL 1.2 E.C (azadiractina) y FERBIOL SOYA (inoculante). Ahora 5725 es NEEMAZAL
+    (con sus 42 usos) y FERBIOL SOYA usa la clave técnica `5725-FERBIOL`. Productos: 1.348.
+  - Grupo de plaga armonizado con el diccionario en 27 usos con un único blanco (p. ej. *Hydrellia* pasa a Minadores).
+  - Cifras nuevas: 107 combinaciones a sustituir, 76 cubiertas, 31 brechas (cobertura 71 %), 10 solo con alternativas altamente tóxicas;
+    431 alternativas directas (101 bio · 330 químicos). Trips en aguacate sin cambio (14 · 35).
+- Evidencia: catálogo de ecuaciones v2 con 156 ecuaciones (antes 123) en 31 sistemas. Agrega los cultivos, blancos y alternativas
+  registrados que faltaban, quita nicotine (IRAC 4B) y crea ecuaciones para Café, Maíz, Tabaco, Zanahoria, Frutales templados,
+  Frutales tropicales, Cereales y la fila química de Palmas.
+- Evidencia: la caché precalculada solo se muestra si corresponde a la versión vigente de la ecuación (`dev/05` guarda la expresión).
+- Pruebas: cifras de regresión actualizadas y `test-v10.R`.
+
 # beealternative 0.6.3 (30/Sep/2026)
 - Corrección para Posit Connect Cloud: Shiny cargaba los archivos de `R/` fuera del paquete y no encontraba `%>%`.
   Se agrega `R/_disable_autoload.R` (la app se carga solo con `pkgload::load_all()`) y se usa la tubería nativa `|>`.

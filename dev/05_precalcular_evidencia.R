@@ -1,6 +1,6 @@
-# Paso 5 · Precalcular el catálogo de evidencia (123 ecuaciones) y guardarlo dentro de la app
+# Paso 5 · Precalcular el catálogo de evidencia (156 ecuaciones, catálogo v2) y guardarlo dentro de la app
 # Así la app pública muestra resultados sin gastar cuota de OpenAlex en cada visita.
-# Requiere OPENALEX_API_KEY en ~/.Renviron. Costo aproximado: ~250 llamadas (< 0,30 USD; cabe en la cuota gratuita diaria).
+# Requiere OPENALEX_API_KEY en ~/.Renviron. Costo aproximado: ~320 llamadas (< 0,35 USD; cabe en la cuota gratuita diaria). Tarda 2-4 minutos.
 # Repetir en cada actualización trimestral. Diseño y conceptualización: Diego Hernando Flórez Martínez, PhD (ORCID 0000-0002-3904-9543)
 
 pkgload::load_all()
@@ -12,6 +12,7 @@ for (i in seq_len(nrow(e))) {
   res <- tryCatch(consultar_openalex(limpiar_expresion(r$expresion_openalex), filtros_openalex(), n = 25),
                   error = function(err) { message("[!] ", r$ecuacion_id, ": ", conditionMessage(err)); NULL })
   if (!is.null(res)) {
+    res$expresion <- limpiar_expresion(r$expresion_openalex)   # la app solo usa la caché si la ecuación no cambió
     salida[[r$ecuacion_id]] <- res
     message(sprintf("[%3d/%d] %s · %s · %s: %s artículos", i, nrow(e), r$ecuacion_id, r$sistema, r$tipo_ecuacion, res$total))
   }

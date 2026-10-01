@@ -1,5 +1,5 @@
 # Módulo 7 · Evidencia científica (OpenAlex) -------------------------------------------
-# Dos rutas: el catálogo base (123 ecuaciones por sistema, con resultados precalculados si existen)
+# Dos rutas: el catálogo v2 (156 ecuaciones por sistema, verificado contra el modelo; con resultados precalculados si existen)
 # y la ecuación a la medida (cultivo + grupo de plaga, generada desde los diccionarios).
 
 #' @noRd
@@ -131,6 +131,7 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 40) {
     observe({
       r <- ecuacion_catalogo()
       if (identical(input$ruta, "catalogo") && !is.null(r) && length(cache) && !is.null(cache[[r$ecuacion_id]]) &&
+          identical(cache[[r$ecuacion_id]]$expresion, limpiar_expresion(r$expresion_openalex)) &&   # la caché corresponde a la versión vigente de la ecuación
           identical(filtros_actuales(), cache[[r$ecuacion_id]]$filtros) && identical(input$campo, "title_and_abstract.search")) {
         resultado(c(cache[[r$ecuacion_id]], list(guardado = TRUE)))
       }

@@ -45,7 +45,7 @@ credito <- list(
   orcid  = "0000-0002-3904-9543",
   rol    = "Diseño y conceptualización",
   unidad = "AGROSAVIA · Departamento de Inteligencia y Divulgación Científica y Tecnológica",
-  datos  = "Base Unificada v9 · bioinsumos ICA 1/Sep/2026 · químicos ICA 11/Sep/2026"
+  datos  = "Base Unificada v10 · bioinsumos ICA 1/Sep/2026 · químicos ICA 11/Sep/2026"
 )
 
 aviso_registro <- "Un registro ICA autoriza el uso de un producto; no garantiza eficacia equivalente ni seguridad para las abejas."

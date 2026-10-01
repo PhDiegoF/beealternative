@@ -10,3 +10,4 @@
 ^README_pipeline\.md$
 ^NEWS\.md$
 ^R/_disable_autoload\.R$
+^ACTUALIZAR_APP.*\.md$

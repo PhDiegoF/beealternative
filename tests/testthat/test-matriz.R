@@ -1,13 +1,13 @@
-test_that("matriz: coincide con el Panorama (107 combinaciones, 77 cubiertas, 30 brechas)", {
+test_that("matriz: coincide con el Panorama (107 combinaciones, 76 cubiertas, 31 brechas; v10)", {
   skip_if_not(file.exists(ruta_base()), "Base DuckDB no disponible")
   d <- cargar_datos()
   r <- resumen_matriz(matriz_sustitucion(d))
   i <- indicadores_panorama(d)
   expect_equal(r$pares, 107)
-  expect_equal(r$cubiertos, 77)
-  expect_equal(r$brechas, 30)
+  expect_equal(r$cubiertos, 76)
+  expect_equal(r$brechas, 31)
   expect_equal(r$brechas, i$brechas)
-  expect_equal(r$solo_alta, 12)
+  expect_equal(r$solo_alta, 10)
 })
 
 test_that("matriz: sin altamente tóxicos crecen las brechas; la exportación funciona", {
@@ -16,7 +16,7 @@ test_that("matriz: sin altamente tóxicos crecen las brechas; la exportación fu
   sin_alta <- setdiff(names(colores_apistox), "Altamente tóxico")
   r <- resumen_matriz(matriz_sustitucion(d, apistox = sin_alta))
   expect_equal(r$pares, 107)
-  expect_gte(r$brechas, 30)
+  expect_gte(r$brechas, 31)
   m <- matriz_sustitucion(d, sistema = "Aguacate")
   expect_true(all(m$sistema == "Aguacate"))
   tmp <- tempfile(fileext = ".xlsx")

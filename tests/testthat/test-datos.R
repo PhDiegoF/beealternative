@@ -9,7 +9,7 @@ test_that("la base carga todas las tablas y la vista de consulta", {
 test_that("indicadores del panorama son coherentes", {
   skip_if_not(file.exists(ruta_base()), "Base DuckDB no disponible")
   i <- indicadores_panorama(cargar_datos())
-  expect_equal(i$productos_total, 1347)
+  expect_equal(i$productos_total, 1348)   # v10: FERBIOL SOYA separado de NEEMAZAL (registro 5725 compartido)
   expect_true(i$cobertura > 0 && i$cobertura <= 1)
   expect_equal(i$pares_a_sustituir, i$pares_cubiertos + i$brechas)
 })

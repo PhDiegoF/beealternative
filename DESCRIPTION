@@ -1,6 +1,6 @@
 Package: beealternative
 Title: Bee-alternative: Consulta de Alternativas a Neonicotinoides y Fipronil
-Version: 0.6.3
+Version: 0.6.4
 Authors@R: person("Diego Hernando", "Flórez Martínez", role = c("aut", "cre"),
     email = "dhflorez@agrosavia.co", comment = c(ORCID = "0000-0002-3904-9543",
         rol = "Diseño y conceptualización"))
