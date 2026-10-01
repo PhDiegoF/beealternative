@@ -1,3 +1,23 @@
+# beealternative 0.7.0 (1/Oct/2026) · Evidencia científica: salto de calidad
+- **Texto completo.** Nuevo campo "Título, resumen y texto completo" con el parámetro `search` de OpenAlex (recomendado por
+  OpenAlex; cubre el texto de ~57 millones de artículos y pesa más las coincidencias en título y resumen). Se conservan
+  "Título y resumen" (por defecto) y "Solo título".
+- **Pertinencia.** Cada artículo se califica en la app con su título y resumen: Alta (menciona cultivo, blanco y alternativa),
+  Media (dos de los tres) o Baja. La tabla muestra qué alternativas, blancos y cultivos menciona, si cita neonicotinoides o
+  fipronil, si tiene texto completo y si carece de resumen; se ordena por pertinencia y se puede filtrar por nivel.
+- **Cobertura.** Hasta 1.000 artículos por consulta (paginación por cursor, 100 por página). Búsqueda semántica
+  complementaria (`search.semantic`, hasta 50 artículos, en inglés) unida sin duplicados y marcada en la columna Origen. OpenAlex no acepta el filtro de ámbito
+  (Sur Global, país) en la búsqueda semántica: se aplica en la segunda llamada, que trae los datos completos.
+  En "A la medida", opción para ampliar términos con nombres aceptados de GBIF y nombres comunes en español.
+- **Mapa de evidencia.** Nueva pestaña: para un cultivo × grupo de plaga, cuenta en OpenAlex los artículos de cada
+  alternativa directa registrada (hasta 40) y muestra las que no tienen evidencia. Un clic en una alternativa lleva su
+  ecuación a la pestaña Artículos. Descarga a Excel.
+- Correcciones: OpenAlex admite como máximo 100 artículos por página (antes se pedían 200); el orden por relevancia solo se
+  aplica con el parámetro `search`; "Capsicum" y "bacillus" salen del bloque de alternativas de la ecuación a la medida.
+- Funciones nuevas: `consultar_semantica()`, `bloques_expresion()`, `puntuar_pertinencia()`, `texto_semantico()`,
+  `alternativas_combinacion()`, `mapa_evidencia()`, `resumen_mapa()`. Límite de la sesión: 150 llamadas a la API.
+- Pruebas: 6 bloques nuevos en `test-evidencia.R` (28 en total).
+
 # beealternative 0.6.4 (30/Sep/2026)
 - Datos del modelo v10 (verificación de las ecuaciones de búsqueda contra el modelo):
   - El registro ICA 5725 estaba compartido por NEEMAZAL 1.2 E.C (azadiractina) y FERBIOL SOYA (inoculante). Ahora 5725 es NEEMAZAL

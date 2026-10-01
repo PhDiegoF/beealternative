@@ -2909,6 +2909,9 @@
     "ACTUALIZAR_APP_v0.6.4.md": {
       "checksum": "bbee285ce73fb8775cdd9f6f5b3ade75"
     },
+    "ACTUALIZAR_APP_v0.7.0.md": {
+      "checksum": "ee39713b40349c414fecf277385cb2c1"
+    },
     "app.R": {
       "checksum": "b64aa79a3759ec6c5f293c68db1a9998"
     },
@@ -2916,7 +2919,7 @@
       "checksum": "593131cbbef3a72686a191cf171e7bfa"
     },
     "DESCRIPTION": {
-      "checksum": "2e38c7898de1126ba08f6ccb55d1be25"
+      "checksum": "43b1655d39012524ab4a3f483fa02f97"
     },
     "inst/app/www/logo_agrosavia.png": {
       "checksum": "b2970ba250241bd03f69d1e395e103f4"
@@ -2943,13 +2946,13 @@
       "checksum": "c980d5b7441d4bd76d9aec5e9f7d7351"
     },
     "manifest.json": {
-      "checksum": "12017898c9bf13e7dd078787ae03109f"
+      "checksum": "f52c685505b06a8b1f8579c74746fb8c"
     },
     "NAMESPACE": {
-      "checksum": "b918c562a80ebe8e20ddf2349aad30d2"
+      "checksum": "93d402174edf5bc3bae6f7d13430d032"
     },
     "NEWS.md": {
-      "checksum": "6c77547e57778620e1ae5ae55c884eaa"
+      "checksum": "8d2bc5ec119155f24f9969783ed9d99d"
     },
     "PUBLICAR_CONNECT.md": {
       "checksum": "86e143b42880284a6bd2e6211719e7e4"
@@ -2979,7 +2982,10 @@
       "checksum": "e3f38bc9890b586a129ac4a5af5315b5"
     },
     "R/fct_evidencia.R": {
-      "checksum": "99919d4afca9949cbc271efd28425014"
+      "checksum": "4d681eaa5613fbed930fc32f2d1ccad0"
+    },
+    "R/fct_evidencia_calidad.R": {
+      "checksum": "ea3f499eec0f865b97f74a1391e12e6c"
     },
     "R/fct_ficha.R": {
       "checksum": "94c123d6e946d3add918c38db8d7e460"
@@ -2997,7 +3003,7 @@
       "checksum": "ed6f3c6f0e7791e0297dcc83cf53f364"
     },
     "R/mod_evidencia.R": {
-      "checksum": "45cc04ba74a1f9b3f2e344be87f33661"
+      "checksum": "24a195d49177e5475ff420e932a60d2f"
     },
     "R/mod_ficha.R": {
       "checksum": "24b010c922ba9eeb9b6a857457fdf567"
@@ -3021,7 +3027,7 @@
       "checksum": "53270490000bdd2ddfdb34d2502f79aa"
     },
     "README.md": {
-      "checksum": "cd5432f6f08eca1677ad1312456e92dc"
+      "checksum": "4d20042a2d82aa420b572aa41f3e417a"
     }
   },
   "users": null

@@ -1,4 +1,4 @@
-# Bee-alternative (paquete de R · v0.6.4)
+# Bee-alternative (paquete de R · v0.7.0)
 
 App Shiny de solo consulta para identificar alternativas registradas en el ICA a imidacloprid,
 thiamethoxam, clothianidin y fipronil, con su riesgo para abejas y la evidencia científica.
@@ -52,7 +52,7 @@ Logos: el de AGROSAVIA viene incluido. El del ICA se descarga una vez con `sourc
 | `R/fct_matriz.R`, `R/mod_matriz.R` | Módulo 4: matriz cultivo × grupo de insectos con brechas, filtros por origen y ApisTox, clic hacia el buscador y descarga a Excel (listo) |
 | `R/fct_riesgo.R`, `R/mod_riesgo.R` | Módulo 5: riesgo para abejas por clase ApisTox, origen e ingrediente (listo) |
 | `R/mod_metodologia.R` | Módulo 6: metodología, fuentes, licencias, cita y registro de validación (listo) |
-| `R/fct_evidencia.R`, `R/mod_evidencia.R` | Módulo 7: evidencia científica en OpenAlex (catálogo v2 de 156 ecuaciones y ecuación a la medida desde los diccionarios), gráfico por año y exportación para Context Analysis (listo) |
+| `R/fct_evidencia.R`, `R/fct_evidencia_calidad.R`, `R/mod_evidencia.R` | Módulo 7: evidencia científica en OpenAlex. Catálogo v2 de 156 ecuaciones y ecuación a la medida; búsqueda en título y resumen o también en texto completo; búsqueda semántica complementaria; pertinencia de cada artículo; hasta 1.000 artículos; mapa de evidencia por alternativa registrada; exportación para Context Analysis |
 | `dev/05_precalcular_evidencia.R` | Precalcula el catálogo en `inst/extdata/evidencia_catalogo.rds` (requiere `OPENALEX_API_KEY`) |
 | `inst/app/www/` | `logo_agrosavia.png` y `logo_agrosavia_blanco.png` (vector del brandbook a 600 dpi); `logo_ica.svg` se descarga con `dev/04_descargar_logos.R` |
 | `R/mod_en_construccion.R` | Marcador para módulos futuros (evidencia OpenAlex, fase 2) |
