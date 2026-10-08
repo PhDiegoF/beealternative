@@ -13,13 +13,13 @@ test_that("v10: el registro 5725 es NEEMAZAL (azadiractina) y el inoculante usa 
   expect_false(any(d$usos$tipo_alternativa[d$usos$registro_ica %in% noins] == "Directa"))
 })
 
-test_that("v10: catálogo de ecuaciones v2 (156, sin nicotine, con los sistemas que faltaban)", {
+test_that("v11: catálogo de ecuaciones v3 (208 = 156 de v2 + 52 E4, sin nicotine, con los sistemas que faltaban)", {
   skip_if_not(file.exists(ruta_base()), "Base DuckDB no disponible")
   e <- cargar_datos()$ecuaciones
-  expect_equal(nrow(e), 156)
+  expect_equal(nrow(e), 208)
   expect_false(any(grepl("\\bnicotine\\b", e$expresion_openalex, ignore.case = TRUE)))
   expect_true(all(c("Café", "Maíz", "Frutales tropicales") %in% e$sistema))
-  expect_true(all(table(e$sistema, e$fila)[table(e$sistema, e$fila) > 0] == 3))   # E1, E2 y E3 por fila
+  expect_true(all(table(e$sistema, e$fila)[table(e$sistema, e$fila) > 0] == 4))   # E1, E2, E3 y E4 por fila
   largo <- nchar(utils::URLencode(e$expresion_openalex, reserved = TRUE))
   expect_true(all(largo < 3800))
 })

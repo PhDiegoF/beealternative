@@ -1,4 +1,4 @@
-# Bee-alternative · Flujo de alistamiento de datos (v10, 30/Sep/2026)
+# Bee-alternative · Flujo de alistamiento de datos (v11, 8/Oct/2026 · app 0.8.0)
 
 **Diseño y conceptualización:** Diego Hernando Flórez Martínez, PhD · ORCID [0000-0002-3904-9543](https://orcid.org/0000-0002-3904-9543)
 AGROSAVIA, Departamento de Inteligencia y Divulgación Científica y Tecnológica
@@ -8,7 +8,7 @@ Todos los scripts de Python buscan los archivos a partir de la **raíz del proye
 
 ```
 <raíz del proyecto>/                       (p. ej. D:/.../Agrosavia_Neonics)
-├── Base_Unificada_Sustitucion_Neonics_Fipronil_ICA_v10.xlsx  (o v9/v8; los scripts usan la más reciente)
+├── Base_Unificada_Sustitucion_Neonics_Fipronil_ICA_v11.xlsx  (o v10/v9/v8; los scripts usan la más reciente)
 ├── Analisis_Ecuaciones_OpenAlex.xlsx
 ├── insumos_bee_alternative/               paquete 02
 │   └── datos/  ica_quimicos_powerbi_2026-09-11.csv · ica_bioinsumos_2026-09-01_dosis_conciliada.csv · irac_moa_v11.5.csv
@@ -26,7 +26,7 @@ Todos los scripts de Python buscan los archivos a partir de la **raíz del proye
 | 01 | `01_actualizador_ica.zip` | Extrae el Power BI de químicos y los PDF de bioinsumos del ICA. Concilia los cultivos contra el diccionario | R + Python |
 | 02 | `02_insumos_y_servicios.zip` | Datos de insumos, identidad visual y prueba de las APIs (ApisTox, ICA, OpenAlex, GBIF, PubChem, EPPO) | R |
 | 03 | `03_diccionarios_fase0.zip` | Diccionarios de cultivos, sistemas, ingredientes y plagas, con enriquecimiento de GBIF y EPPO | Python + R |
-| 04 | `04_modelo_datos.zip` | Modelo de 12 tablas, catálogo de ecuaciones v2, verificación de ecuaciones, sincronización con la base Excel v10 y carga a DuckDB y Parquet | Python + R |
+| 04 | `04_modelo_datos.zip` | Modelo de 12 tablas (más las opcionales de efectos subletales y novedades), validación de insumos, catálogo de ecuaciones v3, verificación de ecuaciones, ingesta de ECOTOX, plantilla de validación de expertos, sincronización con la base Excel v11 y carga a DuckDB y Parquet | Python + R |
 | 05 | `05_app_beealternative.zip` | Paquete de R con la app Shiny | R |
 
 ## Orden de ejecución (cuando cambian los datos del ICA)
@@ -39,15 +39,19 @@ Todos los scripts de Python buscan los archivos a partir de la **raíz del proye
 | 4 | `python fase0/construir_dic_plagas.py` | `dic_plagas_base.csv`, `rel_blanco_plaga.csv` |
 | 5 | En R, desde `fase0/`: `source("02_enriquecer_plagas_gbif_eppo.R")` (requiere `EPPO_TOKEN` en `~/.Renviron`) | `dic_plagas_enriquecido.csv`, `revision_gbif_eppo.csv` |
 | 6 | `python fase0/integrar_gbif_eppo_plagas.py` | `dic_plagas.csv` |
-| 7 | `python modelo_datos/construir_modelo.py` | 12 CSV del modelo, chequeo de integridad y catálogo de ecuaciones v2 (llama a `generar_ecuaciones_v2.py`) |
-| 7b | `python modelo_datos/reporte_verificacion_ecuaciones.py` y `python modelo_datos/cifras_referencia.py` | `Verificacion_Ecuaciones_OpenAlex_v10.xlsx` y cifras de regresión para las pruebas de la app |
-| 8 | `python modelo_datos/actualizar_base_excel_v10.py` (parte de la v9) y luego abrir y guardar en Excel (recalcula) | Base Excel v10 sincronizada con el modelo |
+| 7 | `python modelo_datos/construir_modelo.py` | Valida los insumos (`validar_entradas.py`), construye los 12 CSV del modelo, aplica la validación de expertos si existe, chequea la integridad y genera el catálogo de ecuaciones v3 (v2 + `generar_ecuaciones_v3.py`) |
+| 7a | En R, desde `modelo_datos/`: `source("ingestar_ecotox.R")` (o `python modelo_datos/ingestar_ecotox.py RUTA.zip`); descarga trimestral de https://gaftp.epa.gov/ecotox/ | `subletales.csv` y `subletales_referencias.csv` |
+| 7c | `python modelo_datos/novedades.py CARPETA_MODELO_ANTERIOR "vX → vY"` | `novedades.csv` |
+| 7b | `python modelo_datos/reporte_verificacion_ecuaciones.py` y `python modelo_datos/cifras_referencia.py` | `Verificacion_Ecuaciones_OpenAlex_v11.xlsx` y cifras de regresión para las pruebas de la app |
+| 8 | `python modelo_datos/actualizar_base_excel_v11.py` (parte de la v10) y luego abrir y guardar en Excel (recalcula) | Base Excel v11 sincronizada con el modelo |
 | 9 | En R, desde `modelo_datos/`: `source("cargar_modelo_duckdb.R")` | `bee_alternative.duckdb` y `parquet/` |
 | 10 | En el proyecto `beealternative`: `dev/02_copiar_datos.R`, `devtools::test()` y `dev/03_ejecutar_app.R` | App probada en local |
-| 11 | En `beealternative`: `dev/02` → `dev/05` → `dev/06`; pestaña **Git** de RStudio → *Commit* → *Push*; en Connect Cloud → **Republish** (ver `PUBLICAR_CONNECT.md`) | App pública actualizada en https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad |
+| 11 | En `beealternative`: `dev/02` → `dev/05` → `dev/06`; pestaña **Git** de RStudio → *Commit* → *Push*; en Connect Cloud → **Republish** (ver `PUBLICAR_CONNECT.md`) | App pública actualizada en https://01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad.share.connect.posit.cloud/ |
 
 Requisitos:
 - Python 3.10 o superior, con pandas, numpy, openpyxl y pdfplumber.
+- Pruebas del pipeline: `python -m unittest discover modelo_datos/pruebas -v`.
+- Ciclo de validación de expertos: `plantilla_validacion.py` → plantillas llenas → `aplicar_validacion.py CARPETA` → paso 7.
 - R 4.2 o superior, con httr2, jsonlite, readr, dplyr, duckdb, arrow, rvest, shiny y bslib.
 
 ## Verificación de reproducibilidad (28/Sep/2026)
@@ -63,5 +67,10 @@ Requisitos:
 2. **Riesgo para abejas.** ApisTox es el indicador principal, con prioridad PPDB > BPDB > ECOTOX. La clase del producto es la de su componente más tóxico.
 3. **Validación pendiente.** Mientras falte la validación del equipo de AGROSAVIA, se usa la alternativa más próxima de las fuentes externas y se anota en `registro_validacion` con el estado "Sujeto a validación".
 4. **Correcciones de la verificación (v10).** Un registro ICA compartido por dos productos se separa con una clave técnica (`5725-FERBIOL`); un biofertilizante o inoculante nunca es alternativa directa; el grupo de plaga de un uso con un único blanco es el del diccionario de plagas. Cada cambio queda en `registro_validacion`.
-5. **Catálogo de ecuaciones v2.** Parte del catálogo base (`ecuaciones_catalogo_v1.csv`), agrega los cultivos, blancos y alternativas que el modelo registra y faltaban, quita las moléculas no recomendadas y crea ecuaciones para los sistemas que no tenían. Los términos marcados "Revisar" se conservan hasta la revisión experta. Bitácora: `ecuaciones_cambios_v2.csv`.
+5. **Catálogos de ecuaciones v2 y v3.** v3 (0.8.0) agrega las alternativas que solo aparecen en mezclas y una ecuación E4 de efectos subletales en abejas por sistema y fila; bitácora `ecuaciones_cambios_v3.csv`. v2: Parte del catálogo base (`ecuaciones_catalogo_v1.csv`), agrega los cultivos, blancos y alternativas que el modelo registra y faltaban, quita las moléculas no recomendadas y crea ecuaciones para los sistemas que no tenían. Los términos marcados "Revisar" se conservan hasta la revisión experta. Bitácora: `ecuaciones_cambios_v2.csv`.
 6. **Claves de API.** Nunca van en el código. Se guardan solo en `~/.Renviron` como `OPENALEX_API_KEY` y `EPPO_TOKEN`. EPPO va en el encabezado `X-Api-Key`.
+
+## Licencias (decisión del 7/Oct/2026)
+- Datos, modelo, base Excel y descargas de Bee-alternative: CC BY-NC-SA 4.0.
+- Código (scripts y paquete de R): uso institucional de AGROSAVIA, en un repositorio de acceso restringido.
+- Los datos de terceros conservan su licencia. ECOTOX: uso no comercial, científico y educativo, citando a la EPA.

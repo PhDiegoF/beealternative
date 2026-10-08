@@ -1,5 +1,17 @@
-Uso institucional de AGROSAVIA. Todos los derechos reservados (2026).
-Los datos de terceros conservan sus licencias: ApisTox (CC BY-NC 4.0), GBIF (CC BY 4.0),
-OpenAlex (CC0), EPPO (condiciones de EPPO Data Services), ICA (información pública).
+Bee-alternative · Licencias (versión 0.8.0, 8 de octubre de 2026)
+
+1. Código fuente (paquete de R beealternative y aplicación Shiny)
+   Uso institucional de AGROSAVIA (Corporación Colombiana de Investigación Agropecuaria). Todos los derechos reservados (2026).
+   El repositorio es de acceso restringido. Su uso, copia o modificación fuera de AGROSAVIA requiere autorización escrita.
+
+2. Datos, contenidos y descargas (modelo de datos, tablas, fichas, matrices, exportaciones de la app y documentación)
+   Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)
+   https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es
+   Atribución sugerida: Flórez Martínez, D. H. (2026). Bee-alternative (v0.8.0). AGROSAVIA. ORCID 0000-0002-3904-9543.
+
+3. Datos de terceros (conservan su licencia o condiciones)
+   ICA (información pública) · ApisTox, Adamczyk et al. 2025 (CC BY-NC 4.0) · ECOTOX, US EPA (uso no comercial,
+   científico y educativo citando a la EPA) · GBIF (CC BY 4.0) · OpenAlex (CC0) · EPPO (condiciones de EPPO Data Services) ·
+   PPDB/BPDB (solo enlaces) · IRAC (uso con atribución).
 
 Diseño y conceptualización: Diego Hernando Flórez Martínez, PhD (ORCID 0000-0002-3904-9543), AGROSAVIA.

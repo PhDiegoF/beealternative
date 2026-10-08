@@ -62,13 +62,13 @@ coincidencias <- function(textos, terminos) {
 #' Pertinencia de cada artículo frente a la ecuación
 #'
 #' Revisa el título y el resumen de cada artículo y cuenta cuántos bloques de la ecuación aparecen:
-#' cultivo, blanco (o polinizadores) y alternativa. Alta = los tres; Media = dos; Baja = uno o ninguno
+#' cultivo, blanco (o polinizadores) y alternativa; en la ecuación E4, abejas, efecto subletal y alternativa. Alta = los tres; Media = dos; Baja = uno o ninguno
 #' (típico de los artículos encontrados solo por el texto completo o por la búsqueda semántica).
 #' @param a Artículos (leer_works()).
 #' @param expr Ecuación usada.
 #' @param nombres_alt Vector con nombre: término (minúsculas) → nombre del ingrediente, para rotular las alternativas.
-#' @return `a` con las columnas pertinencia, puntaje, cultivo_mencionado, blanco_mencionado, alternativas_mencionadas,
-#'   menciona_neonic y sin_resumen.
+#' @return `a` con las columnas pertinencia, puntaje, cultivo_mencionado y blanco_mencionado (en E4: abejas_mencionadas y
+#'   efectos_mencionados), alternativas_mencionadas, menciona_neonic y sin_resumen.
 #' @export
 puntuar_pertinencia <- function(a, expr, nombres_alt = NULL) {
   if (!nrow(a)) return(a)
@@ -94,8 +94,14 @@ puntuar_pertinencia <- function(a, expr, nombres_alt = NULL) {
   n_bloques <- hc$any + hb$any + ha$any
   a$pertinencia <- factor(ifelse(n_bloques == 3, "Alta", ifelse(n_bloques == 2, "Media", "Baja")), levels = niveles_pertinencia)
   a$puntaje <- 2 * n_bloques + hc$tit + hb$tit + ha$tit       # 0 a 9: bloques presentes (x2) + bloques en el título
-  a$cultivo_mencionado <- hc$cuales
-  a$blanco_mencionado <- hb$cuales
+  if (es_subletal(expr)) {
+    # E4: los bloques son abejas, efectos subletales y alternativas
+    a$abejas_mencionadas <- hc$cuales
+    a$efectos_mencionados <- hb$cuales
+  } else {
+    a$cultivo_mencionado <- hc$cuales
+    a$blanco_mencionado <- hb$cuales
+  }
   a$alternativas_mencionadas <- alt_txt
   a$menciona_neonic <- hn$any
   a$sin_resumen <- is.na(a$abstract) | !nzchar(a$abstract %||% "")
@@ -121,6 +127,11 @@ texto_semantico <- function(expr, max_terminos = c(cultivo = 2, blanco = 4, alte
   cu <- f(b$cultivo, max_terminos[["cultivo"]])
   bl <- if (length(b$blanco) && !grepl("Apis mellifera|honeybee", paste(b$blanco, collapse = " "))) f(b$blanco, max_terminos[["blanco"]]) else ""
   al <- f(b$alternativas, max_terminos[["alternativas"]])
+  if (es_subletal(expr)) {
+    return(substr(paste0("Sublethal and chronic effects on honey bees, bumblebees and stingless bees (behaviour, foraging, ",
+                         "learning, larval development, reproduction, colony growth) of exposure to ",
+                         if (nzchar(al)) al else "biopesticides and botanical insecticides"), 1, 2000))
+  }
   poli <- grepl("Apis mellifera", expr, fixed = TRUE)
   txt <- paste0(
     if (poli) "Effects on honey bees and pollinators of " else "Control of ", if (nzchar(bl)) paste0(bl, " in ") else "",
@@ -177,15 +188,15 @@ contar_openalex <- function(expresion, filtros = filtros_openalex(), campo = "ti
 #'   total de artículos de (cultivo) AND (blanco) sin restringir la alternativa.
 #' @export
 mapa_evidencia <- function(d, cultivo, grupo, filtros = filtros_openalex(), campo = "title_and_abstract.search",
-                           ampliar = FALSE, max_alt = 40, clave = Sys.getenv("OPENALEX_API_KEY"), progreso = NULL) {
+                           ampliar = FALSE, max_alt = 40, clave = Sys.getenv("OPENALEX_API_KEY"), progreso = NULL,
+                           enfoque = c("eficacia", "subletal")) {
+  enfoque <- match.arg(enfoque)
   if (!nzchar(clave)) stop("Falta la clave de OpenAlex.", call. = FALSE)
   alt <- utils::head(alternativas_combinacion(d, cultivo, grupo), max_alt)
   if (!nrow(alt)) return(alt)
-  eq <- construir_ecuacion(d, cultivo, grupo, tipo = "E2", ampliar = ampliar)
-  c1 <- bloque(eq$t_cult)
-  c2 <- bloque(eq$t_plaga)
-  if (!nzchar(c1) || !nzchar(c2))
-    stop("El diccionario no tiene términos de búsqueda para el cultivo o el blanco elegidos.", call. = FALSE)
+  bl <- bloques_mapa(d, cultivo, grupo, enfoque, ampliar)
+  c1 <- bl$c1
+  c2 <- bl$c2
   alt$expresion <- paste(c1, "AND", c2, "AND", alt$terminos)
   alt$articulos <- NA_integer_
   for (i in seq_len(nrow(alt))) {
@@ -194,7 +205,39 @@ mapa_evidencia <- function(d, cultivo, grupo, filtros = filtros_openalex(), camp
   }
   attr(alt, "base") <- tryCatch(contar_openalex(paste(c1, "AND", c2), filtros, campo, clave), error = function(e) NA_integer_)
   attr(alt, "llamadas") <- nrow(alt) + 1L
+  attr(alt, "enfoque") <- enfoque
   alt[order(-ifelse(is.na(alt$articulos), -1, alt$articulos), -alt$productos), , drop = FALSE]
+}
+
+#' Bloques fijos del mapa: (cultivo) AND (blanco) para eficacia; (abejas) AND (efectos subletales) para el enfoque subletal
+#' @noRd
+bloques_mapa <- function(d, cultivo, grupo, enfoque = "eficacia", ampliar = FALSE) {
+  if (identical(enfoque, "subletal")) return(list(c1 = bloque_abejas, c2 = bloque_subletal))
+  eq <- construir_ecuacion(d, cultivo, grupo, tipo = "E2", ampliar = ampliar)
+  c1 <- bloque(eq$t_cult)
+  c2 <- bloque(eq$t_plaga)
+  if (!nzchar(c1) || !nzchar(c2))
+    stop("El diccionario no tiene términos de búsqueda para el cultivo o el blanco elegidos.", call. = FALSE)
+  list(c1 = c1, c2 = c2)
+}
+
+#' Calibrar la pertinencia con el juicio de los expertos
+#'
+#' Compara la pertinencia calculada (Alta, Media, Baja) con la utilidad que asignaron los expertos a los mismos artículos
+#' (plantilla de validación, hoja 3_Pertinencia, o exportación con una columna de juicio).
+#' @param a data.frame con las columnas `pertinencia` y `juicio` ("Útil", "Parcialmente útil", "No útil").
+#' @return data.frame por nivel: artículos juzgados, útiles (incluye parcialmente útiles) y precisión (útiles / juzgados).
+#' @export
+evaluar_pertinencia <- function(a) {
+  a <- a[!is.na(a$juicio) & nzchar(a$juicio) & as.character(a$pertinencia) %in% niveles_pertinencia, , drop = FALSE]
+  util <- a$juicio %in% c("Útil", "Parcialmente útil")
+  out <- data.frame(pertinencia = niveles_pertinencia,
+                    juzgados = vapply(niveles_pertinencia, function(n) sum(as.character(a$pertinencia) == n), integer(1)),
+                    utiles = vapply(niveles_pertinencia, function(n) sum(util & as.character(a$pertinencia) == n), integer(1)),
+                    stringsAsFactors = FALSE, row.names = NULL)
+  out$precision <- ifelse(out$juzgados > 0, out$utiles / out$juzgados, NA_real_)
+  attr(out, "utiles_fuera_de_alta") <- sum(util & as.character(a$pertinencia) != "Alta")
+  out
 }
 
 #' Resumen del mapa de evidencia
@@ -213,12 +256,15 @@ exportar_mapa_excel <- function(m, etiqueta, filtros, campo, archivo) {
                   "Productos registrados" = m$productos, "Artículos en OpenAlex" = m$articulos,
                   "Ecuación" = m$expresion, check.names = FALSE, stringsAsFactors = FALSE)
   notas <- data.frame(
-    Campo = c("Consulta", "Combinación", "Campo de búsqueda", "Filtros", "Artículos del cultivo × blanco (cualquier alternativa)",
-              "Definición", "Fecha", "Licencia de los metadatos", "Aviso", "Créditos"),
-    Valor = c("Bee-alternative · Mapa de evidencia", etiqueta, names(campos_busqueda)[match(campo, campos_busqueda)], filtros,
-              attr(m, "base") %||% NA, "Artículos de (cultivo) AND (blanco) AND (alternativa). 0 = alternativa registrada sin evidencia en OpenAlex con estos filtros.",
+    Campo = c("Consulta", "Combinación", "Campo de búsqueda", "Filtros", "Artículos sin restringir la alternativa",
+              "Definición", "Fecha", "Licencia de los metadatos", "Aviso", "Licencia y créditos"),
+    Valor = c(paste("Bee-alternative · Mapa de evidencia", if (identical(attr(m, "enfoque"), "subletal")) "· efectos subletales en abejas" else "· eficacia"),
+              etiqueta, names(campos_busqueda)[match(campo, campos_busqueda)], filtros, attr(m, "base") %||% NA,
+              if (identical(attr(m, "enfoque"), "subletal"))
+                "Artículos de (abejas) AND (efectos subletales) AND (alternativa). 0 = sin estudios subletales en OpenAlex con estos filtros (no prueba inocuidad)."
+              else "Artículos de (cultivo) AND (blanco) AND (alternativa). 0 = alternativa registrada sin evidencia en OpenAlex con estos filtros.",
               format(Sys.time(), "%Y-%m-%d %H:%M"), "OpenAlex, CC0", aviso_registro,
-              paste0(credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")), stringsAsFactors = FALSE)
+              paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")), stringsAsFactors = FALSE)
   writexl::write_xlsx(list(Mapa = if (nrow(t)) t else data.frame(Nota = "Sin alternativas"), Notas = notas), archivo)
   invisible(archivo)
 }

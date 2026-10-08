@@ -45,8 +45,30 @@ credito <- list(
   orcid  = "0000-0002-3904-9543",
   rol    = "Diseño y conceptualización",
   unidad = "AGROSAVIA · Departamento de Inteligencia y Divulgación Científica y Tecnológica",
-  datos  = "Base Unificada v10 · bioinsumos ICA 1/Sep/2026 · químicos ICA 11/Sep/2026"
+  datos  = "Modelo de datos v11 · bioinsumos ICA 1/Sep/2026 · químicos ICA 11/Sep/2026"
 )
+
+version_app <- "0.8.0"
+contacto <- "dhflorez@agrosavia.co"
+
+# Licencias (0.8): AGROSAVIA es una entidad pública descentralizada sin ánimo de lucro. Los datos y contenidos se comparten
+# con CC BY-NC-SA 4.0 (compatible con ApisTox, CC BY-NC 4.0, y con las condiciones no comerciales de ECOTOX);
+# el código fuente es de uso institucional (repositorio de acceso restringido).
+licencia <- list(
+  datos  = "Datos, contenidos y descargas de Bee-alternative: CC BY-NC-SA 4.0 (AGROSAVIA)",
+  url    = "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es",
+  codigo = "Código fuente: uso institucional de AGROSAVIA, todos los derechos reservados (repositorio de acceso restringido)",
+  terceros = "Los datos de terceros conservan su licencia: ICA (información pública), ApisTox (CC BY-NC 4.0), ECOTOX (uso no comercial citando a la EPA), GBIF (CC BY 4.0), OpenAlex (CC0), EPPO (condiciones de EPPO)"
+)
+
+#' Enlace para reportar un problema u observación (correo prellenado con la versión y el módulo)
+#' @noRd
+enlace_reporte <- function(modulo = "") {
+  asunto <- paste0("Bee-alternative ", version_app, " · observación", if (nzchar(modulo)) paste0(" · ", modulo) else "")
+  cuerpo <- paste0("Módulo: ", modulo, "\nQué hice:\nQué esperaba:\nQué pasó:\nSeveridad (Alta, Media o Baja):\n",
+                   "Navegador y dispositivo:\n(Adjunte una captura de pantalla si puede)\n")
+  paste0("mailto:", contacto, "?subject=", utils::URLencode(asunto, reserved = TRUE), "&body=", utils::URLencode(cuerpo, reserved = TRUE))
+}
 
 aviso_registro <- "Un registro ICA autoriza el uso de un producto; no garantiza eficacia equivalente ni seguridad para las abejas."
 

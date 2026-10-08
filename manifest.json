@@ -2912,6 +2912,9 @@
     "ACTUALIZAR_APP_v0.7.0.md": {
       "checksum": "ee39713b40349c414fecf277385cb2c1"
     },
+    "ACTUALIZAR_APP_v0.8.0.md": {
+      "checksum": "ac07e83e4b1293648d3565b8fba15add"
+    },
     "app.R": {
       "checksum": "b64aa79a3759ec6c5f293c68db1a9998"
     },
@@ -2919,7 +2922,7 @@
       "checksum": "593131cbbef3a72686a191cf171e7bfa"
     },
     "DESCRIPTION": {
-      "checksum": "43b1655d39012524ab4a3f483fa02f97"
+      "checksum": "69bc58982885a1dfc346cc7a682c2ebd"
     },
     "inst/app/www/logo_agrosavia.png": {
       "checksum": "b2970ba250241bd03f69d1e395e103f4"
@@ -2931,37 +2934,40 @@
       "checksum": "29ae8816ed41044977f747cb93535638"
     },
     "inst/CITATION": {
-      "checksum": "c89d34636ebc34e6d0e323e2371204f0"
+      "checksum": "dd51ac2137208a8f0edc025458c31c88"
     },
     "inst/extdata/bee_alternative.duckdb": {
-      "checksum": "9599223b6359b163fce15398bffdb6f0"
+      "checksum": "a111f52aeb4a86534d8603d2dc854183"
     },
     "inst/extdata/evidencia_catalogo.rds": {
-      "checksum": "45ce317e3c8556d9f4d7532611e9222a"
+      "checksum": "840cbf6532ec81a0bf930311927a6958"
     },
     "inst/extdata/evidencia_catalogo_resumen.csv": {
-      "checksum": "bd9ab1d72d9c169ad9ae864cdf48f90a"
+      "checksum": "8600caaaf7087f89641be9863dc49a8f"
     },
     "LICENSE": {
-      "checksum": "c980d5b7441d4bd76d9aec5e9f7d7351"
+      "checksum": "0ff9debebf7c9ae4a7d42f6c8e27b0e8"
     },
     "manifest.json": {
-      "checksum": "f52c685505b06a8b1f8579c74746fb8c"
+      "checksum": "782c23abd06a7be4b7f1f12073f1d97b"
+    },
+    "MANTENIMIENTO.md": {
+      "checksum": "2fe850e65c69853353456bb798aa18d3"
     },
     "NAMESPACE": {
-      "checksum": "93d402174edf5bc3bae6f7d13430d032"
+      "checksum": "f39b46146a3d4e6cd2343042cced3572"
     },
     "NEWS.md": {
-      "checksum": "8d2bc5ec119155f24f9969783ed9d99d"
+      "checksum": "f072aa36b264d08c0c4fe3eca70d7b69"
     },
     "PUBLICAR_CONNECT.md": {
-      "checksum": "86e143b42880284a6bd2e6211719e7e4"
+      "checksum": "6336dbe84ccab3f123c3bc700f48f6f7"
     },
     "R/_disable_autoload.R": {
       "checksum": "f964514719dce72709b7cb6f094dfda5"
     },
     "R/app_config.R": {
-      "checksum": "42584d010caa3709e44c5b27fb7d34d1"
+      "checksum": "a784c0aa9998e9881f722a279c85d399"
     },
     "R/app_server.R": {
       "checksum": "17a4f4a89f441bb13c6a7b5180e97c94"
@@ -2970,31 +2976,34 @@
       "checksum": "79015611dc9f143fc0604a6bc383d635"
     },
     "R/app_ui.R": {
-      "checksum": "232415c436ba675d4c6b34beb6cd955e"
+      "checksum": "ae195d7ccfd52f3f51a9ff6a704d0b54"
     },
     "R/beealternative-package.R": {
       "checksum": "cac4b2780abc17f7b0a7f526a4fc0315"
     },
     "R/fct_buscador.R": {
-      "checksum": "4c0311de8a45e399de9d17a3c0a9012b"
+      "checksum": "0ff3e778c23c83f1b2b86e9d402d8f10"
+    },
+    "R/fct_cache.R": {
+      "checksum": "b00620529f4e0c9a86615e20d87caf5a"
     },
     "R/fct_datos.R": {
-      "checksum": "e3f38bc9890b586a129ac4a5af5315b5"
+      "checksum": "0cf031eea9be1d3a7ff336200bedcb4b"
     },
     "R/fct_evidencia.R": {
-      "checksum": "4d681eaa5613fbed930fc32f2d1ccad0"
+      "checksum": "f9a7e181315c4488ddf3356cfde62782"
     },
     "R/fct_evidencia_calidad.R": {
-      "checksum": "ea3f499eec0f865b97f74a1391e12e6c"
+      "checksum": "c53d3cef4d65168fae38583576dfcd11"
     },
     "R/fct_ficha.R": {
-      "checksum": "94c123d6e946d3add918c38db8d7e460"
+      "checksum": "8f0e838e2c306c5d52c512c7820652aa"
     },
     "R/fct_matriz.R": {
-      "checksum": "7bdd508988a034596b6ddbc4305968db"
+      "checksum": "b0c21e541fd6660763bf4b4663164109"
     },
     "R/fct_riesgo.R": {
-      "checksum": "eefa509fcfe372d39301e9d42c9e6f27"
+      "checksum": "d66c17c8268afc0997c63f030a175272"
     },
     "R/mod_buscador.R": {
       "checksum": "c23082e3332d93107db0127092dcd1f1"
@@ -3003,22 +3012,22 @@
       "checksum": "ed6f3c6f0e7791e0297dcc83cf53f364"
     },
     "R/mod_evidencia.R": {
-      "checksum": "24a195d49177e5475ff420e932a60d2f"
+      "checksum": "3d019afa2cc71dd5f68ffacc50788b53"
     },
     "R/mod_ficha.R": {
-      "checksum": "24b010c922ba9eeb9b6a857457fdf567"
+      "checksum": "ab4604314689f9f0c1c303746fc5610f"
     },
     "R/mod_matriz.R": {
       "checksum": "ece5cbdd05f3f690158eb42e3d5444e9"
     },
     "R/mod_metodologia.R": {
-      "checksum": "42897794a43107f108160df06f5b8d6e"
+      "checksum": "18354a639854969e8c9a048626f8e5ef"
     },
     "R/mod_panorama.R": {
       "checksum": "8f05eaec7b68eb7e428b91212fc03446"
     },
     "R/mod_riesgo.R": {
-      "checksum": "94f0a698afcc65dadde759b878e84560"
+      "checksum": "b736097f3c1631a39bad5aa246c83dc5"
     },
     "R/run_app.R": {
       "checksum": "f082819e7e152ac2c3fefb4a05bd871e"
@@ -3027,7 +3036,7 @@
       "checksum": "53270490000bdd2ddfdb34d2502f79aa"
     },
     "README.md": {
-      "checksum": "4d20042a2d82aa420b572aa41f3e417a"
+      "checksum": "d8541e7def96296c528363fd70045389"
     }
   },
   "users": null

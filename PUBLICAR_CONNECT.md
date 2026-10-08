@@ -2,7 +2,9 @@
 
 **Diseño y conceptualización:** Diego Hernando Flórez Martínez, PhD · ORCID [0000-0002-3904-9543](https://orcid.org/0000-0002-3904-9543) · AGROSAVIA
 
-**App publicada (30/Sep/2026; versión vigente 0.6.4, datos v10):** https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad
+**App publicada (versión 0.7.0, datos v10, 1/Oct/2026; la 0.8.0 se publica con [`ACTUALIZAR_APP_v0.8.0.md`](ACTUALIZAR_APP_v0.8.0.md)):** https://01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad.share.connect.posit.cloud/
+
+Enlace de administración en Connect Cloud (configuración, variables, Logs y Republish): https://connect.posit.cloud/diegoflorez-martinez/content/01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad
 
 El repositorio `beealternative` sirve para dos usos a la vez:
 
@@ -125,10 +127,25 @@ beealternative::resumen_matriz(beealternative::matriz_sustitucion(d))   # 107 ·
 | Tema | Cómo está resuelto |
 |---|---|
 | Claves | Solo como variables de entorno en Connect; `.gitignore` excluye `.Renviron`; `dev/06` revisa que no haya claves en el código |
-| Cuota de OpenAlex | Catálogo precalculado, caché por sesión y tope de 40 consultas por sesión |
-| Licencias | Datos del ICA públicos; ApisTox CC BY-NC 4.0 (uso no comercial, con atribución visible en la app); PPDB/BPDB solo como enlaces; OpenAlex CC0 |
+| Cuota de OpenAlex | Catálogo precalculado, caché compartida entre sesiones (24 h), tope de 150 llamadas por sesión y tope diario de 900 llamadas para toda la app (`BEE_LIMITE_DIARIO`) |
+| Licencias | Datos y contenidos de Bee-alternative: CC BY-NC-SA 4.0. Datos del ICA públicos; ApisTox CC BY-NC 4.0 y ECOTOX (uso no comercial, citando a la EPA), con atribución visible en la app; PPDB/BPDB solo como enlaces; OpenAlex CC0 |
 | Logo del ICA | Solo como atribución de la fuente; confirmar el uso con el ICA antes de difundir la app |
 | Alcance | El aviso de que un registro ICA no garantiza eficacia ni seguridad para las abejas aparece en el pie de página, el buscador y la ficha |
-| Licencia del código | `LICENSE` dice "uso institucional AGROSAVIA". Si el repositorio es público, conviene que AGROSAVIA defina una licencia abierta (por ejemplo MIT o GPL-3) o deje explícito que el código es solo de consulta |
+| Licencia del código | Uso institucional de AGROSAVIA (decisión del 7/Oct/2026): el repositorio pasa a acceso restringido. Ver la sección siguiente |
 
-Fuentes: [Deploy a Shiny for R app (Connect Cloud)](https://docs.posit.co/connect-cloud/how-to/r/shiny-r.html) · [Secrets en Connect Cloud](https://docs.posit.co/connect-cloud/how-to/r/llm-shiny-r.html) · [Publicar desde el IDE](https://docs.posit.co/connect-cloud/user/publish/ide.html)
+## Repositorio de acceso restringido (decisión del 7/Oct/2026)
+
+El plan gratuito de Connect Cloud solo despliega **desde repositorios públicos de GitHub**. Para dejar el código en un repositorio privado hay dos caminos:
+
+| Opción | Cómo | Costo | Enlace de la app |
+|---|---|---|---|
+| **A · Publicar desde RStudio** | Repositorio privado en GitHub (historial, pruebas automáticas) y publicación con el botón **Publish** de RStudio → *Posit Connect Cloud*. El código se sube directo a Connect, sin pasar por GitHub | Sin costo adicional (confirmar en connect.posit.cloud/plans que el plan gratuito lo permite) | Puede cambiar: el contenido publicado desde el IDE es uno nuevo. Hay que actualizar el enlace en el manual, la cita y la base Excel |
+| **B · Plan Basic de Connect Cloud** | Repositorio privado y la misma ruta de siempre (*Commit* → *Push* → *Republish*) | Suscripción mensual del plan Basic | Se conserva |
+
+Pasos para la opción elegida:
+1. Publicar primero la 0.8.0 con la ruta actual (`ACTUALIZAR_APP_v0.8.0.md`).
+2. **B:** contratar el plan Basic y luego, en GitHub, *Settings → General → Danger Zone → Change visibility → Private*. Verificar en Connect Cloud que *Republish* sigue funcionando.
+   **A:** en RStudio, *Publish* → *Posit Connect Cloud* → iniciar sesión → publicar `app.R`; comprobar la nueva app; actualizar el enlace donde aparezca; despublicar la versión ligada a GitHub; y solo entonces cambiar el repositorio a privado.
+3. En el repositorio privado, las pruebas automáticas (`.github/workflows`) siguen funcionando: GitHub da 2.000 minutos gratis al mes para repositorios privados.
+
+Fuentes: [Planes de Connect Cloud](https://docs.posit.co/connect-cloud/user/account/plans.html) · [Deploy a Shiny for R app (Connect Cloud)](https://docs.posit.co/connect-cloud/how-to/r/shiny-r.html) · [Secrets en Connect Cloud](https://docs.posit.co/connect-cloud/how-to/r/llm-shiny-r.html) · [Publicar desde el IDE](https://docs.posit.co/connect-cloud/user/publish/ide.html)

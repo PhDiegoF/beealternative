@@ -101,9 +101,9 @@ exportar_csv <- function(t, archivo) {
 #' @noRd
 exportar_excel <- function(t, filtros_txt, archivo) {
   notas <- data.frame(
-    Campo = c("Consulta", "Filtros aplicados", "Datos", "Aviso", "Validación", "Créditos", "Fecha de exportación"),
+    Campo = c("Consulta", "Filtros aplicados", "Datos", "Aviso", "Validación", "Licencia y créditos", "Fecha de exportación"),
     Valor = c("Bee-alternative · Buscador de alternativas", filtros_txt, credito$datos, aviso_registro, nota_validacion,
-              paste0(credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
+              paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
               format(Sys.time(), "%Y-%m-%d %H:%M")),
     stringsAsFactors = FALSE)
   writexl::write_xlsx(list(Alternativas = t, Notas = notas), archivo)

@@ -1,12 +1,12 @@
 "ecuacion_id","sistema","fila","tipo_ecuacion","total"
-"E001","Flores de corte y ornamentales","Biológica/botánica","E1 restrictiva (AND NOT)",54
-"E002","Flores de corte y ornamentales","Biológica/botánica","E2 alternativa",60
-"E003","Flores de corte y ornamentales","Biológica/botánica","E3 polinizadores",3
+"E001","Flores de corte y ornamentales","Biológica/botánica","E1 restrictiva (AND NOT)",58
+"E002","Flores de corte y ornamentales","Biológica/botánica","E2 alternativa",64
+"E003","Flores de corte y ornamentales","Biológica/botánica","E3 polinizadores",5
 "E004","Flores de corte y ornamentales","Química (menor riesgo)","E1 restrictiva (AND NOT)",10
 "E005","Flores de corte y ornamentales","Química (menor riesgo)","E2 alternativa",14
 "E006","Flores de corte y ornamentales","Química (menor riesgo)","E3 polinizadores",0
-"E007","Tomate","Biológica/botánica","E1 restrictiva (AND NOT)",107
-"E008","Tomate","Biológica/botánica","E2 alternativa",126
+"E007","Tomate","Biológica/botánica","E1 restrictiva (AND NOT)",111
+"E008","Tomate","Biológica/botánica","E2 alternativa",131
 "E009","Tomate","Biológica/botánica","E3 polinizadores",5
 "E010","Tomate","Química (menor riesgo)","E1 restrictiva (AND NOT)",35
 "E011","Tomate","Química (menor riesgo)","E2 alternativa",54
@@ -38,8 +38,8 @@
 "E037","Pastos y praderas","Química (menor riesgo)","E1 restrictiva (AND NOT)",0
 "E038","Pastos y praderas","Química (menor riesgo)","E2 alternativa",0
 "E039","Pastos y praderas","Química (menor riesgo)","E3 polinizadores",0
-"E040","Capsicum (ají, ají dulce, pimentón)","Biológica/botánica","E1 restrictiva (AND NOT)",19
-"E041","Capsicum (ají, ají dulce, pimentón)","Biológica/botánica","E2 alternativa",21
+"E040","Capsicum (ají, ají dulce, pimentón)","Biológica/botánica","E1 restrictiva (AND NOT)",21
+"E041","Capsicum (ají, ají dulce, pimentón)","Biológica/botánica","E2 alternativa",23
 "E042","Capsicum (ají, ají dulce, pimentón)","Biológica/botánica","E3 polinizadores",8
 "E043","Capsicum (ají, ají dulce, pimentón)","Química (menor riesgo)","E1 restrictiva (AND NOT)",3
 "E044","Capsicum (ají, ají dulce, pimentón)","Química (menor riesgo)","E2 alternativa",5
@@ -47,8 +47,8 @@
 "E046","Mango y zapote","Biológica/botánica","E1 restrictiva (AND NOT)",1
 "E047","Mango y zapote","Biológica/botánica","E2 alternativa",2
 "E048","Mango y zapote","Biológica/botánica","E3 polinizadores",3
-"E049","Algodón","Biológica/botánica","E1 restrictiva (AND NOT)",53
-"E050","Algodón","Biológica/botánica","E2 alternativa",58
+"E049","Algodón","Biológica/botánica","E1 restrictiva (AND NOT)",56
+"E050","Algodón","Biológica/botánica","E2 alternativa",61
 "E051","Algodón","Biológica/botánica","E3 polinizadores",1
 "E052","Algodón","Química (menor riesgo)","E1 restrictiva (AND NOT)",57
 "E053","Algodón","Química (menor riesgo)","E2 alternativa",103
@@ -61,9 +61,9 @@
 "E060","Berenjena","Química (menor riesgo)","E3 polinizadores",0
 "E061","Aromáticas y medicinales","Biológica/botánica","E1 restrictiva (AND NOT)",3
 "E062","Aromáticas y medicinales","Biológica/botánica","E2 alternativa",3
-"E063","Aromáticas y medicinales","Biológica/botánica","E3 polinizadores",19
-"E064","Palmas (palma de aceite, coco, chontaduro)","Biológica/botánica","E1 restrictiva (AND NOT)",17
-"E065","Palmas (palma de aceite, coco, chontaduro)","Biológica/botánica","E2 alternativa",17
+"E063","Aromáticas y medicinales","Biológica/botánica","E3 polinizadores",18
+"E064","Palmas (palma de aceite, coco, chontaduro)","Biológica/botánica","E1 restrictiva (AND NOT)",20
+"E065","Palmas (palma de aceite, coco, chontaduro)","Biológica/botánica","E2 alternativa",20
 "E066","Palmas (palma de aceite, coco, chontaduro)","Biológica/botánica","E3 polinizadores",3
 "E067","Leguminosas (fríjol, habichuela, soya)","Biológica/botánica","E1 restrictiva (AND NOT)",30
 "E068","Leguminosas (fríjol, habichuela, soya)","Biológica/botánica","E2 alternativa",32
@@ -71,15 +71,15 @@
 "E070","Leguminosas (fríjol, habichuela, soya)","Química (menor riesgo)","E1 restrictiva (AND NOT)",12
 "E071","Leguminosas (fríjol, habichuela, soya)","Química (menor riesgo)","E2 alternativa",23
 "E072","Leguminosas (fríjol, habichuela, soya)","Química (menor riesgo)","E3 polinizadores",1
-"E073","Papa","Biológica/botánica","E1 restrictiva (AND NOT)",17
-"E074","Papa","Biológica/botánica","E2 alternativa",20
+"E073","Papa","Biológica/botánica","E1 restrictiva (AND NOT)",44
+"E074","Papa","Biológica/botánica","E2 alternativa",48
 "E075","Papa","Biológica/botánica","E3 polinizadores",0
 "E076","Papa","Química (menor riesgo)","E1 restrictiva (AND NOT)",7
 "E077","Papa","Química (menor riesgo)","E2 alternativa",13
 "E078","Papa","Química (menor riesgo)","E3 polinizadores",1
-"E079","Cítricos","Biológica/botánica","E1 restrictiva (AND NOT)",29
-"E080","Cítricos","Biológica/botánica","E2 alternativa",35
-"E081","Cítricos","Biológica/botánica","E3 polinizadores",6
+"E079","Cítricos","Biológica/botánica","E1 restrictiva (AND NOT)",62
+"E080","Cítricos","Biológica/botánica","E2 alternativa",72
+"E081","Cítricos","Biológica/botánica","E3 polinizadores",17
 "E082","Cítricos","Química (menor riesgo)","E1 restrictiva (AND NOT)",4
 "E083","Cítricos","Química (menor riesgo)","E2 alternativa",14
 "E084","Cítricos","Química (menor riesgo)","E3 polinizadores",1
@@ -95,38 +95,38 @@
 "E094","Berries (arándano y fresa)","Química (menor riesgo)","E1 restrictiva (AND NOT)",0
 "E095","Berries (arándano y fresa)","Química (menor riesgo)","E2 alternativa",0
 "E096","Berries (arándano y fresa)","Química (menor riesgo)","E3 polinizadores",0
-"E097","Arroz","Biológica/botánica","E1 restrictiva (AND NOT)",56
-"E098","Arroz","Biológica/botánica","E2 alternativa",59
-"E099","Arroz","Biológica/botánica","E3 polinizadores",4
+"E097","Arroz","Biológica/botánica","E1 restrictiva (AND NOT)",94
+"E098","Arroz","Biológica/botánica","E2 alternativa",98
+"E099","Arroz","Biológica/botánica","E3 polinizadores",8
 "E100","Arroz","Química (menor riesgo)","E1 restrictiva (AND NOT)",4
 "E101","Arroz","Química (menor riesgo)","E2 alternativa",9
 "E102","Arroz","Química (menor riesgo)","E3 polinizadores",0
 "E103","Allium (cebolla, cebollín)","Biológica/botánica","E1 restrictiva (AND NOT)",13
 "E104","Allium (cebolla, cebollín)","Biológica/botánica","E2 alternativa",17
-"E105","Allium (cebolla, cebollín)","Biológica/botánica","E3 polinizadores",2
+"E105","Allium (cebolla, cebollín)","Biológica/botánica","E3 polinizadores",3
 "E106","Allium (cebolla, cebollín)","Química (menor riesgo)","E1 restrictiva (AND NOT)",8
-"E107","Allium (cebolla, cebollín)","Química (menor riesgo)","E2 alternativa",16
+"E107","Allium (cebolla, cebollín)","Química (menor riesgo)","E2 alternativa",17
 "E108","Allium (cebolla, cebollín)","Química (menor riesgo)","E3 polinizadores",0
 "E109","Cannabis","Biológica/botánica","E1 restrictiva (AND NOT)",1
 "E110","Cannabis","Biológica/botánica","E2 alternativa",1
 "E111","Cannabis","Biológica/botánica","E3 polinizadores",0
-"E112","Cucurbitáceas","Biológica/botánica","E1 restrictiva (AND NOT)",8
-"E113","Cucurbitáceas","Biológica/botánica","E2 alternativa",14
+"E112","Cucurbitáceas","Biológica/botánica","E1 restrictiva (AND NOT)",10
+"E113","Cucurbitáceas","Biológica/botánica","E2 alternativa",16
 "E114","Cucurbitáceas","Biológica/botánica","E3 polinizadores",9
 "E115","Cucurbitáceas","Química (menor riesgo)","E1 restrictiva (AND NOT)",1
 "E116","Cucurbitáceas","Química (menor riesgo)","E2 alternativa",2
-"E117","Cucurbitáceas","Química (menor riesgo)","E3 polinizadores",2
-"E118","Caña de azúcar","Biológica/botánica","E1 restrictiva (AND NOT)",5
-"E119","Caña de azúcar","Biológica/botánica","E2 alternativa",5
+"E117","Cucurbitáceas","Química (menor riesgo)","E3 polinizadores",3
+"E118","Caña de azúcar","Biológica/botánica","E1 restrictiva (AND NOT)",6
+"E119","Caña de azúcar","Biológica/botánica","E2 alternativa",6
 "E120","Caña de azúcar","Biológica/botánica","E3 polinizadores",0
 "E121","Yuca","Biológica/botánica","E1 restrictiva (AND NOT)",2
 "E122","Yuca","Biológica/botánica","E2 alternativa",2
 "E123","Yuca","Biológica/botánica","E3 polinizadores",0
-"E124","Café","Biológica/botánica","E1 restrictiva (AND NOT)",70
-"E125","Café","Biológica/botánica","E2 alternativa",71
-"E126","Café","Biológica/botánica","E3 polinizadores",2
-"E127","Café","Química (menor riesgo)","E1 restrictiva (AND NOT)",7
-"E128","Café","Química (menor riesgo)","E2 alternativa",9
+"E124","Café","Biológica/botánica","E1 restrictiva (AND NOT)",76
+"E125","Café","Biológica/botánica","E2 alternativa",77
+"E126","Café","Biológica/botánica","E3 polinizadores",3
+"E127","Café","Química (menor riesgo)","E1 restrictiva (AND NOT)",8
+"E128","Café","Química (menor riesgo)","E2 alternativa",10
 "E129","Café","Química (menor riesgo)","E3 polinizadores",0
 "E130","Maíz","Biológica/botánica","E1 restrictiva (AND NOT)",8
 "E131","Maíz","Biológica/botánica","E2 alternativa",8
@@ -143,15 +143,67 @@
 "E142","Palmas","Química (menor riesgo)","E1 restrictiva (AND NOT)",0
 "E143","Palmas","Química (menor riesgo)","E2 alternativa",0
 "E144","Palmas","Química (menor riesgo)","E3 polinizadores",0
-"E145","Frutales templados","Biológica/botánica","E1 restrictiva (AND NOT)",5
-"E146","Frutales templados","Biológica/botánica","E2 alternativa",6
+"E145","Frutales templados","Biológica/botánica","E1 restrictiva (AND NOT)",4
+"E146","Frutales templados","Biológica/botánica","E2 alternativa",5
 "E147","Frutales templados","Biológica/botánica","E3 polinizadores",1
-"E148","Frutales tropicales","Biológica/botánica","E1 restrictiva (AND NOT)",10
-"E149","Frutales tropicales","Biológica/botánica","E2 alternativa",11
+"E148","Frutales tropicales","Biológica/botánica","E1 restrictiva (AND NOT)",11
+"E149","Frutales tropicales","Biológica/botánica","E2 alternativa",12
 "E150","Frutales tropicales","Biológica/botánica","E3 polinizadores",1
 "E151","Frutales tropicales","Química (menor riesgo)","E1 restrictiva (AND NOT)",0
 "E152","Frutales tropicales","Química (menor riesgo)","E2 alternativa",0
 "E153","Frutales tropicales","Química (menor riesgo)","E3 polinizadores",0
-"E154","Cereales","Biológica/botánica","E1 restrictiva (AND NOT)",11
-"E155","Cereales","Biológica/botánica","E2 alternativa",15
+"E154","Cereales","Biológica/botánica","E1 restrictiva (AND NOT)",12
+"E155","Cereales","Biológica/botánica","E2 alternativa",16
 "E156","Cereales","Biológica/botánica","E3 polinizadores",1
+"E157","Flores de corte y ornamentales","Biológica/botánica","E4 efectos subletales en abejas",239
+"E158","Flores de corte y ornamentales","Química (menor riesgo)","E4 efectos subletales en abejas",174
+"E159","Tomate","Biológica/botánica","E4 efectos subletales en abejas",205
+"E160","Tomate","Química (menor riesgo)","E4 efectos subletales en abejas",119
+"E161","Aguacate","Biológica/botánica","E4 efectos subletales en abejas",209
+"E162","Aguacate","Química (menor riesgo)","E4 efectos subletales en abejas",116
+"E163","Pasifloras","Biológica/botánica","E4 efectos subletales en abejas",122
+"E164","Pasifloras","Química (menor riesgo)","E4 efectos subletales en abejas",75
+"E165","Musáceas (banano y plátano)","Biológica/botánica","E4 efectos subletales en abejas",131
+"E166","Solanáceas andinas (tomate de árbol, lulo, uchuva)","Biológica/botánica","E4 efectos subletales en abejas",190
+"E167","Solanáceas andinas (tomate de árbol, lulo, uchuva)","Química (menor riesgo)","E4 efectos subletales en abejas",90
+"E168","Pastos y praderas","Biológica/botánica","E4 efectos subletales en abejas",58
+"E169","Pastos y praderas","Química (menor riesgo)","E4 efectos subletales en abejas",25
+"E170","Capsicum (ají, ají dulce, pimentón)","Biológica/botánica","E4 efectos subletales en abejas",190
+"E171","Capsicum (ají, ají dulce, pimentón)","Química (menor riesgo)","E4 efectos subletales en abejas",86
+"E172","Mango y zapote","Biológica/botánica","E4 efectos subletales en abejas",113
+"E173","Algodón","Biológica/botánica","E4 efectos subletales en abejas",65
+"E174","Algodón","Química (menor riesgo)","E4 efectos subletales en abejas",71
+"E175","Berenjena","Biológica/botánica","E4 efectos subletales en abejas",184
+"E176","Berenjena","Química (menor riesgo)","E4 efectos subletales en abejas",84
+"E177","Aromáticas y medicinales","Biológica/botánica","E4 efectos subletales en abejas",110
+"E178","Palmas (palma de aceite, coco, chontaduro)","Biológica/botánica","E4 efectos subletales en abejas",78
+"E179","Leguminosas (fríjol, habichuela, soya)","Biológica/botánica","E4 efectos subletales en abejas",43
+"E180","Leguminosas (fríjol, habichuela, soya)","Química (menor riesgo)","E4 efectos subletales en abejas",108
+"E181","Papa","Biológica/botánica","E4 efectos subletales en abejas",171
+"E182","Papa","Química (menor riesgo)","E4 efectos subletales en abejas",106
+"E183","Cítricos","Biológica/botánica","E4 efectos subletales en abejas",195
+"E184","Cítricos","Química (menor riesgo)","E4 efectos subletales en abejas",31
+"E185","Frutales caducifolios (durazno, ciruela)","Biológica/botánica","E4 efectos subletales en abejas",21
+"E186","Frutales caducifolios (durazno, ciruela)","Química (menor riesgo)","E4 efectos subletales en abejas",18
+"E187","Berries (arándano y fresa)","Biológica/botánica","E4 efectos subletales en abejas",92
+"E188","Berries (arándano y fresa)","Química (menor riesgo)","E4 efectos subletales en abejas",12
+"E189","Arroz","Biológica/botánica","E4 efectos subletales en abejas",141
+"E190","Arroz","Química (menor riesgo)","E4 efectos subletales en abejas",85
+"E191","Allium (cebolla, cebollín)","Biológica/botánica","E4 efectos subletales en abejas",41
+"E192","Allium (cebolla, cebollín)","Química (menor riesgo)","E4 efectos subletales en abejas",61
+"E193","Cannabis","Biológica/botánica","E4 efectos subletales en abejas",30
+"E194","Cucurbitáceas","Biológica/botánica","E4 efectos subletales en abejas",62
+"E195","Cucurbitáceas","Química (menor riesgo)","E4 efectos subletales en abejas",12
+"E196","Caña de azúcar","Biológica/botánica","E4 efectos subletales en abejas",4
+"E197","Yuca","Biológica/botánica","E4 efectos subletales en abejas",2
+"E198","Café","Biológica/botánica","E4 efectos subletales en abejas",175
+"E199","Café","Química (menor riesgo)","E4 efectos subletales en abejas",64
+"E200","Maíz","Biológica/botánica","E4 efectos subletales en abejas",50
+"E201","Maíz","Química (menor riesgo)","E4 efectos subletales en abejas",0
+"E202","Tabaco","Biológica/botánica","E4 efectos subletales en abejas",297
+"E203","Zanahoria","Biológica/botánica","E4 efectos subletales en abejas",297
+"E204","Palmas","Química (menor riesgo)","E4 efectos subletales en abejas",0
+"E205","Frutales templados","Biológica/botánica","E4 efectos subletales en abejas",297
+"E206","Frutales tropicales","Biológica/botánica","E4 efectos subletales en abejas",163
+"E207","Frutales tropicales","Química (menor riesgo)","E4 efectos subletales en abejas",19
+"E208","Cereales","Biológica/botánica","E4 efectos subletales en abejas",297

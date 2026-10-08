@@ -1,6 +1,6 @@
 # Paso 6 · Preparar la publicación en Posit Connect Cloud
 # Verifica que el repositorio tenga todo lo que la app necesita, corre las pruebas y genera manifest.json.
-# Luego: git commit + push al repositorio público de GitHub y "Republish" en Connect Cloud (ver PUBLICAR_CONNECT.md).
+# Luego: git commit + push al repositorio privado de GitHub (acceso restringido) y "Republish" en Connect Cloud (ver PUBLICAR_CONNECT.md).
 # Diseño y conceptualización: Diego Hernando Flórez Martínez, PhD (ORCID 0000-0002-3904-9543) · AGROSAVIA
 
 ok <- function(x, msg) message(if (x) "[OK] " else "[!!] ", msg)

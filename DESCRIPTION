@@ -1,14 +1,16 @@
 Package: beealternative
 Title: Bee-alternative: Consulta de Alternativas a Neonicotinoides y Fipronil
-Version: 0.7.0
+Version: 0.8.0
 Authors@R: person("Diego Hernando", "Flórez Martínez", role = c("aut", "cre"),
     email = "dhflorez@agrosavia.co", comment = c(ORCID = "0000-0002-3904-9543",
         rol = "Diseño y conceptualización"))
 Description: Aplicación Shiny de solo consulta que integra los registros ICA de
     bioinsumos y plaguicidas químicos, la priorización del equipo de apicultura
-    de AGROSAVIA, la toxicidad para abejas (ApisTox) y la evidencia científica
-    (OpenAlex) para identificar alternativas a imidacloprid, thiamethoxam,
-    clothianidin y fipronil por cultivo y plaga.
+    de AGROSAVIA, la toxicidad aguda para abejas (ApisTox), los efectos
+    subletales reportados (ECOTOX, US EPA) y la evidencia científica (OpenAlex)
+    para identificar alternativas a imidacloprid, thiamethoxam, clothianidin y
+    fipronil por cultivo y plaga. Datos y contenidos bajo CC BY-NC-SA 4.0;
+    código de uso institucional de AGROSAVIA.
 License: file LICENSE
 Language: es
 Encoding: UTF-8

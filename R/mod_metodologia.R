@@ -55,6 +55,26 @@ mod_metodologia_ui <- function(id) {
                                         "thiamethoxam, clothianidin y fipronil. AGROSAVIA. ORCID 0000-0002-3904-9543.")),
         p(class = "small text-muted mb-0 mt-2", "Validación técnica: equipo de apicultura de AGROSAVIA. Código y documentación asistidos por Claude (Anthropic) bajo la dirección del autor."))
     ),
+    bslib::layout_columns(
+      col_widths = c(6, 6), fill = FALSE,
+      seccion("Licencias",
+        tags$ul(class = "mb-0",
+          tags$li(tags$a(href = licencia$url, target = "_blank", rel = "license", licencia$datos),
+                  ": puede copiar, adaptar y redistribuir los datos y descargas con atribución, sin fines comerciales y con la misma licencia."),
+          tags$li(licencia$codigo, "."),
+          tags$li(licencia$terceros, "."))),
+      seccion("Observaciones y contacto",
+        p("¿Encontró un dato incorrecto o algo que no funciona? Use ", tags$b("Reportar un problema"), " en la barra superior o escriba a ",
+          tags$a(href = enlace_reporte("Metodología"), contacto), ". Indique el módulo, qué hizo, qué esperaba y qué pasó."),
+        p(class = "small text-muted mb-0", paste0("Versión de la app: ", version_app, " · ", credito$datos)))
+    ),
+    bslib::card(
+      bslib::card_header(class = "d-flex justify-content-between align-items-center",
+                         "Novedades de los datos entre versiones",
+                         downloadButton(ns("csv_novedades"), "Novedades (CSV)", class = "btn-sm btn-outline-primary")),
+      p(class = "small text-muted", "Indicadores que cambian, productos nuevos o retirados y cambios de clasificación en cada actualización del modelo de datos."),
+      DT::DTOutput(ns("novedades"))
+    ),
     bslib::card(bslib::card_header("Fuentes, versiones y licencias"), tableOutput(ns("fuentes"))),
     bslib::card(
       bslib::card_header(class = "d-flex justify-content-between align-items-center",
@@ -79,6 +99,18 @@ mod_metodologia_server <- function(id, datos) {
       DT::datatable(resumen_validacion(datos()), rownames = FALSE, selection = "none",
                     options = list(pageLength = 10, dom = "tip", language = list(url = dt_es)))
     })
+    output$novedades <- DT::renderDT({
+      n <- datos()$novedades %||% data.frame()
+      validate(need(nrow(n) > 0, "Sin registro de novedades en esta versión de la base."))
+      t <- data.frame("Versión" = n$version, "Tipo" = n$tipo, "Registro ICA" = n$registro_ica, "Nombre" = n$nombre,
+                      "Antes" = n$antes, "Después" = n$despues, check.names = FALSE, stringsAsFactors = FALSE)
+      DT::datatable(t, rownames = FALSE, selection = "none",
+                    options = list(pageLength = 10, dom = "ftip", order = list(), language = list(url = dt_es)))
+    })
+    output$csv_novedades <- downloadHandler(
+      filename = function() paste0("bee_alternative_novedades_", format(Sys.Date(), "%Y%m%d"), ".csv"),
+      content = function(file) exportar_csv(datos()$novedades %||% data.frame(), file)
+    )
     output$csv_validacion <- downloadHandler(
       filename = function() paste0("bee_alternative_registro_validacion_", format(Sys.Date(), "%Y%m%d"), ".csv"),
       content = function(file) exportar_csv(datos()$registro_validacion, file)

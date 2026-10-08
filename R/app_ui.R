@@ -21,6 +21,9 @@ app_ui <- function(request) {
     bslib::nav_panel("Riesgo para abejas", icon = bsicons::bs_icon("bug"), mod_riesgo_ui("riesgo")),
     bslib::nav_panel("Evidencia científica", icon = bsicons::bs_icon("journal-richtext"), mod_evidencia_ui("evidencia")),
     bslib::nav_spacer(),
+    bslib::nav_item(tags$a(href = enlace_reporte(), target = "_blank", class = "nav-link",
+                           title = paste("Enviar una observación a", contacto),
+                           bsicons::bs_icon("chat-left-text"), " Reportar un problema")),
     bslib::nav_menu(
       "Acerca de", align = "right",
       bslib::nav_panel("Metodología y fuentes", icon = bsicons::bs_icon("journal-text"), mod_metodologia_ui("metodologia")),
@@ -34,7 +37,9 @@ app_ui <- function(request) {
         paste0(credito$rol, ": ", credito$autor, " "),
         tags$a(href = paste0("https://orcid.org/", credito$orcid), target = "_blank",
                paste0("(ORCID ", credito$orcid, ")")),
-        paste0(" · ", credito$unidad, " · ", credito$datos))
+        paste0(" · ", credito$unidad, " · ", credito$datos, " · versión ", version_app)),
+      tags$p(class = "mb-0",
+        tags$a(href = licencia$url, target = "_blank", rel = "license", licencia$datos), ". ", licencia$codigo, ".")
     )
   )
 }

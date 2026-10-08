@@ -82,7 +82,11 @@ mod_ficha_server <- function(id, datos, seleccion = reactive(NULL), parent = NUL
                 tags$span(class = "badge text-bg-light border", prod$origen),
                 if (prod$validado_agrosavia %in% "Sí") tags$span(class = "badge", style = paste0("background:", agro$verde_osc, ";"),
                                                             bsicons::bs_icon("patch-check"), " Validado por AGROSAVIA"),
-                etiqueta_apistox(prod$apistox_clase_producto, "0.85rem"))),
+                if (nzchar(prod$juicio_apicultura %||% "") && !is.na(prod$juicio_apicultura))
+                  tags$span(class = "badge text-bg-light border", bsicons::bs_icon("people"), " Equipo de apicultura: ", prod$juicio_apicultura),
+                etiqueta_apistox(prod$apistox_clase_producto, "0.85rem"),
+                tags$a(class = "small ms-auto", href = enlace_reporte(paste("Ficha", prod$registro_ica)), target = "_blank",
+                       bsicons::bs_icon("flag"), " Reportar un dato de esta ficha"))),
         if (length(f$alertas)) div(class = "alert alert-warning py-2",
             tags$strong("Alertas"), tags$ul(class = "mb-0", lapply(unname(f$alertas), tags$li))),
         bslib::layout_columns(
@@ -93,7 +97,8 @@ mod_ficha_server <- function(id, datos, seleccion = reactive(NULL), parent = NUL
           bslib::card(bslib::card_header("Riesgo para abejas"),
                       div(class = "text-center my-2", etiqueta_apistox(prod$apistox_clase_producto, "1.3rem")),
                       p(class = "small", "Clase ApisTox del producto = la de su componente más tóxico (toxicidad aguda en ",
-                        tags$em("Apis mellifera"), "). No evaluado no significa inocuo; no cubre abejas nativas ni efectos subletales."),
+                        tags$em("Apis mellifera"), "). No evaluado no significa inocuo; no cubre abejas nativas. Los efectos subletales reportados ",
+                        "están en Riesgo para abejas → Efectos subletales."),
                       if (!is.na(prod$nota_modo_accion) && nzchar(prod$nota_modo_accion)) p(class = "small text-danger", prod$nota_modo_accion))
         ),
         bslib::card(bslib::card_header(paste0("Composición (", nrow(f$ingredientes), " ingrediente(s))")),

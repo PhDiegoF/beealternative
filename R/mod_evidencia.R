@@ -3,6 +3,8 @@
 # y la ecuación a la medida (cultivo + grupo de plaga, generada desde los diccionarios).
 # 0.7: búsqueda en título, resumen y texto completo; búsqueda semántica complementaria; pertinencia de cada artículo;
 # paginación hasta 1.000 artículos; ampliación de términos; mapa de evidencia por alternativa registrada.
+# 0.8: ecuación E4 de efectos subletales en abejas (también en el mapa), caché compartida entre sesiones (24 h) y tope
+# diario de llamadas para toda la app (BEE_LIMITE_DIARIO, 900 por defecto).
 
 #' @noRd
 mod_evidencia_ui <- function(id) {
@@ -29,7 +31,8 @@ mod_evidencia_ui <- function(id) {
           bslib::input_switch(ns("excluir_alta"), "Excluir altamente tóxicos para abejas", value = FALSE),
           bslib::input_switch(ns("ampliar"), "Ampliar términos: nombres aceptados (GBIF) y nombres en español", value = FALSE),
           radioButtons(ns("tipo_med"), "Ecuación", choices = names(tipos_ecuacion)),
-          p(class = "small text-muted", "Esta selección también alimenta el mapa de evidencia."))
+          p(class = "small text-muted", "Esta selección también alimenta el mapa de evidencia. ",
+            "E4 busca efectos subletales en abejas (comportamiento, aprendizaje, larvas, colonia) de las alternativas registradas."))
       ),
       tags$hr(),
       radioButtons(ns("campo"), "Buscar en", choices = campos_busqueda, selected = "title_and_abstract.search"),
@@ -71,7 +74,8 @@ mod_evidencia_ui <- function(id) {
                                    downloadButton(ns("xlsx"), "Excel", class = "btn-sm btn-primary"))),
             DT::DTOutput(ns("tabla")),
             bslib::card_footer(class = "small text-muted",
-              "Pertinencia (calculada en la app sobre el título y el resumen): Alta = menciona cultivo, blanco y alternativa; ",
+              "Pertinencia (calculada en la app sobre el título y el resumen): Alta = menciona cultivo, blanco y alternativa ",
+              "(en E4: abeja, efecto subletal y alternativa); ",
               "Media = dos de los tres; Baja = uno o ninguno, típico de los artículos encontrados por el texto completo o por la búsqueda semántica. ",
               "Ordenados por pertinencia y luego por el orden de la consulta.")))
       ),
@@ -81,6 +85,9 @@ mod_evidencia_ui <- function(id) {
           "¿Qué respaldo científico tiene cada alternativa registrada en el ICA para un cultivo y un grupo de plaga? ",
           "Elige la combinación en la pestaña \"A la medida\" del panel izquierdo. Se hace una consulta a OpenAlex por alternativa ",
           "(hasta 40, las de más productos registrados), con el campo de búsqueda, los años y el ámbito del panel."),
+        radioButtons(ns("enfoque"), "Enfoque del mapa", inline = TRUE,
+                     choices = c("Eficacia contra la plaga (cultivo × blanco)" = "eficacia",
+                                 "Efectos subletales en abejas" = "subletal")),
         div(class = "d-flex flex-wrap gap-2 align-items-center mb-3",
             actionButton(ns("mapa_btn"), tagList(bsicons::bs_icon("grid-3x3"), "Construir mapa de evidencia"), class = "btn-primary"),
             uiOutput(ns("mapa_sel"), inline = TRUE)),
@@ -96,7 +103,7 @@ mod_evidencia_ui <- function(id) {
             DT::DTOutput(ns("tabla_mapa")),
             bslib::card_footer(class = "small text-muted",
               "Clic en una fila para llevar su ecuación a la pestaña Artículos. 0 artículos = alternativa registrada sin evidencia ",
-              "en OpenAlex con estos filtros (una brecha de evidencia, no prueba de ineficacia).")))
+              "en OpenAlex con estos filtros (una brecha de evidencia, no prueba de ineficacia; en el enfoque subletal, no prueba de inocuidad).")))
       )
     ),
     div(class = "small text-muted",
@@ -109,7 +116,7 @@ mod_evidencia_ui <- function(id) {
 mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
   moduleServer(id, function(input, output, session) {
     cache <- cache_catalogo()          # resultados precalculados del catálogo (si existen)
-    memoria <- new.env()               # caché de la sesión
+    # 0.8: la caché es compartida entre sesiones (fct_cache.R): cache_leer() / cache_guardar()
     llamadas <- reactiveVal(0)         # llamadas a la API en la sesión (cada página, la semántica y cada fila del mapa cuentan)
     resultado <- reactiveVal(NULL)
     mapa <- reactiveVal(NULL)
@@ -117,7 +124,8 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
 
     output$estado_clave <- renderUI({
       div(class = paste("small mt-2", if (clave_ok()) "text-success" else "text-danger"),
-          if (clave_ok()) paste0("Clave de OpenAlex configurada · llamadas en esta sesión: ", llamadas(), " de ", limite_sesion)
+          if (clave_ok()) paste0("Clave de OpenAlex configurada · llamadas en esta sesión: ", llamadas(), " de ", limite_sesion,
+                                 " · hoy en toda la app: ", uso_diario(), " de ", limite_diario())
           else "Sin clave de OpenAlex: solo se muestran resultados guardados del catálogo.")
     })
 
@@ -171,32 +179,64 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
 
     filtros_actuales <- reactive(filtros_openalex(input$anios[1], input$anios[2], input$ambito))
 
+    # E4 (efectos subletales): la literatura toxicológica es sobre todo de fuera del Sur Global y anterior a 2015.
+    # Al elegir E4 se proponen 2000-2026 sin filtro geográfico; al volver a E1-E3 se restituyen los filtros por defecto.
+    tipo_activo <- reactive(if (identical(input$ruta, "medida")) tipos_ecuacion[[input$tipo_med %||% names(tipos_ecuacion)[1]]]
+                            else tipos_ecuacion[[input$tipo_cat %||% names(tipos_ecuacion)[1]]])
+    previo_e4 <- reactiveVal(FALSE)
+    observeEvent(tipo_activo(), {
+      e4 <- identical(tipo_activo(), "E4")
+      if (e4 && !previo_e4()) {
+        updateSliderInput(session, "anios", value = c(filtros_e4$desde, filtros_e4$hasta))
+        updateSelectInput(session, "ambito", selected = filtros_e4$ambito)
+        showNotification("E4 · efectos subletales: se proponen 2000-2026 sin filtro geográfico (puedes cambiarlos).", type = "message")
+      } else if (!e4 && previo_e4() && identical(input$ambito, filtros_e4$ambito) &&
+                 identical(as.numeric(input$anios), c(filtros_e4$desde, filtros_e4$hasta))) {
+        updateSliderInput(session, "anios", value = c(2015, 2026))
+        updateSelectInput(session, "ambito", selected = "Sur Global")
+      }
+      previo_e4(e4)
+    })
+
     # Al elegir una ecuación del catálogo: mostrar sus resultados guardados si corresponden a la versión vigente y a los
     # filtros por defecto; si no, limpiar la vista (no se reemplazan resultados en vivo al mover los filtros)
-    observeEvent(list(input$sistema, input$fila, input$tipo_cat, input$ruta), {
-      r <- ecuacion_catalogo()
+    mostrar_guardado <- function() {
       if (!identical(input$ruta, "catalogo")) return()
+      r <- ecuacion_catalogo()
       ok <- !is.null(r) && length(cache) && !is.null(cache[[r$ecuacion_id]]) &&
         identical(cache[[r$ecuacion_id]]$expresion, limpiar_expresion(r$expresion_openalex)) &&
         identical(filtros_actuales(), cache[[r$ecuacion_id]]$filtros) && identical(input$campo, "title_and_abstract.search")
       resultado(if (isTRUE(ok)) c(cache[[r$ecuacion_id]], list(guardado = TRUE)) else NULL)
-    }, ignoreInit = FALSE)
+    }
+    observeEvent(list(input$sistema, input$fila, input$tipo_cat, input$ruta), mostrar_guardado(), ignoreInit = FALSE)
+    # Al cambiar los filtros (p. ej. al elegir E4 se proponen otros años y ámbito) se vuelve a buscar el resultado guardado,
+    # salvo que en pantalla haya un resultado consultado en vivo (no se reemplaza)
+    observeEvent(list(filtros_actuales(), input$campo), {
+      if (is.null(resultado()) || isTRUE(resultado()$guardado)) mostrar_guardado()
+    }, ignoreInit = TRUE)
 
     puede_gastar <- function(k) {
       if (!clave_ok()) { showNotification("Sin clave de OpenAlex en el servidor.", type = "error"); return(FALSE) }
       if (llamadas() + k > limite_sesion) {
         showNotification(paste0("Se alcanzaría el límite de ", limite_sesion, " llamadas de esta sesión."), type = "warning"); return(FALSE)
       }
+      if (!cabe_hoy(k)) {
+        showNotification(paste0("La app alcanzó su tope diario de consultas a OpenAlex (", limite_diario(),
+                                "). Los resultados guardados siguen disponibles; intenta de nuevo mañana."), type = "warning", duration = 10)
+        return(FALSE)
+      }
       TRUE
     }
+    gastar <- function(k) { llamadas(llamadas() + k); registrar_llamadas(k) }
 
     observeEvent(input$consultar, {
       expr <- trimws(input$expresion)
       if (!nzchar(expr)) { showNotification("Elige una ecuación o escríbela primero.", type = "warning"); return() }
       n <- as.integer(input$n)
       llave <- paste(expr, input$campo, filtros_actuales(), n, input$orden, isTRUE(input$semantica), sep = "||")
-      if (!is.null(memoria[[llave]])) { resultado(memoria[[llave]]); bslib::nav_select("vista", "articulos"); return() }
-      if (!puede_gastar(ceiling(n / 100) + 1 + isTRUE(input$semantica))) return()
+      guardado <- cache_leer(llave)
+      if (!is.null(guardado)) { resultado(guardado); bslib::nav_select("vista", "articulos"); return() }
+      if (!puede_gastar(ceiling(n / 100) + 1 + 2L * isTRUE(input$semantica))) return()   # la semántica usa 2 llamadas (búsqueda + datos)
       if (identical(input$orden, "relevance_score:desc") && !identical(input$campo, "search"))
         showNotification("El orden por relevancia solo aplica con \"Título, resumen y texto completo\"; se ordena por citas.", type = "message")
       res <- withProgress(message = "Consultando OpenAlex...", value = 0.3, tryCatch({
@@ -214,8 +254,8 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
       if (inherits(res, "error")) {
         showNotification(paste("OpenAlex:", conditionMessage(res)), type = "error", duration = 10); return()
       }
-      llamadas(llamadas() + (res$llamadas %||% 2L))
-      memoria[[llave]] <- res
+      gastar(res$llamadas %||% 2L)
+      cache_guardar(llave, res)
       resultado(res)
       bslib::nav_select("vista", "articulos")
     })
@@ -278,9 +318,12 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
       validate(need(nrow(a) > 0, "Ningún artículo con la pertinencia elegida."))
       titulo <- htmltools::htmlEscape(a$title)
       enlace <- ifelse(nzchar(a$doi), a$doi, a$id)
+      sub <- !is.null(a$efectos_mencionados)
+      b2 <- if (sub) a$efectos_mencionados else a$blanco_mencionado
+      b1 <- if (sub) a$abejas_mencionadas else a$cultivo_mencionado
       menciona <- paste0(ifelse(nzchar(a$alternativas_mencionadas), paste0("<b>Alternativas:</b> ", htmltools::htmlEscape(a$alternativas_mencionadas), "<br>"), ""),
-                         ifelse(nzchar(a$blanco_mencionado), paste0("<b>Blanco:</b> ", htmltools::htmlEscape(a$blanco_mencionado), "<br>"), ""),
-                         ifelse(nzchar(a$cultivo_mencionado), paste0("<b>Cultivo:</b> ", htmltools::htmlEscape(a$cultivo_mencionado)), ""),
+                         ifelse(nzchar(b2), paste0(if (sub) "<b>Efecto:</b> " else "<b>Blanco:</b> ", htmltools::htmlEscape(b2), "<br>"), ""),
+                         ifelse(nzchar(b1), paste0(if (sub) "<b>Abejas:</b> " else "<b>Cultivo:</b> ", htmltools::htmlEscape(b1)), ""),
                          ifelse(a$menciona_neonic, "<br><i>Menciona neonicotinoides o fipronil</i>", ""),
                          ifelse(a$sin_resumen, "<br><i>Sin resumen en OpenAlex</i>", ""))
       t <- data.frame(
@@ -329,36 +372,39 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
       req(length(input$cultivo) > 0, length(input$grupo) > 0)
       n <- min(40L, nrow(alternativas_combinacion(datos(), input$cultivo, input$grupo)))
       if (!n) { showNotification("No hay alternativas directas registradas para esa combinación: es una brecha de sustitución.", type = "warning"); return() }
-      llave <- paste("mapa", paste(input$cultivo, collapse = "+"), paste(input$grupo, collapse = "+"), input$campo,
+      llave <- paste("mapa", input$enfoque, paste(input$cultivo, collapse = "+"), paste(input$grupo, collapse = "+"), input$campo,
                      filtros_actuales(), isTRUE(input$ampliar), sep = "||")
-      if (!is.null(memoria[[llave]])) { mapa(memoria[[llave]]); return() }
+      guardado <- cache_leer(llave)
+      if (!is.null(guardado)) { mapa(guardado); return() }
       if (!puede_gastar(n + 1)) return()
       m <- withProgress(message = "Construyendo el mapa de evidencia...", value = 0, tryCatch(
         mapa_evidencia(datos(), input$cultivo, input$grupo, filtros_actuales(), input$campo, isTRUE(input$ampliar),
-                       progreso = function(i, k, nom) incProgress(1 / k, detail = nom)),
+                       progreso = function(i, k, nom) incProgress(1 / k, detail = nom), enfoque = input$enfoque %||% "eficacia"),
         error = function(e) e))
       if (inherits(m, "error")) { showNotification(paste("OpenAlex:", conditionMessage(m)), type = "error", duration = 10); return() }
-      llamadas(llamadas() + (attr(m, "llamadas") %||% (n + 1)))
+      gastar(attr(m, "llamadas") %||% (n + 1))
       attr(m, "etiqueta") <- paste(c(input$cultivo, input$grupo), collapse = " · ")
       attr(m, "campo") <- input$campo
       attr(m, "filtros") <- filtros_actuales()
-      memoria[[llave]] <- m
+      cache_guardar(llave, m)
       mapa(m)
     })
 
     output$mapa_resumen <- renderUI({
       m <- mapa(); req(m)
       r <- resumen_mapa(m)
+      sub <- identical(attr(m, "enfoque"), "subletal")
       bslib::layout_column_wrap(
         width = 1 / 4, fill = FALSE, heights_equal = "row", class = "mb-3",
         bslib::value_box("Alternativas consultadas", r$alternativas, attr(m, "etiqueta"),
                          showcase = bsicons::bs_icon("capsule"), theme = "secondary"),
-        bslib::value_box("Con evidencia", r$con_evidencia, "al menos un artículo",
+        bslib::value_box(if (sub) "Con estudios subletales" else "Con evidencia", r$con_evidencia, "al menos un artículo",
                          showcase = bsicons::bs_icon("journal-check"), theme = "success"),
-        bslib::value_box("Sin evidencia", r$sin_evidencia, "registradas, sin artículos en OpenAlex",
+        bslib::value_box(if (sub) "Sin estudios subletales" else "Sin evidencia", r$sin_evidencia,
+                         if (sub) "en abejas, en OpenAlex (no prueba inocuidad)" else "registradas, sin artículos en OpenAlex",
                          showcase = bsicons::bs_icon("journal-x"), theme = "danger"),
-        bslib::value_box("Cultivo × blanco", format(attr(m, "base") %||% NA, big.mark = ".", decimal.mark = ","),
-                         "artículos con cualquier alternativa", showcase = bsicons::bs_icon("journal-text"), theme = "primary"))
+        bslib::value_box(if (sub) "Abejas × efectos subletales" else "Cultivo × blanco", format(attr(m, "base") %||% NA, big.mark = ".", decimal.mark = ","),
+                         "artículos con cualquier ingrediente", showcase = bsicons::bs_icon("journal-text"), theme = "primary"))
     })
 
     output$g_mapa <- plotly::renderPlotly({
@@ -401,7 +447,8 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
       req(m, length(i) == 1)
       updateTextAreaInput(session, "expresion", value = m$expresion[i])
       bslib::nav_select("vista", "articulos")
-      showNotification(paste0("Ecuación de ", m$ingrediente[i], " lista. Pulsa \"Consultar OpenAlex\"."), type = "message")
+      showNotification(paste0("Ecuación de ", m$ingrediente[i], if (identical(attr(m, "enfoque"), "subletal")) " (efectos subletales)" else "",
+                              " lista. Pulsa \"Consultar OpenAlex\"."), type = "message")
     })
 
     output$mapa_xlsx <- downloadHandler(

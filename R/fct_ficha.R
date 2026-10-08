@@ -85,9 +85,9 @@ exportar_ficha_excel <- function(f, archivo) {
     Usos = tabla_con_etiquetas(f$usos),
     Referencias = f$referencias,
     Validacion = f$validacion,
-    Notas = data.frame(Campo = c("Datos", "Aviso", "Validación", "Créditos", "Fecha de exportación"),
+    Notas = data.frame(Campo = c("Datos", "Aviso", "Validación", "Licencia y créditos", "Fecha de exportación"),
                        Valor = c(credito$datos, aviso_registro, nota_validacion,
-                                 paste0(credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
+                                 paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
                                  format(Sys.time(), "%Y-%m-%d %H:%M")), stringsAsFactors = FALSE)
   )
   hojas <- lapply(hojas, function(h) if (nrow(h)) h else data.frame(Nota = "Sin registros"))

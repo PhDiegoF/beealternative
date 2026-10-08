@@ -86,11 +86,11 @@ exportar_matriz_excel <- function(m, filtros_txt, archivo) {
                                 c("Sistema", "Cultivo", "Grupo de plaga", "Alternativas directas")],
     Notas = data.frame(
       Campo = c("Consulta", "Filtros aplicados", "Combinaciones a sustituir", "Con alternativa directa", "Brechas",
-                "Solo alternativas altamente tóxicas", "Definición", "Datos", "Aviso", "Créditos", "Fecha de exportación"),
+                "Solo alternativas altamente tóxicas", "Definición", "Datos", "Aviso", "Licencia y créditos", "Fecha de exportación"),
       Valor = c("Bee-alternative · Matriz cultivo × plaga", filtros_txt, r$pares, r$cubiertos, r$brechas, r$solo_alta,
                 "Combinación a sustituir = cultivo × grupo de insectos con al menos un producto registrado con imidacloprid, thiamethoxam, clothianidin o fipronil. Brecha = sin ninguna alternativa directa registrada.",
                 credito$datos, aviso_registro,
-                paste0(credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
+                paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
                 format(Sys.time(), "%Y-%m-%d %H:%M")), stringsAsFactors = FALSE)
   )
   hojas <- lapply(hojas, function(h) if (nrow(h)) h else data.frame(Nota = "Sin registros"))

@@ -7,6 +7,24 @@ bloque_no_neonic <- paste0('(thiamethoxam OR imidacloprid OR clothianidin OR clo
 bloque_polinizadores <- paste0('("Apis mellifera" OR honeybee OR "honey bee" OR "bumble bee" OR Bombus OR "stingless bee" OR ',
                                'Meliponini OR Trigona OR Melipona OR pollinator OR apidae OR apiculture OR beekeeping OR ',
                                '"bee colony" OR "bee mortality" OR "colony collapse")')
+# 0.8 · Efectos subletales en abejas (ecuación E4). Los mismos bloques que el catálogo v3 (modelo_datos/generar_ecuaciones_v3.py).
+bloque_abejas <- paste0('("Apis mellifera" OR honeybee OR "honey bee" OR bumblebee OR "bumble bee" OR Bombus OR "stingless bee" OR ',
+                        'Meliponini OR Melipona OR Scaptotrigona OR "Tetragonisca angustula" OR "solitary bee" OR "wild bee" OR Osmia OR ',
+                        'Megachile OR "Apis cerana")')
+bloque_subletal <- paste0('(sublethal OR "sub-lethal" OR "chronic toxicity" OR "chronic exposure" OR "larval toxicity" OR ',
+                          '"larval development" OR "larval survival" OR "behavioral effects" OR "behavioural effects" OR foraging OR homing OR ',
+                          '"proboscis extension" OR "olfactory learning" OR "learning and memory" OR fecundity OR brood OR ',
+                          '"colony development" OR "colony growth" OR "immune response" OR "gut microbiota" OR "oxidative stress" OR ',
+                          'locomotion OR "flight performance" OR NOEC OR LOEC OR "no observed effect" OR "field-realistic")')
+# La evidencia toxicológica se publica sobre todo fuera del Sur Global: para E4 la app propone 2000-2026 sin filtro geográfico
+filtros_e4 <- list(desde = 2000, hasta = 2026, ambito = "Sin filtro geográfico")
+
+#' ¿La ecuación es de efectos subletales en abejas (E4)?
+#' @export
+es_subletal <- function(expr) {
+  grepl("sublethal", expr %||% "", ignore.case = TRUE) && grepl("Apis mellifera", expr %||% "", fixed = TRUE)
+}
+
 # Términos de ingredientes que desde v9 no son alternativa (IRAC 4B). El catálogo v2 ya no los trae; se conserva por seguridad
 terminos_excluidos <- c("nicotine")
 
@@ -21,7 +39,8 @@ campos_busqueda <- c("Título y resumen" = "title_and_abstract.search",
                      "Título, resumen y texto completo" = "search",
                      "Solo título" = "title.search")
 
-tipos_ecuacion <- c("E1 restrictiva (AND NOT)" = "E1", "E2 alternativa" = "E2", "E3 polinizadores" = "E3")
+tipos_ecuacion <- c("E1 restrictiva (AND NOT)" = "E1", "E2 alternativa" = "E2", "E3 polinizadores" = "E3",
+                    "E4 efectos subletales en abejas" = "E4")
 
 ambitos_openalex <- c(
   "Sur Global" = "authorships.institutions.is_global_south:true",
@@ -67,7 +86,8 @@ limpiar_expresion <- function(expr) {
 #' @param cultivo,grupo Cultivo(s) y grupo(s) de plaga.
 #' @param origen Orígenes de las alternativas que entran al constructo.
 #' @param excluir_alta Excluir ingredientes altamente tóxicos para abejas.
-#' @param tipo "E1", "E2" o "E3".
+#' @param tipo "E1", "E2", "E3" o "E4" (efectos subletales en abejas: (abejas) AND (efectos subletales) AND (alternativas),
+#'   sin cultivo, blanco ni exclusión de neonicotinoides).
 #' @param max_alt Máximo de términos de alternativas (los más frecuentes), para respetar el largo de la URL.
 #' @param ampliar Agregar nombres científicos aceptados (GBIF), nombres de los registros ICA y nombres comunes en
 #'   español de cultivos y plagas. Si la URL supera ~3.800 caracteres se recortan las alternativas menos frecuentes.
@@ -96,6 +116,7 @@ construir_ecuacion <- function(d, cultivo, grupo, origen = c("Bioinsumo", "Sínt
   t_alt <- utils::head(t_alt, max_alt)
 
   armar <- function(ta) {
+    if (tipo == "E4") return(if (length(ta)) paste(bloque_abejas, "AND", bloque_subletal, "AND", bloque(ta)) else "")   # sin alternativas no hay ecuación
     partes <- c(bloque(t_cult), if (tipo == "E3") bloque_polinizadores else bloque(t_plaga), bloque(ta))
     e <- paste(partes[nzchar(partes)], collapse = " AND ")
     if (tipo == "E1") e <- paste(e, "AND NOT", bloque_no_neonic)
@@ -309,11 +330,11 @@ exportar_evidencia <- function(res, archivo, formato = c("xlsx", "csv"), etiquet
   if (formato == "csv") return(exportar_csv(a, archivo))
   notas <- data.frame(
     Campo = c("Consulta", "Campo de búsqueda", "Ecuación", "Filtros", "Total en OpenAlex", "Artículos exportados", "URL de la consulta (sin clave)",
-              "Fecha de consulta", "Licencia de los metadatos", "Créditos"),
+              "Fecha de consulta", "Licencia de los metadatos", "Licencia y créditos"),
     Valor = c(paste("Bee-alternative · Evidencia científica", etiqueta),
               names(campos_busqueda)[match(res$campo %||% "title_and_abstract.search", campos_busqueda)], res$expresion, res$filtros, res$total, nrow(a),
               res$url, format(res$fecha, "%Y-%m-%d %H:%M"), "OpenAlex, CC0",
-              paste0(credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")), stringsAsFactors = FALSE)
+              paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")), stringsAsFactors = FALSE)
   hojas <- list(works = if (nrow(a)) a else data.frame(Nota = "Sin resultados"),
                 por_anio = if (nrow(res$por_anio)) res$por_anio else data.frame(Nota = "Sin resultados"), Notas = notas)
   writexl::write_xlsx(hojas, archivo)

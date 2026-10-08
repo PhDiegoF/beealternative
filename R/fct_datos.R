@@ -19,10 +19,18 @@ cargar_datos <- function(ruta = ruta_base()) {
   faltan <- setdiff(tablas, DBI::dbListTables(con))
   if (length(faltan)) stop("Faltan tablas en la base: ", paste(faltan, collapse = ", "), call. = FALSE)
   datos <- lapply(stats::setNames(tablas, tablas), function(t) DBI::dbReadTable(con, t))
+  # Tablas opcionales (0.8): efectos subletales (ECOTOX), catálogo de fuentes subletales y novedades de los datos.
+  # Si la base es anterior y no las trae, quedan vacías y los módulos muestran el aviso correspondiente.
+  for (t in tablas_opcionales) {
+    datos[[t]] <- if (t %in% DBI::dbListTables(con)) DBI::dbReadTable(con, t) else data.frame()
+  }
+  if (is.null(datos$productos$juicio_apicultura)) datos$productos$juicio_apicultura <- ""
   datos$consulta <- DBI::dbGetQuery(con, "SELECT * FROM v_consulta")
   datos$fecha_carga <- Sys.time()
   datos
 }
+
+tablas_opcionales <- c("subletales", "subletales_referencias", "fuentes_subletales", "novedades")
 
 # Grupos de insectos para los que hay neonicotinoides registrados
 grupos_objetivo <- c(
