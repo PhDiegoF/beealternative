@@ -91,7 +91,8 @@ exportar_matriz_excel <- function(m, filtros_txt, archivo) {
                 "Combinación a sustituir = cultivo × grupo de insectos con al menos un producto registrado con imidacloprid, thiamethoxam, clothianidin o fipronil. Brecha = sin ninguna alternativa directa registrada.",
                 credito$datos, aviso_registro,
                 paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
-                format(Sys.time(), "%Y-%m-%d %H:%M")), stringsAsFactors = FALSE)
+                format(Sys.time(), "%Y-%m-%d %H:%M")), stringsAsFactors = FALSE),
+    Citas_y_licencias = hoja_citas(c("ica_quim", "ica_bio", "apistox", "irac"))
   )
   hojas <- lapply(hojas, function(h) if (nrow(h)) h else data.frame(Nota = "Sin registros"))
   writexl::write_xlsx(hojas, archivo)

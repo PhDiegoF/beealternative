@@ -1,10 +1,11 @@
-# Bee-alternative (paquete de R · v0.8.0)
+# Bee-alternative (paquete de R · v0.9.0)
 
 App Shiny de solo consulta para identificar alternativas registradas en el ICA a imidacloprid,
-thiamethoxam, clothianidin y fipronil, con su riesgo para abejas y la evidencia científica.
+thiamethoxam, clothianidin y fipronil, con su riesgo para abejas, los polinizadores nativos de cada cultivo y la evidencia científica.
 
-## Datos (v10, 30/Sep/2026)
-La app lee `bee_alternative.duckdb`, generada con `modelo_datos/cargar_modelo_duckdb.R` a partir de los CSV del modelo v10.
+## Datos (v12, 9/Oct/2026)
+La app lee `bee_alternative.duckdb`, generada con `modelo_datos/cargar_modelo_duckdb.R` a partir de los CSV del modelo v12
+(mismo corte del ICA que v10 y v11, más las nueve tablas `nativos_*` del módulo Polinizadores nativos).
 Reglas vigentes: composición (v9: una mezcla con imidacloprid, thiamethoxam, clothianidin o fipronil es "Molécula a sustituir";
 con otro IRAC 4/2B es "No recomendada") y correcciones de la verificación de ecuaciones (v10: registro 5725 compartido y grupos de plaga armonizados).
 Indicadores esperados en el Panorama: 1.348 productos, cobertura 71 % (31 brechas de 107), 330 químicos y 101 bioinsumos con uso directo.
@@ -51,7 +52,9 @@ Logos: el de AGROSAVIA viene incluido. El del ICA se descarga una vez con `sourc
 | `R/fct_ficha.R`, `R/mod_ficha.R` | Módulo 3: ficha de producto con logos AGROSAVIA e ICA y descarga a Excel (listo) |
 | `R/fct_matriz.R`, `R/mod_matriz.R` | Módulo 4: matriz cultivo × grupo de insectos con brechas, filtros por origen y ApisTox, clic hacia el buscador y descarga a Excel (listo) |
 | `R/fct_riesgo.R`, `R/mod_riesgo.R` | Módulo 5: riesgo para abejas. Toxicidad aguda (ApisTox) por clase, origen e ingrediente, y efectos subletales reportados en ECOTOX con el catálogo de fuentes (0.8) |
+| `R/fct_nativos.R`, `R/mod_nativos.R` | Módulo 8 (0.9): polinizadores nativos y manejo. Dependencia por cultivo (Klein 2007, Siopa 2024, dato local), polinizadores registrados en Colombia (ICPA y literatura), riesgo de los ingredientes registrados por gremio con sello de calidad (◆ ◇ △ ○ ✕), prácticas de manejo con horario por cultivo, notas de calidad, fuentes y licencias; descarga a Excel |
 | `R/mod_metodologia.R` | Módulo 6: metodología, fuentes, licencias, cita y registro de validación (listo) |
+| `R/fct_citas.R` | Citas y licencias (0.9): cita sugerida de Bee-alternative, fuentes generales con cita completa, enlace y licencia (`citas_app`), referencias del módulo de polinizadores usadas en una descarga (`referencias_usadas()`) y hoja Citas_y_licencias de cada Excel (`hoja_citas()`) |
 | `R/fct_evidencia.R`, `R/fct_evidencia_calidad.R`, `R/mod_evidencia.R` | Módulo 7: evidencia científica en OpenAlex. Catálogo v3 de 208 ecuaciones (incluye E4, efectos subletales en abejas) y ecuación a la medida; búsqueda en título y resumen o también en texto completo; búsqueda semántica complementaria; pertinencia de cada artículo; hasta 1.000 artículos; mapa de evidencia por alternativa registrada (eficacia o efectos subletales); caché compartida y tope diario (`R/fct_cache.R`); exportación para Context Analysis |
 | `dev/05_precalcular_evidencia.R` | Precalcula el catálogo en `inst/extdata/evidencia_catalogo.rds` (requiere `OPENALEX_API_KEY`) |
 | `inst/app/www/` | `logo_agrosavia.png` y `logo_agrosavia_blanco.png` (vector del brandbook a 600 dpi); `logo_ica.svg` se descarga con `dev/04_descargar_logos.R` |
@@ -72,12 +75,13 @@ Logos: el de AGROSAVIA viene incluido. El del ICA se descarga una vez con `sourc
 | Riesgo para abejas | Listo (v0.5.0) |
 | Metodología y fuentes | Listo (v0.5.0) |
 | Evidencia científica (OpenAlex) | Listo (v0.6.0) |
+| Polinizadores nativos y manejo | Listo (v0.9.0) |
 
 ## Créditos
 **Diseño y conceptualización:** Diego Hernando Flórez Martínez, PhD · ORCID [0000-0002-3904-9543](https://orcid.org/0000-0002-3904-9543) ·
 AGROSAVIA, Departamento de Inteligencia y Divulgación Científica y Tecnológica.
 Validación técnica: equipo de apicultura de AGROSAVIA. Código y documentación asistidos por Claude (Anthropic) bajo la dirección del autor.
-Fuentes y licencias: ICA (información pública), ApisTox (CC BY-NC 4.0), ECOTOX (US EPA; uso no comercial citando a la EPA), PPDB/BPDB (solo enlaces), IRAC MoA v11.5, GBIF (CC BY 4.0), EPPO, OpenAlex (CC0).
+Fuentes y licencias: ICA (información pública), ApisTox (CC BY-NC 4.0), ECOTOX (US EPA; uso no comercial, científico y educativo citando a la EPA y a Olker et al. 2022), PPDB/BPDB (solo enlaces), IRAC MoA v11.5, GBIF (CC BY 4.0), EPPO, OpenAlex (CC0), Siopa et al. 2024 y Lippi et al. 2026 (CC BY 4.0), Klein et al. 2007 y la Iniciativa Colombiana de Polinizadores – Abejas (Nates-Parra 2016; se citan los hechos), ICP 2018 (uso no comercial con cita). Cada descarga en Excel trae la hoja **Citas_y_licencias** con la cita completa, el enlace y la licencia de cada fuente que aporta datos; la bibliografía completa del módulo de polinizadores (110 obras) está en la tabla `nativos_referencias` y en la hoja 26 de la Base Unificada v12.
 
 **Licencia de Bee-alternative:** datos, contenidos y descargas bajo CC BY-NC-SA 4.0; código de uso institucional de AGROSAVIA (repositorio de acceso restringido). Ver `LICENSE`.
 

@@ -106,6 +106,7 @@ exportar_excel <- function(t, filtros_txt, archivo) {
               paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
               format(Sys.time(), "%Y-%m-%d %H:%M")),
     stringsAsFactors = FALSE)
-  writexl::write_xlsx(list(Alternativas = t, Notas = notas), archivo)
+  writexl::write_xlsx(list(Alternativas = t, Notas = notas,
+                          Citas_y_licencias = hoja_citas(c("ica_quim", "ica_bio", "agrosavia", "apistox", "irac", "gbif", "eppo"))), archivo)
   invisible(archivo)
 }

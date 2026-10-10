@@ -19,6 +19,7 @@ app_ui <- function(request) {
     bslib::nav_panel("Ficha de producto", icon = bsicons::bs_icon("file-earmark-text"), mod_ficha_ui("ficha")),
     bslib::nav_panel("Matriz cultivo × plaga", icon = bsicons::bs_icon("grid-3x3"), mod_matriz_ui("matriz")),
     bslib::nav_panel("Riesgo para abejas", icon = bsicons::bs_icon("bug"), mod_riesgo_ui("riesgo")),
+    bslib::nav_panel("Polinizadores nativos", icon = bsicons::bs_icon("flower1"), mod_nativos_ui("nativos")),
     bslib::nav_panel("Evidencia científica", icon = bsicons::bs_icon("journal-richtext"), mod_evidencia_ui("evidencia")),
     bslib::nav_spacer(),
     bslib::nav_item(tags$a(href = enlace_reporte(), target = "_blank", class = "nav-link",

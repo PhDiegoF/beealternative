@@ -1,4 +1,4 @@
-# Integración continua (0.8.0): corre las pruebas del paquete en cada push y pull request al repositorio privado.
+# Integración continua (0.8.0; vigente en 0.9.0): corre las pruebas del paquete en cada push y pull request al repositorio privado.
 # Si alguna falla, GitHub marca el commit en rojo y avisa por correo: no publiques en Connect Cloud hasta corregirlo.
 # Las pruebas que consultan OpenAlex se omiten salvo que el repositorio tenga el secreto OPENALEX_API_KEY
 # (Settings → Secrets and variables → Actions). Los repositorios privados tienen 2.000 minutos gratis al mes.

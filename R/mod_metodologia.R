@@ -46,13 +46,15 @@ mod_metodologia_ui <- function(id) {
           tags$li(tags$b("Riesgo para abejas: "), "ApisTox (prioridad PPDB > BPDB > ECOTOX); el producto toma la clase de su componente más tóxico."),
           tags$li(tags$b("Cobertura: "), "combinaciones cultivo × grupo con molécula a sustituir que tienen al menos una alternativa directa."),
           tags$li(tags$b("Taxonomía: "), "nombres del ICA verificados con GBIF y EPPO; los nombres comunes se asignan al taxón más próximo."),
-          tags$li(tags$b("Validación: "), "donde falta la revisión de AGROSAVIA se usa la alternativa más próxima de fuentes externas, marcada \"Sujeto a validación\"."))),
+          tags$li(tags$b("Validación: "), "donde falta la revisión de AGROSAVIA se usa la alternativa más próxima de fuentes externas, marcada \"Sujeto a validación\"."),
+          tags$li(tags$b("Polinizadores nativos (0.9): "), "dependencia por cultivo (Klein et al. 2007; Siopa et al. 2024; dato local), polinizadores ",
+                  "registrados en Colombia (ICPA, Anexo I; literatura), toxicidad medida con sello de calidad (◆ medido en especie presente en ",
+                  "Colombia, ◇ mismo gremio, △ extrapolado con factor 10, ○ estudio sin valor, ✕ sin datos) y prácticas de manejo con fuente."))),
       seccion("Cómo citar",
         p(tags$b(paste0(credito$rol, ": ")), credito$autor, " · ",
           tags$a(href = paste0("https://orcid.org/", credito$orcid), target = "_blank", paste0("ORCID ", credito$orcid))),
         p(credito$unidad),
-        p(class = "small mb-0", tags$em("Flórez Martínez, D. H. (2026). Bee-alternative: consulta de alternativas con registro ICA a imidacloprid, ",
-                                        "thiamethoxam, clothianidin y fipronil. AGROSAVIA. ORCID 0000-0002-3904-9543.")),
+        p(class = "small mb-0", tags$em(cita_bee_alternative())),
         p(class = "small text-muted mb-0 mt-2", "Validación técnica: equipo de apicultura de AGROSAVIA. Código y documentación asistidos por Claude (Anthropic) bajo la dirección del autor."))
     ),
     bslib::layout_columns(
@@ -77,6 +79,11 @@ mod_metodologia_ui <- function(id) {
     ),
     bslib::card(bslib::card_header("Fuentes, versiones y licencias"), tableOutput(ns("fuentes"))),
     bslib::card(
+      bslib::card_header("Cómo citar: referencias completas y licencias de uso de los datos"),
+      p(class = "small text-muted", "Toda descarga en Excel incluye la hoja ", tags$b("Citas_y_licencias"), " con las fuentes que aportan datos a esa ",
+        "descarga. Las referencias del módulo Polinizadores nativos están en su pestaña Fuentes y licencias."),
+      DT::DTOutput(ns("citas"))),
+    bslib::card(
       bslib::card_header(class = "d-flex justify-content-between align-items-center",
                          "Registro de información sujeta a validación",
                          downloadButton(ns("csv_validacion"), "Registro completo (CSV)", class = "btn-sm btn-outline-primary")),
@@ -95,6 +102,15 @@ mod_metodologia_server <- function(id, datos) {
       names(f) <- c("Fuente", "Corte o versión", "Acceso", "Licencia o condición")
       f
     }, striped = TRUE, hover = TRUE, spacing = "s", width = "100%")
+    output$citas <- DT::renderDT({
+      t <- citas_app[, c("Fuente", "Cita", "Enlace", "Licencia", "Uso")]
+      t$Cita[citas_app$id == "bee"] <- cita_bee_alternative()
+      u <- sub(" ;.*$", "", t$Enlace)
+      t$Fuente <- paste0('<a href="', u, '" target="_blank" rel="noopener">', htmltools::htmlEscape(t$Fuente), "</a>")
+      t$Enlace <- NULL
+      DT::datatable(t, rownames = FALSE, escape = -1, selection = "none",
+                    options = list(pageLength = 12, dom = "t", scrollX = TRUE, language = list(url = dt_es)))
+    })
     output$validacion <- DT::renderDT({
       DT::datatable(resumen_validacion(datos()), rownames = FALSE, selection = "none",
                     options = list(pageLength = 10, dom = "tip", language = list(url = dt_es)))

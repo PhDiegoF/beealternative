@@ -265,6 +265,7 @@ exportar_mapa_excel <- function(m, etiqueta, filtros, campo, archivo) {
               else "Artículos de (cultivo) AND (blanco) AND (alternativa). 0 = alternativa registrada sin evidencia en OpenAlex con estos filtros.",
               format(Sys.time(), "%Y-%m-%d %H:%M"), "OpenAlex, CC0", aviso_registro,
               paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")), stringsAsFactors = FALSE)
-  writexl::write_xlsx(list(Mapa = if (nrow(t)) t else data.frame(Nota = "Sin alternativas"), Notas = notas), archivo)
+  writexl::write_xlsx(list(Mapa = if (nrow(t)) t else data.frame(Nota = "Sin alternativas"), Notas = notas,
+                          Citas_y_licencias = hoja_citas(c("openalex", "ica_quim", "ica_bio", "apistox"))), archivo)
   invisible(archivo)
 }

@@ -88,7 +88,8 @@ exportar_ficha_excel <- function(f, archivo) {
     Notas = data.frame(Campo = c("Datos", "Aviso", "Validación", "Licencia y créditos", "Fecha de exportación"),
                        Valor = c(credito$datos, aviso_registro, nota_validacion,
                                  paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ") · ", credito$unidad),
-                                 format(Sys.time(), "%Y-%m-%d %H:%M")), stringsAsFactors = FALSE)
+                                 format(Sys.time(), "%Y-%m-%d %H:%M")), stringsAsFactors = FALSE),
+    Citas_y_licencias = hoja_citas(c("ica_quim", "ica_bio", "agrosavia", "apistox", "irac", "ppdb", "gbif", "eppo"))
   )
   hojas <- lapply(hojas, function(h) if (nrow(h)) h else data.frame(Nota = "Sin registros"))
   writexl::write_xlsx(hojas, archivo)

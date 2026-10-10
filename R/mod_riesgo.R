@@ -231,7 +231,8 @@ mod_riesgo_server <- function(id, datos) {
                                       "Que no haya estudios no significa inocuidad; un efecto reportado no implica que ocurra a las dosis de campo.",
                                       licencia$datos, paste0(credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")),
                             stringsAsFactors = FALSE)
-        hojas <- list(Ingredientes = x, Referencias_ECOTOX = refs, Fuentes = datos()$fuentes_subletales %||% data.frame(), Notas = notas)
+        hojas <- list(Ingredientes = x, Referencias_ECOTOX = refs, Fuentes = datos()$fuentes_subletales %||% data.frame(), Notas = notas,
+                      Citas_y_licencias = hoja_citas(c("ecotox", "apistox")))
         hojas <- lapply(hojas, function(h) if (nrow(h)) h else data.frame(Nota = "Sin registros"))
         writexl::write_xlsx(hojas, file)
       }
@@ -246,7 +247,8 @@ mod_riesgo_server <- function(id, datos) {
                             Valor = c(credito$datos, "Adamczyk et al. (2025), Zenodo 10.5281/zenodo.13350981, CC BY-NC 4.0 (uso no comercial)",
                                       aviso_registro, paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")),
                             stringsAsFactors = FALSE)
-        hojas <- list(Productos = pr, Ingredientes = tabla(), Notas = notas)
+        hojas <- list(Productos = pr, Ingredientes = tabla(), Notas = notas,
+                      Citas_y_licencias = hoja_citas(c("ica_quim", "ica_bio", "apistox", "irac")))
         hojas <- lapply(hojas, function(h) if (nrow(h)) h else data.frame(Nota = "Sin registros"))
         writexl::write_xlsx(hojas, file)
       }

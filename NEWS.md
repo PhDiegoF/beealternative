@@ -1,3 +1,39 @@
+# beealternative 0.9.0 (9/Oct/2026) · Polinizadores nativos y manejo
+- **Módulo nuevo: Polinizadores nativos** (barra superior, entre Riesgo para abejas y Evidencia científica). Para cada cultivo:
+  - **Dependencia de la polinización animal:** categoría de Klein et al. 2007 (material suplementario ESM1 y ESM2), mediana de
+    Siopa et al. 2024 (0 a 1, con número de experimentos y estudios colombianos) y dato local colombiano cuando existe
+    (p. ej. maracuyá 88 % de cuajado con *Xylocopa* frente a 2–3 % sin visitas; gulupa autocompatible).
+  - **Polinizadores registrados en Colombia:** 371 registros de 41 cultivos, del Anexo I del libro *Iniciativa Colombiana de
+    Polinizadores – Abejas* (Nates-Parra 2016) y de literatura colombiana curada, agrupados en gremios (abejas sin aguijón,
+    abejorros, abejas grandes solitarias, otras abejas, moscas, escarabajos, mariposas, avispas, aves y murciélagos) y con el
+    tipo de evidencia (exclusión, polinización efectiva o visita).
+  - **Riesgo por ingrediente:** matriz de los ingredientes registrados en el cultivo × gremio con un sello de calidad del dato:
+    ◆ medido en especie presente en Colombia, ◇ medido en otra especie del gremio, △ extrapolado (clase ApisTox ÷10 para abejas,
+    o especie sustituta para vertebrados), ○ hay estudios sin valor extraído, ✕ sin datos. Alerta para abejas sin aguijón
+    (más sensibles que *Apis* en el 72 % de los ensayos, Lippi et al. 2026) y para piretroides. Tabla de 165 valores medidos y
+    estudios de Lippi et al. 2026. Los 106 valores de la Tabla suplementaria 1 de Lippi et al. 2026 (CC BY 4.0) traen el valor
+    pareado de *Apis* y la SSR (sin aguijón ÷ *Apis*; < 1 = más sensible), que la matriz muestra en la celda: 51 celdas
+    cultivo × ingrediente de abejas sin aguijón pasan de extrapoladas (△) a medidas (33 ◆ y 18 ◇).
+  - **Prácticas de manejo:** 56 prácticas con fuente (ANLA 2026, Cenicafé, planes de manejo de Funbio, Embrapa, literatura
+    colombiana), horario sugerido por cultivo y alerta cuando hay polinizadores nocturnos. Notas de calidad (estudio de café
+    financiado por Bayer, spinetoram no inocuo, clorantraniliprol y *Elaeidobius*, gulupa).
+  - **Fuentes y licencias** del módulo, **Referencias citadas** (110 obras con cita completa, DOI o enlace y licencia) y el
+    Anexo 3 de la Iniciativa Colombiana de Polinizadores.
+  - Descarga a Excel del cultivo con todas las hojas y la licencia.
+- **Citas y licencias en todas las descargas:** cada Excel (buscador, ficha, matriz, riesgo, efectos subletales, evidencia,
+  mapa de evidencia y polinizadores nativos) trae la hoja **Citas_y_licencias** con la cita sugerida de Bee-alternative y la
+  cita completa, el enlace y la licencia de cada fuente que aporta datos a esa descarga (ICA, ApisTox, IRAC, GBIF, EPPO, PPDB,
+  OpenAlex, ECOTOX y, en el módulo de polinizadores, las referencias del cultivo e ingredientes elegidos). Metodología y
+  fuentes muestra la tabla "Cómo citar". Funciones nuevas: `cita_bee_alternative()`, `citas_app`, `hoja_citas()`,
+  `referencias_usadas()`, `normalizar_cita()`.
+- **Modelo de datos v12:** nueve tablas `nativos_*` (opcionales: si la base no las trae, el módulo lo avisa). Funciones nuevas y
+  exportadas: `hay_nativos()`, `nativos_cultivos()`, `ficha_nativos()`, `gremios_cultivo()`, `ingredientes_cultivo()`,
+  `riesgo_nativos()`, `matriz_riesgo_nativos()`, `resumen_sellos()`, `toxicidad_ingredientes()`, `estudios_ingredientes()`.
+- **ECOTOX para polinizadores distintos de *Apis*:** `modelo_datos/ingestar_ecotox_no_apis.R` extrae valores letales en abejas
+  nativas, sírfidos, *Forcipomyia*, *Elaeidobius*, mariposas no plaga, colibríes y murciélagos, y cuenta las pruebas por género.
+- Metodología y fuentes: regla del módulo y licencias de las fuentes nuevas. Créditos: modelo de datos v12.
+- Pruebas: `test-v12.R` (8 bloques, con datos sintéticos y con la base real; incluye citas y suplemento de Lippi).
+
 # beealternative 0.8.0 (8/Oct/2026) · Efectos subletales, robustez y preparación del piloto
 - **Efectos subletales en abejas.**
   - Evidencia científica: nueva ecuación **E4** = (abejas) AND (efectos subletales) AND (alternativas registradas), sin

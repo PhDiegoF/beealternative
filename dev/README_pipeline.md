@@ -1,4 +1,4 @@
-# Bee-alternative · Flujo de alistamiento de datos (v11, 8/Oct/2026 · app 0.8.0)
+# Bee-alternative · Flujo de alistamiento de datos (v12, 9/Oct/2026 · app 0.9.0)
 
 **Diseño y conceptualización:** Diego Hernando Flórez Martínez, PhD · ORCID [0000-0002-3904-9543](https://orcid.org/0000-0002-3904-9543)
 AGROSAVIA, Departamento de Inteligencia y Divulgación Científica y Tecnológica
@@ -8,13 +8,13 @@ Todos los scripts de Python buscan los archivos a partir de la **raíz del proye
 
 ```
 <raíz del proyecto>/                       (p. ej. D:/.../Agrosavia_Neonics)
-├── Base_Unificada_Sustitucion_Neonics_Fipronil_ICA_v11.xlsx  (o v10/v9/v8; los scripts usan la más reciente)
+├── Base_Unificada_Sustitucion_Neonics_Fipronil_ICA_v12.xlsx  (o v11 a v8; los scripts usan la más reciente)
 ├── Analisis_Ecuaciones_OpenAlex.xlsx
 ├── insumos_bee_alternative/               paquete 02
 │   └── datos/  ica_quimicos_powerbi_2026-09-11.csv · ica_bioinsumos_2026-09-01_dosis_conciliada.csv · irac_moa_v11.5.csv
 ├── fuentes_externas/apistox/              ppdb.csv · bpdb.csv · dataset_final.csv (descarga de Zenodo)
 ├── fase0/                                 paquete 03
-├── modelo_datos/                          paquete 04
+├── modelo_datos/                          paquete 04 (con insumos_nativos/ para el módulo de polinizadores nativos)
 ├── actualizador_bee_alternative/          paquete 01
 └── beealternative/                        paquete 05 (app)
 ```
@@ -26,7 +26,7 @@ Todos los scripts de Python buscan los archivos a partir de la **raíz del proye
 | 01 | `01_actualizador_ica.zip` | Extrae el Power BI de químicos y los PDF de bioinsumos del ICA. Concilia los cultivos contra el diccionario | R + Python |
 | 02 | `02_insumos_y_servicios.zip` | Datos de insumos, identidad visual y prueba de las APIs (ApisTox, ICA, OpenAlex, GBIF, PubChem, EPPO) | R |
 | 03 | `03_diccionarios_fase0.zip` | Diccionarios de cultivos, sistemas, ingredientes y plagas, con enriquecimiento de GBIF y EPPO | Python + R |
-| 04 | `04_modelo_datos.zip` | Modelo de 12 tablas (más las opcionales de efectos subletales y novedades), validación de insumos, catálogo de ecuaciones v3, verificación de ecuaciones, ingesta de ECOTOX, plantilla de validación de expertos, sincronización con la base Excel v11 y carga a DuckDB y Parquet | Python + R |
+| 04 | `04_modelo_datos.zip` | Modelo de 12 tablas (más las opcionales de efectos subletales, novedades y las ocho de polinizadores nativos), validación de insumos, catálogo de ecuaciones v3, verificación de ecuaciones, ingesta de ECOTOX, plantilla de validación de expertos, sincronización con la base Excel v12 y carga a DuckDB y Parquet | Python + R |
 | 05 | `05_app_beealternative.zip` | Paquete de R con la app Shiny | R |
 
 ## Orden de ejecución (cuando cambian los datos del ICA)
@@ -39,11 +39,12 @@ Todos los scripts de Python buscan los archivos a partir de la **raíz del proye
 | 4 | `python fase0/construir_dic_plagas.py` | `dic_plagas_base.csv`, `rel_blanco_plaga.csv` |
 | 5 | En R, desde `fase0/`: `source("02_enriquecer_plagas_gbif_eppo.R")` (requiere `EPPO_TOKEN` en `~/.Renviron`) | `dic_plagas_enriquecido.csv`, `revision_gbif_eppo.csv` |
 | 6 | `python fase0/integrar_gbif_eppo_plagas.py` | `dic_plagas.csv` |
-| 7 | `python modelo_datos/construir_modelo.py` | Valida los insumos (`validar_entradas.py`), construye los 12 CSV del modelo, aplica la validación de expertos si existe, chequea la integridad y genera el catálogo de ecuaciones v3 (v2 + `generar_ecuaciones_v3.py`) |
+| 7 | `python modelo_datos/construir_modelo.py` | Valida los insumos (`validar_entradas.py`), construye los 12 CSV del modelo, aplica la validación de expertos si existe, chequea la integridad, genera el catálogo de ecuaciones v3 (v2 + `generar_ecuaciones_v3.py`) y las nueve tablas `nativos_*` (`construir_nativos.py`, incluida la bibliografía `nativos_referencias`) |
 | 7a | En R, desde `modelo_datos/`: `source("ingestar_ecotox.R")` (o `python modelo_datos/ingestar_ecotox.py RUTA.zip`); descarga trimestral de https://gaftp.epa.gov/ecotox/ | `subletales.csv` y `subletales_referencias.csv` |
+| 7d | En R, desde `modelo_datos/`: `source("ingestar_ecotox_no_apis.R")` (misma descarga de ECOTOX) y luego `python modelo_datos/construir_nativos.py` | `ecotox_no_apis.csv`, `ecotox_no_apis_conteo.csv` y las tablas `nativos_*` con los valores de ECOTOX marcados "sin revisar" |
 | 7c | `python modelo_datos/novedades.py CARPETA_MODELO_ANTERIOR "vX → vY"` | `novedades.csv` |
 | 7b | `python modelo_datos/reporte_verificacion_ecuaciones.py` y `python modelo_datos/cifras_referencia.py` | `Verificacion_Ecuaciones_OpenAlex_v11.xlsx` y cifras de regresión para las pruebas de la app |
-| 8 | `python modelo_datos/actualizar_base_excel_v11.py` (parte de la v10) y luego abrir y guardar en Excel (recalcula) | Base Excel v11 sincronizada con el modelo |
+| 8 | `python modelo_datos/actualizar_base_excel_v12.py` (parte de la v11) y luego abrir y guardar en Excel (recalcula) | Base Excel v12 sincronizada con el modelo (hojas 21 a 26 del módulo de polinizadores nativos; la 26 es la bibliografía con licencias) |
 | 9 | En R, desde `modelo_datos/`: `source("cargar_modelo_duckdb.R")` | `bee_alternative.duckdb` y `parquet/` |
 | 10 | En el proyecto `beealternative`: `dev/02_copiar_datos.R`, `devtools::test()` y `dev/03_ejecutar_app.R` | App probada en local |
 | 11 | En `beealternative`: `dev/02` → `dev/05` → `dev/06`; pestaña **Git** de RStudio → *Commit* → *Push*; en Connect Cloud → **Republish** (ver `PUBLICAR_CONNECT.md`) | App pública actualizada en https://01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad.share.connect.posit.cloud/ |
@@ -52,6 +53,7 @@ Requisitos:
 - Python 3.10 o superior, con pandas, numpy, openpyxl y pdfplumber.
 - Pruebas del pipeline: `python -m unittest discover modelo_datos/pruebas -v`.
 - Ciclo de validación de expertos: `plantilla_validacion.py` → plantillas llenas → `aplicar_validacion.py CARPETA` → paso 7.
+- Curaduría del módulo de polinizadores nativos: editar los CSV de `modelo_datos/insumos_nativos/` (ver su `LEEME.md`) y repetir el paso 7 o solo `construir_nativos.py`.
 - R 4.2 o superior, con httr2, jsonlite, readr, dplyr, duckdb, arrow, rvest, shiny y bslib.
 
 ## Verificación de reproducibilidad (28/Sep/2026)

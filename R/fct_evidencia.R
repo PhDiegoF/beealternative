@@ -336,7 +336,8 @@ exportar_evidencia <- function(res, archivo, formato = c("xlsx", "csv"), etiquet
               res$url, format(res$fecha, "%Y-%m-%d %H:%M"), "OpenAlex, CC0",
               paste0(licencia$datos, " · ", credito$rol, ": ", credito$autor, " (ORCID ", credito$orcid, ")")), stringsAsFactors = FALSE)
   hojas <- list(works = if (nrow(a)) a else data.frame(Nota = "Sin resultados"),
-                por_anio = if (nrow(res$por_anio)) res$por_anio else data.frame(Nota = "Sin resultados"), Notas = notas)
+                por_anio = if (nrow(res$por_anio)) res$por_anio else data.frame(Nota = "Sin resultados"), Notas = notas,
+                Citas_y_licencias = hoja_citas("openalex"))
   writexl::write_xlsx(hojas, archivo)
   invisible(archivo)
 }

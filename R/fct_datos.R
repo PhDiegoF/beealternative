@@ -19,10 +19,14 @@ cargar_datos <- function(ruta = ruta_base()) {
   faltan <- setdiff(tablas, DBI::dbListTables(con))
   if (length(faltan)) stop("Faltan tablas en la base: ", paste(faltan, collapse = ", "), call. = FALSE)
   datos <- lapply(stats::setNames(tablas, tablas), function(t) DBI::dbReadTable(con, t))
-  # Tablas opcionales (0.8): efectos subletales (ECOTOX), catálogo de fuentes subletales y novedades de los datos.
+  # Tablas opcionales: efectos subletales (ECOTOX), fuentes subletales y novedades (0.8) y polinizadores nativos (0.9).
   # Si la base es anterior y no las trae, quedan vacías y los módulos muestran el aviso correspondiente.
   for (t in tablas_opcionales) {
     datos[[t]] <- if (t %in% DBI::dbListTables(con)) DBI::dbReadTable(con, t) else data.frame()
+  }
+  datos <- limpiar_nativos(datos)
+  if (NROW(datos$nativos_referencias) && !is.null(datos$nativos_referencias$n_registros)) {
+    datos$nativos_referencias$n_registros <- as.integer(datos$nativos_referencias$n_registros)
   }
   if (is.null(datos$productos$juicio_apicultura)) datos$productos$juicio_apicultura <- ""
   datos$consulta <- DBI::dbGetQuery(con, "SELECT * FROM v_consulta")
@@ -30,7 +34,21 @@ cargar_datos <- function(ruta = ruta_base()) {
   datos
 }
 
-tablas_opcionales <- c("subletales", "subletales_referencias", "fuentes_subletales", "novedades")
+#' Tablas del módulo de polinizadores nativos sin NA en las columnas de texto
+#'
+#' Al cargar los CSV en DuckDB los campos vacíos pueden quedar como NA; el módulo compara con "" (sin dato).
+#' @noRd
+limpiar_nativos <- function(d) {
+  for (t in grep("^nativos_", names(d), value = TRUE)) {
+    if (NROW(d[[t]])) d[[t]][] <- lapply(d[[t]], function(v) if (is.character(v)) ifelse(is.na(v), "", v) else v)
+  }
+  d
+}
+
+tablas_opcionales <- c("subletales", "subletales_referencias", "fuentes_subletales", "novedades",
+                       # 0.9.0 · Polinizadores nativos y manejo (modelo_datos/construir_nativos.py)
+                       "nativos_dependencia", "nativos_polinizadores", "nativos_toxicidad", "nativos_estudios",
+                       "nativos_practicas", "nativos_notas", "nativos_fuentes", "nativos_icp_anexo3", "nativos_referencias")
 
 # Grupos de insectos para los que hay neonicotinoides registrados
 grupos_objetivo <- c(
