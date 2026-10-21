@@ -1,4 +1,4 @@
-Bee-alternative · Licencias (versión 0.8.0, 8 de octubre de 2026)
+Bee-alternative · Licencias (versión 0.9.1, 20 de octubre de 2026)
 
 1. Código fuente (paquete de R beealternative y aplicación Shiny)
    Uso institucional de AGROSAVIA (Corporación Colombiana de Investigación Agropecuaria). Todos los derechos reservados (2026).
@@ -7,11 +7,21 @@ Bee-alternative · Licencias (versión 0.8.0, 8 de octubre de 2026)
 2. Datos, contenidos y descargas (modelo de datos, tablas, fichas, matrices, exportaciones de la app y documentación)
    Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)
    https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es
-   Atribución sugerida: Flórez Martínez, D. H. (2026). Bee-alternative (v0.8.0). AGROSAVIA. ORCID 0000-0002-3904-9543.
+   Atribución sugerida: Flórez Martínez, D. H. (2026). Bee-alternative: consulta de alternativas con registro ICA a
+   imidacloprid, thiamethoxam, clothianidin y fipronil (aplicativo 0.9.1; modelo de datos v12). AGROSAVIA.
+   ORCID 0000-0002-3904-9543.
 
-3. Datos de terceros (conservan su licencia o condiciones)
+3. Datos de terceros (conservan su licencia o condiciones; cita completa en la hoja Citas_y_licencias de cada descarga)
    ICA (información pública) · ApisTox, Adamczyk et al. 2025 (CC BY-NC 4.0) · ECOTOX, US EPA (uso no comercial,
-   científico y educativo citando a la EPA) · GBIF (CC BY 4.0) · OpenAlex (CC0) · EPPO (condiciones de EPPO Data Services) ·
-   PPDB/BPDB (solo enlaces) · IRAC (uso con atribución).
+   científico y educativo citando a la EPA y a Olker et al. 2022) · GBIF (CC BY 4.0) · OpenAlex (CC0) · EPPO (condiciones
+   de EPPO Data Services) · PPDB/BPDB (solo enlaces) · IRAC (uso con atribución) · Siopa et al. 2024 y Lippi et al. 2026
+   (CC BY 4.0) · Klein et al. 2007 e Iniciativa Colombiana de Polinizadores – Abejas, Nates-Parra 2016 (se citan los
+   hechos) · Iniciativa Colombiana de Polinizadores 2018 (uso no comercial con cita) · bibliografía completa del módulo
+   de polinizadores nativos: tabla nativos_referencias y hoja 26 de la Base Unificada v12.
+
+4. Marca e imagen (carpeta inst/app/www/marca y logos de inst/app/www)
+   Erwin, personaje del Departamento de Inteligencia y Divulgación Científica y Tecnológica (DIyDCT), y los logos de
+   AGROSAVIA y del DIyDCT: AGROSAVIA, todos los derechos reservados. No se incluyen en la licencia CC BY-NC-SA 4.0 del
+   punto 2 y no pueden usarse fuera de Bee-alternative sin autorización de AGROSAVIA.
 
 Diseño y conceptualización: Diego Hernando Flórez Martínez, PhD (ORCID 0000-0002-3904-9543), AGROSAVIA.

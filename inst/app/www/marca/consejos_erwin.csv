@@ -1,0 +1,10 @@
+tipo,texto,pestana,fuente,activo
+bienvenida,"¡Hola! Soy Erwin. Te ayudo a encontrar alternativas con registro ICA a imidacloprid, thiamethoxam, clothianidin y fipronil que cuiden a las abejas.",,,Sí
+consejo,"En el 72 % de los ensayos publicados, las abejas sin aguijón fueron más sensibles que Apis mellifera al mismo plaguicida.",Polinizadores nativos,"Lippi et al. 2026, Pesticide Biochemistry and Physiology 217:106837 (CC BY 4.0)",Sí
+consejo,"El maracuyá depende casi por completo de abejas grandes como Xylocopa: con polinización natural cuaja el 88 % de las flores; sin visitas, entre el 2 y el 3 %.",Polinizadores nativos,"Arias-Suárez et al. 2014, Acta Agronómica",Sí
+consejo,"Una mezcla que contiene imidacloprid, thiamethoxam, clothianidin o fipronil nunca cuenta como alternativa, aunque traiga otros ingredientes.",Buscador,Regla por composición de Bee-alternative,Sí
+consejo,"""Sin datos"" no significa inocuo: es una brecha de conocimiento. Revise el sello de calidad de cada valor antes de usarlo.",Riesgo para abejas,"Bee-alternative, sellos de calidad",Sí
+consejo,Aplicar fuera de la floración y cuando las abejas no están forrajeando reduce su exposición. El horario sugerido depende del cultivo.,Polinizadores nativos,"ANLA 2026; Cenicafé, Avance Técnico 322",Sí
+consejo,"El mapa de evidencia muestra qué alternativas registradas no tienen ningún estudio en OpenAlex: un cero es una brecha de evidencia, no una prueba de ineficacia.",Evidencia científica,OpenAlex (CC0),Sí
+consejo,"Toda descarga en Excel trae la hoja Citas_y_licencias: si reutiliza un dato, cite Bee-alternative y la fuente original.",Metodología y fuentes,Bee-alternative,Sí
+consejo,"Un efecto subletal (en el vuelo, el aprendizaje o la cría) puede dañar la colonia aunque las abejas no mueran en el ensayo.",Riesgo para abejas,"ECOTOX, US EPA; Olker et al. 2022",Sí

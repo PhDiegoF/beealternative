@@ -109,7 +109,7 @@ hoja_citas <- function(ids = character(0), d = NULL, textos_nativos = character(
   }
   rbind(g, data.frame(Fuente = "Nota", Enlace = "", Uso = "",
                       Cita = "Al reutilizar un dato, cite Bee-alternative y la fuente original indicada en la fila del dato.",
-                      Licencia = "Los datos de terceros conservan su licencia; la licencia CC BY-NC-SA 4.0 de Bee-alternative no la reemplaza.",
+                      Licencia = paste0("Los datos de terceros conservan su licencia; la licencia CC BY-NC-SA 4.0 de Bee-alternative no la reemplaza. ", licencia$marca, "."),
                       stringsAsFactors = FALSE)[, names(g)])
 }
 

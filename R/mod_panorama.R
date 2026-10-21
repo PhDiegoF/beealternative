@@ -4,6 +4,7 @@
 mod_panorama_ui <- function(id) {
   ns <- NS(id)
   tagList(
+    uiOutput(ns("erwin")),   # 0.9.1: bienvenida y dato curioso (inst/app/www/marca/consejos_erwin.csv)
     div(class = "mb-3", uiOutput(ns("kpis"))),
     bslib::layout_columns(
       col_widths = c(8, 4), fill = FALSE,
@@ -25,6 +26,18 @@ mod_panorama_ui <- function(id) {
 mod_panorama_server <- function(id, datos) {
   moduleServer(id, function(input, output, session) {
     ind <- reactive(indicadores_panorama(datos()))
+
+    # Erwin: un dato curioso al azar por visita; "Otro dato" cambia a otro distinto
+    marca <- leer_marca()
+    cons <- leer_consejos()
+    i_dato <- reactiveVal(consejo_al_azar(cons))
+    observeEvent(input$otro_dato, i_dato(consejo_al_azar(cons, i_dato())))
+    output$erwin <- renderUI({   # tarjeta e imagen: una sola vez por visita
+      boton <- if (sum(cons$tipo == "consejo") > 1)
+        actionButton(session$ns("otro_dato"), "Otro dato", icon = bsicons::bs_icon("shuffle"), class = "btn-sm btn-outline-secondary align-self-md-end")
+      bienvenida_erwin(marca, cons, uiOutput(session$ns("globo")), boton)
+    })
+    output$globo <- renderUI(globo_erwin(cons, i_dato()))   # solo el texto cambia con "Otro dato"
 
     output$kpis <- renderUI({
       i <- ind()

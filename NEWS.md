@@ -1,3 +1,25 @@
+# beealternative 0.9.1 (20/Oct/2026) · Erwin, avatar de la app
+- **Erwin**, el gato curioso del Departamento de Inteligencia y Divulgación Científica y Tecnológica (DIyDCT), es el avatar
+  de Bee-alternative:
+  - en la barra superior (Erwin disfrazado de abeja, junto al nombre de la app) y como ícono de la pestaña del navegador;
+  - en Panorama, con una bienvenida y un **dato curioso** al azar en cada visita, con su fuente y el botón "Otro dato";
+  - en los mensajes "sin resultados" o "sin datos" de todos los módulos (Erwin con lupa).
+- **Logo del DIyDCT** en el pie de página y en los créditos de Metodología y fuentes.
+- **Fácil de actualizar, sin tocar el código:** todo está en `inst/app/www/marca/`. `marca.csv` dice qué imagen va en cada
+  lugar y si está activa; `consejos_erwin.csv` tiene la bienvenida y los datos curiosos; hay cinco poses de Erwin para
+  cambiar de disfraz. Si un archivo falta o se desactiva, la app no lo muestra y sigue funcionando. Los CSV guardados desde
+  Excel (CSV UTF-8 o "delimitado por comas", con coma o punto y coma) también se leen. `dev/07_revisar_marca.R` revisa la carpeta y
+  `dev/06_preparar_publicacion.R` avisa si falta.
+- **Derechos:** Erwin y los logos de AGROSAVIA y del DIyDCT tienen todos los derechos reservados y no se incluyen en la
+  licencia CC BY-NC-SA 4.0; así se indica en el pie, en Metodología y fuentes, en la hoja Citas_y_licencias y en `LICENSE`.
+- Funciones nuevas: `leer_marca()`, `leer_consejos()`, `revisar_marca()`. Pruebas: `test-v091.R` (4 bloques).
+- **Búsqueda semántica (corrección):** si OpenAlex limita las consultas (respuesta 429), la app ya no repite la búsqueda
+  quitando los filtros de años y tipo: avisa que la búsqueda semántica no se completó, con el motivo, y muestra los
+  resultados de la ecuación. Solo se prueba sin filtros cuando OpenAlex los rechaza (400). La prueba con clave espera
+  1,5 s antes de la búsqueda semántica y se omite, en lugar de fallar, si OpenAlex responde 429. Prueba nueva sin red
+  (`local_mocked_bindings`) en `test-evidencia.R`.
+- Sin cambios en los datos (modelo v12) ni en los cálculos.
+
 # beealternative 0.9.0 (9/Oct/2026) · Polinizadores nativos y manejo
 - **Módulo nuevo: Polinizadores nativos** (barra superior, entre Riesgo para abejas y Evidencia científica). Para cada cultivo:
   - **Dependencia de la polinización animal:** categoría de Klein et al. 2007 (material suplementario ESM1 y ESM2), mediana de

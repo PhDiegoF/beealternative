@@ -282,9 +282,16 @@ consultar_semantica <- function(texto, filtros = filtros_openalex(), n = 50, cla
     r <- tryCatch(do.call(httr2::req_url_query, c(list(openalex_base()), q, extra)) |> openalex_json(), error = function(e) e)
     if (!inherits(r, "error")) { if (!nzchar(it$f) && nzchar(base_f)) nota <- "sin filtros de años y tipo"; break }
     err <- r
-    if (!grepl("^OpenAlex respondió 4", conditionMessage(r))) break   # error de red o del servidor: no tiene caso reintentar
+    # Solo se prueba sin filtros si OpenAlex rechazó la consulta (400 a 428). Un error de red, del servidor o un límite
+    # de consultas (429) no se arregla quitando filtros: se informa y los filtros del usuario se respetan (0.9.1).
+    if (!grepl("^OpenAlex respondió 4", conditionMessage(r)) || grepl("^OpenAlex respondió 429", conditionMessage(r))) break
   }
-  if (inherits(r, "error")) stop(conditionMessage(err), call. = FALSE)
+  if (inherits(r, "error")) {
+    if (grepl("^OpenAlex respondió 429", conditionMessage(err)))
+      stop("OpenAlex limitó la búsqueda semántica por exceso de consultas seguidas. Intente de nuevo en un minuto; ",
+           "la búsqueda con la ecuación sí se hizo.", call. = FALSE)
+    stop(conditionMessage(err), call. = FALSE)
+  }
   ids <- vapply(r$results, function(w) sub("^https://openalex.org/", "", w$id %||% ""), character(1))
   rel <- vapply(r$results, function(w) as.numeric(w$relevance_score %||% NA_real_), numeric(1))
   keep <- nzchar(ids); ids <- ids[keep]; rel <- rel[keep]

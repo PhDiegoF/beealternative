@@ -244,8 +244,12 @@ mod_evidencia_server <- function(id, datos, limite_sesion = 150) {
         if (isTRUE(input$semantica)) {
           incProgress(0.4, detail = "búsqueda semántica")
           Sys.sleep(1)    # OpenAlex admite 1 consulta semántica por segundo
-          s <- tryCatch(consultar_semantica(texto_semantico(expr), filtros_actuales()), error = function(e) NULL)
-          if (is.null(s)) showNotification("La búsqueda semántica falló; se muestran solo los resultados de la ecuación.", type = "warning")
+          s <- tryCatch(consultar_semantica(texto_semantico(expr), filtros_actuales()), error = function(e) e)
+          if (inherits(s, "error")) {
+            showNotification(paste("La búsqueda semántica no se completó; se muestran solo los resultados de la ecuación.",
+                                   conditionMessage(s)), type = "warning", duration = 10)
+            s <- NULL
+          }
           r <- unir_resultados(r, s)
           r$llamadas <- (r$llamadas %||% 0L) + (if (is.null(s)) 1L else s$llamadas %||% 1L)
         }

@@ -183,7 +183,7 @@ test_that("0.9: suplemento de Lippi y bibliografía en la base v12", {
 })
 
 test_that("0.9: versión y créditos", {
-  expect_equal(version_app, "0.9.0")
+  expect_true(utils::compareVersion(version_app, "0.9.0") >= 0)
   expect_true(grepl("v12", credito$datos))
   expect_true(grepl("Siopa", licencia$terceros))
 })

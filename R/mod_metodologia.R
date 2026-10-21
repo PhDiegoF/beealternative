@@ -17,7 +17,9 @@ mod_metodologia_ui <- function(id) {
   tagList(
     div(class = "d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3 p-3",
         style = "background:#fff; border:1px solid #DDE5DF; border-radius:8px;",
-        logo("logo_agrosavia.png", "AGROSAVIA", height = "38px"),
+        div(class = "d-flex align-items-center gap-3",
+            logo("logo_agrosavia.png", "AGROSAVIA", height = "38px"),
+            img_marca("logo_dependencia", height = "64px", style = "object-fit:contain;")),
         div(class = "text-center flex-grow-1",
             tags$div(class = "fw-bold", style = paste0("color:", agro$verde_osc, "; font-size:1.2rem;"), "Metodología y fuentes"),
             tags$div(class = "small text-muted", uiOutput(ns("corte"), inline = TRUE))),
@@ -55,7 +57,7 @@ mod_metodologia_ui <- function(id) {
           tags$a(href = paste0("https://orcid.org/", credito$orcid), target = "_blank", paste0("ORCID ", credito$orcid))),
         p(credito$unidad),
         p(class = "small mb-0", tags$em(cita_bee_alternative())),
-        p(class = "small text-muted mb-0 mt-2", "Validación técnica: equipo de apicultura de AGROSAVIA. Código y documentación asistidos por Claude (Anthropic) bajo la dirección del autor."))
+        p(class = "small text-muted mb-0 mt-2", "Validación técnica: equipo de apicultura de AGROSAVIA. Imagen: Erwin, personaje del Departamento de Inteligencia y Divulgación Científica y Tecnológica. Código y documentación asistidos por Claude (Anthropic) bajo la dirección del autor."))
     ),
     bslib::layout_columns(
       col_widths = c(6, 6), fill = FALSE,
@@ -64,6 +66,7 @@ mod_metodologia_ui <- function(id) {
           tags$li(tags$a(href = licencia$url, target = "_blank", rel = "license", licencia$datos),
                   ": puede copiar, adaptar y redistribuir los datos y descargas con atribución, sin fines comerciales y con la misma licencia."),
           tags$li(licencia$codigo, "."),
+          tags$li(licencia$marca, "."),
           tags$li(licencia$terceros, "."))),
       seccion("Observaciones y contacto",
         p("¿Encontró un dato incorrecto o algo que no funciona? Use ", tags$b("Reportar un problema"), " en la barra superior o escriba a ",

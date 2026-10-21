@@ -115,7 +115,11 @@ test_that("evidencia 0.7: consultas reales (solo con clave)", {
   r <- consultar_openalex('(avocado) AND (thrips) AND (spinosad OR "Beauveria bassiana")', n = 5, campo = "search")
   expect_true(r$total >= 0)
   expect_true(all(c("has_fulltext", "relevance_score", "origen") %in% names(r$articulos)) || !nrow(r$articulos))
-  s <- consultar_semantica("biological control of thrips in avocado", n = 5)
+  Sys.sleep(1.5)                        # la búsqueda semántica admite pocas consultas seguidas
+  s <- tryCatch(consultar_semantica("biological control of thrips in avocado", n = 5), error = function(e) e)
+  if (inherits(s, "error") && grepl("limitó la búsqueda semántica", conditionMessage(s)))
+    skip("OpenAlex limitó la búsqueda semántica (429): repetir la prueba en unos minutos")
+  expect_false(inherits(s, "error"))
   expect_lte(nrow(s$articulos), 5)
   expect_equal(s$llamadas, 2L)          # acierta al primer intento: semántica sin filtro geográfico + datos completos
   expect_equal(s$nota, "")
@@ -123,4 +127,24 @@ test_that("evidencia 0.7: consultas reales (solo con clave)", {
   m <- mapa_evidencia(d, "Aguacate", "Trips", max_alt = 2)
   expect_equal(nrow(m), 2)
   expect_true(all(m$articulos >= 0, na.rm = TRUE))
+})
+
+test_that("0.9.1: un límite de consultas (429) no quita los filtros de la búsqueda semántica", {
+  skip_if_not(requireNamespace("httr2", quietly = TRUE), "httr2 no disponible")
+  llamadas <- 0L
+  local_mocked_bindings(openalex_json = function(req) {
+    llamadas <<- llamadas + 1L
+    stop("OpenAlex respondió 429. Too many requests", call. = FALSE)
+  })
+  expect_error(consultar_semantica("thrips in avocado", clave = "x"), "limitó la búsqueda semántica")
+  expect_equal(llamadas, 1L)            # no siguió con los intentos sin filtros
+  llamadas <- 0L
+  local_mocked_bindings(openalex_json = function(req) {
+    llamadas <<- llamadas + 1L
+    if (llamadas < 3) stop("OpenAlex respondió 400. Invalid filter", call. = FALSE)
+    list(results = list())
+  })
+  s <- consultar_semantica("thrips in avocado", clave = "x")
+  expect_equal(llamadas, 3L)            # un 400 sí pasa al intento sin filtros
+  expect_equal(s$nota, "sin filtros de años y tipo")
 })

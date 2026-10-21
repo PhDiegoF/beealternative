@@ -76,7 +76,7 @@
         "Maintainer": "Garrick Aden-Buie <garrick@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2025-09-02 22:00:06 UTC",
-        "Built": "R 4.6.1; ; 2026-08-07 03:20:20 UTC; windows",
+        "Built": "R 4.6.1; ; 2026-10-11 03:22:14 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "DT",
         "RemoteRef": "DT",
@@ -372,7 +372,7 @@
         "Maintainer": "Carson Sievert <carson@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2026-08-04 00:40:02 UTC",
-        "Built": "R 4.6.1; ; 2026-08-07 02:17:30 UTC; windows",
+        "Built": "R 4.6.1; ; 2026-10-11 02:36:07 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "bslib",
         "RemoteRef": "bslib",
@@ -588,7 +588,7 @@
         "Package": "curl",
         "Type": "Package",
         "Title": "A Modern and Flexible Web Client for R",
-        "Version": "8.0.0",
+        "Version": "8.1.0",
         "Authors@R": "c(\n    person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n      comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Hadley\", \"Wickham\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = \"cph\"))",
         "Description": "Bindings to 'libcurl' <https://curl.se/libcurl/> for performing fully\n    configurable HTTP/FTP requests where responses can be processed in memory, on\n    disk, or streaming via the callback or connection interfaces. Some knowledge\n    of 'libcurl' is recommended; for a more-user-friendly web client see the \n    'httr2' package which builds on this package with http specific tools and logic.",
         "License": "MIT + file LICENSE",
@@ -602,18 +602,18 @@
         "Language": "en-US",
         "Config/roxygen2/version": "8.0.0",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-08-25 12:49:41 UTC; jeroen",
+        "Packaged": "2026-10-14 10:10:35 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Hadley Wickham [ctb],\n  Posit Software, PBC [cph]",
         "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
         "Repository": "CRAN",
-        "Date/Publication": "2026-08-25 16:40:02 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-08-26 01:54:59 UTC; windows",
+        "Date/Publication": "2026-10-14 12:12:13 UTC",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-10-14 17:25:59 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "curl",
         "RemoteRef": "curl",
         "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteSha.Version": "8.0.0"
+        "RemoteSha.Version": "8.1.0"
       }
     },
     "data.table": {
@@ -784,7 +784,7 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2026-04-03 07:30:08 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-08-07 02:58:58 UTC; windows",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-10-09 03:54:28 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "dplyr",
@@ -1064,7 +1064,7 @@
         "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2026-04-22 09:10:03 UTC",
-        "Built": "R 4.6.1; ; 2026-08-07 02:17:28 UTC; windows",
+        "Built": "R 4.6.1; ; 2026-10-11 02:36:02 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "ggplot2",
         "RemoteRef": "ggplot2",
@@ -1205,7 +1205,7 @@
         "Maintainer": "Carson Sievert <carson@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2025-12-04 11:50:09 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-08-07 01:37:43 UTC; windows",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-10-11 01:52:09 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "htmltools",
@@ -1347,7 +1347,7 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2026-07-13 21:50:06 UTC",
-        "Built": "R 4.6.1; ; 2026-08-07 02:17:27 UTC; windows",
+        "Built": "R 4.6.1; ; 2026-10-11 02:36:17 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "httr2",
         "RemoteRef": "httr2",
@@ -1444,7 +1444,7 @@
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Duncan Temple Lang [ctb],\n  Lloyd Hilaiel [cph] (author of bundled libyajl)",
         "Repository": "CRAN",
         "Date/Publication": "2025-03-27 06:40:02 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-08-07 00:42:43 UTC; windows",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-10-11 00:52:46 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "jsonlite",
@@ -2305,7 +2305,7 @@
         "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2025-04-24 11:00:02 UTC",
-        "Built": "R 4.6.1; ; 2026-08-07 01:55:03 UTC; windows",
+        "Built": "R 4.6.1; ; 2026-10-11 02:14:52 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "scales",
         "RemoteRef": "scales",
@@ -2340,7 +2340,7 @@
         "Maintainer": "Carson Sievert <carson@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2026-06-21 14:10:08 UTC",
-        "Built": "R 4.6.1; ; 2026-08-07 02:38:32 UTC; windows",
+        "Built": "R 4.6.1; ; 2026-10-11 03:01:27 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "shiny",
         "RemoteRef": "shiny",
@@ -2443,7 +2443,7 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2025-11-04 14:00:02 UTC",
-        "Built": "R 4.6.1; ; 2026-08-07 02:17:25 UTC; windows",
+        "Built": "R 4.6.1; ; 2026-10-11 02:36:01 UTC; windows",
         "RemoteType": "standard",
         "RemotePkgRef": "stringr",
         "RemoteRef": "stringr",
@@ -2515,7 +2515,7 @@
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
         "Repository": "CRAN",
         "Date/Publication": "2026-01-11 10:10:02 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-08-07 02:38:31 UTC; windows",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-10-11 03:01:12 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "tibble",
@@ -2553,7 +2553,7 @@
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2025-12-19 09:20:02 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-08-07 03:20:20 UTC; windows",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-10-11 03:44:33 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "tidyr",
@@ -2810,31 +2810,31 @@
         "Package": "xfun",
         "Type": "Package",
         "Title": "Supporting Functions for Packages Maintained by 'Yihui Xie'",
-        "Version": "0.61",
+        "Version": "0.62",
         "Authors@R": "c(\n  person(\"Yihui\", \"Xie\", role = c(\"aut\", \"cre\", \"cph\"), email = \"xie@yihui.name\", comment = c(ORCID = \"0000-0003-0645-5666\", URL = \"https://yihui.org\")),\n  person(\"Wush\", \"Wu\", role = \"ctb\"),\n  person(\"Daijiang\", \"Li\", role = \"ctb\"),\n  person(\"Xianying\", \"Tan\", role = \"ctb\"),\n  person(\"Salim\", \"Brüggemann\", role = \"ctb\", email = \"salim-b@pm.me\", comment = c(ORCID = \"0000-0002-5329-5987\")),\n  person(\"Christophe\", \"Dervieux\", role = \"ctb\"),\n  person()\n  )",
         "Description": "Miscellaneous functions commonly used in other packages maintained by 'Yihui Xie'.",
         "Depends": "R (>= 3.2.0)",
         "Imports": "grDevices, stats, tools",
-        "Suggests": "testit, parallel, codetools, methods, rstudioapi, tinytex (>=\n0.30), mime, litedown (>= 0.6), commonmark, knitr (>= 1.50),\nremotes, pak, curl, xml2, jsonlite, magick, yaml, data.table,\nqs2",
+        "Suggests": "testit, parallel, codetools, methods, rstudioapi, tinytex (>=\n0.30), mime, litedown (>= 0.6), knitr (>= 1.50), remotes, pak,\ncurl, xml2, jsonlite, magick, yaml, data.table, qs2",
         "License": "MIT + file LICENSE",
         "URL": "https://github.com/yihui/xfun",
         "BugReports": "https://github.com/yihui/xfun/issues",
         "Encoding": "UTF-8",
         "VignetteBuilder": "litedown",
-        "Config/roxygen2/version": "8.1.0",
+        "Config/roxygen2/version": "8.1.1",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-09-16 17:36:20 UTC; yihui",
+        "Packaged": "2026-10-16 01:24:19 UTC; yihui",
         "Author": "Yihui Xie [aut, cre, cph] (ORCID:\n    <https://orcid.org/0000-0003-0645-5666>, URL: https://yihui.org),\n  Wush Wu [ctb],\n  Daijiang Li [ctb],\n  Xianying Tan [ctb],\n  Salim Brüggemann [ctb] (ORCID: <https://orcid.org/0000-0002-5329-5987>),\n  Christophe Dervieux [ctb]",
         "Maintainer": "Yihui Xie <xie@yihui.name>",
         "Repository": "CRAN",
-        "Date/Publication": "2026-09-16 18:30:02 UTC",
-        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-09-17 13:10:07 UTC; windows",
+        "Date/Publication": "2026-10-16 03:30:02 UTC",
+        "Built": "R 4.6.1; x86_64-w64-mingw32; 2026-10-16 19:33:24 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "xfun",
         "RemoteRef": "xfun",
         "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteSha.Version": "0.61"
+        "RemoteSha.Version": "0.62"
       }
     },
     "xtable": {
@@ -2918,6 +2918,9 @@
     "ACTUALIZAR_APP_v0.9.0.md": {
       "checksum": "415f3b37fee6294ed902f3d262183ef4"
     },
+    "ACTUALIZAR_APP_v0.9.1.md": {
+      "checksum": "b729b1cdb9d02164540d7d447d326a14"
+    },
     "app.R": {
       "checksum": "b64aa79a3759ec6c5f293c68db1a9998"
     },
@@ -2925,7 +2928,7 @@
       "checksum": "593131cbbef3a72686a191cf171e7bfa"
     },
     "DESCRIPTION": {
-      "checksum": "f07e6cd58b729fbb6f3d9790716b21ee"
+      "checksum": "ed7f8ec4959676352926423a9281435f"
     },
     "inst/app/www/logo_agrosavia.png": {
       "checksum": "b2970ba250241bd03f69d1e395e103f4"
@@ -2936,8 +2939,38 @@
     "inst/app/www/logo_ica.svg": {
       "checksum": "29ae8816ed41044977f747cb93535638"
     },
+    "inst/app/www/marca/consejos_erwin.csv": {
+      "checksum": "f95f8d7c61f858ba051f96dfe484e333"
+    },
+    "inst/app/www/marca/erwin_abeja.png": {
+      "checksum": "ce40d2df1f689cd8a9afcc9566e6dcc2"
+    },
+    "inst/app/www/marca/erwin_buzo.png": {
+      "checksum": "b160761a17b01da1728e1d2bf3278e0e"
+    },
+    "inst/app/www/marca/erwin_gala.png": {
+      "checksum": "33db01be552cfdeb34aad5b2909a1fd4"
+    },
+    "inst/app/www/marca/erwin_lupa.png": {
+      "checksum": "248492c954a9882a442743a70a2dd910"
+    },
+    "inst/app/www/marca/erwin_saludo.png": {
+      "checksum": "16e87476b5cd435dcfa68aa879cf0095"
+    },
+    "inst/app/www/marca/favicon.png": {
+      "checksum": "b371f30dcbb582eb0bf5187c140725ee"
+    },
+    "inst/app/www/marca/LEEME.md": {
+      "checksum": "b05ef745d8f88bbcf3a8c482c07d4502"
+    },
+    "inst/app/www/marca/logo_diydct.png": {
+      "checksum": "26f5d6bc6fb9d68e06180a0b3259495d"
+    },
+    "inst/app/www/marca/marca.csv": {
+      "checksum": "d62a75926efff6fc8b21ce8d3dd8dd0b"
+    },
     "inst/CITATION": {
-      "checksum": "ed91b4a2afc65b6243f3fdb4718bfcdf"
+      "checksum": "c77c694026750b5906392fbd832edb7e"
     },
     "inst/extdata/bee_alternative.duckdb": {
       "checksum": "11cb049aab1cf32423481eee44ca19c1"
@@ -2949,19 +2982,19 @@
       "checksum": "8600caaaf7087f89641be9863dc49a8f"
     },
     "LICENSE": {
-      "checksum": "0ff9debebf7c9ae4a7d42f6c8e27b0e8"
+      "checksum": "c4f7afba72f147799ec991b007ec02b3"
     },
     "manifest.json": {
-      "checksum": "e455a197152de8cd5391c3708bed5347"
+      "checksum": "55970b48aff3e8802d33d61e215589a9"
     },
     "MANTENIMIENTO.md": {
-      "checksum": "48d3ef1072e2be862ffb85ebd69ece69"
+      "checksum": "de732ea9e412807a4839278a842d7ed4"
     },
     "NAMESPACE": {
-      "checksum": "b6ca4f60a166d54985d747945bed888b"
+      "checksum": "f2e6520d8ea2517d315d60f935369279"
     },
     "NEWS.md": {
-      "checksum": "3c76bb4a3a79fa0223ccd67116e36bdc"
+      "checksum": "848ab3216b20ca04b8c34b33228d8068"
     },
     "PUBLICAR_CONNECT.md": {
       "checksum": "6336dbe84ccab3f123c3bc700f48f6f7"
@@ -2970,7 +3003,7 @@
       "checksum": "f964514719dce72709b7cb6f094dfda5"
     },
     "R/app_config.R": {
-      "checksum": "1d3a460b59852efafee0491ea48988bb"
+      "checksum": "23fad1d346f221c33763ddeafc4ce241"
     },
     "R/app_server.R": {
       "checksum": "c2a424fb9aa9c730a8936c7705b28e33"
@@ -2979,7 +3012,7 @@
       "checksum": "79015611dc9f143fc0604a6bc383d635"
     },
     "R/app_ui.R": {
-      "checksum": "1a9690b47f8585cdfb88494fbaaae6ad"
+      "checksum": "1f4f86573e905d8956a50aa6a6662164"
     },
     "R/beealternative-package.R": {
       "checksum": "cac4b2780abc17f7b0a7f526a4fc0315"
@@ -2991,19 +3024,22 @@
       "checksum": "b00620529f4e0c9a86615e20d87caf5a"
     },
     "R/fct_citas.R": {
-      "checksum": "f1ef794c6be03c67ab8d6e2408af028b"
+      "checksum": "c384e74d91b4c690c845521a139bb887"
     },
     "R/fct_datos.R": {
       "checksum": "67ebd3a833d9381fec01dd3af53c6ed5"
     },
     "R/fct_evidencia.R": {
-      "checksum": "223132e166b851224532131c0d98f3b3"
+      "checksum": "e2505bbb6be9c96cfc677c21816d2d7e"
     },
     "R/fct_evidencia_calidad.R": {
       "checksum": "7cc4277a12594ec66d70850f58762370"
     },
     "R/fct_ficha.R": {
       "checksum": "20ab033a51d04085da6e0b5e5c1f7c03"
+    },
+    "R/fct_marca.R": {
+      "checksum": "5c5fe3e1ad8ac58a0084589eae4a4c70"
     },
     "R/fct_matriz.R": {
       "checksum": "0243e184a2641ea0c50f702010cbbcf2"
@@ -3021,7 +3057,7 @@
       "checksum": "ed6f3c6f0e7791e0297dcc83cf53f364"
     },
     "R/mod_evidencia.R": {
-      "checksum": "3d019afa2cc71dd5f68ffacc50788b53"
+      "checksum": "eaec3c2882a54b7548b37ff23277c47b"
     },
     "R/mod_ficha.R": {
       "checksum": "ab4604314689f9f0c1c303746fc5610f"
@@ -3030,25 +3066,25 @@
       "checksum": "ece5cbdd05f3f690158eb42e3d5444e9"
     },
     "R/mod_metodologia.R": {
-      "checksum": "83b156687e31105c03e8b4c655dc84dc"
+      "checksum": "3f4cd1ce94f89d69a863dff1dfc7098d"
     },
     "R/mod_nativos.R": {
       "checksum": "af9ddd5685d5e0e25230e6a4ca1d107e"
     },
     "R/mod_panorama.R": {
-      "checksum": "8f05eaec7b68eb7e428b91212fc03446"
+      "checksum": "d80c66d03c6e4c07584dff80beb41fde"
     },
     "R/mod_riesgo.R": {
       "checksum": "b58392b2f6809b1fd4790f0e7b505282"
     },
     "R/run_app.R": {
-      "checksum": "f082819e7e152ac2c3fefb4a05bd871e"
+      "checksum": "4a7a7d2fbb7f48708a966a4ed0ae74cc"
     },
     "R/utils.R": {
       "checksum": "53270490000bdd2ddfdb34d2502f79aa"
     },
     "README.md": {
-      "checksum": "740cf0c975f4f934fe3cf7f4c5112585"
+      "checksum": "3a0a9d9491d7af1385fa4acc0cf961f1"
     }
   },
   "users": null

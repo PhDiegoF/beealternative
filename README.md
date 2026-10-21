@@ -1,4 +1,4 @@
-# Bee-alternative (paquete de R · v0.9.0)
+# Bee-alternative (paquete de R · v0.9.1)
 
 App Shiny de solo consulta para identificar alternativas registradas en el ICA a imidacloprid,
 thiamethoxam, clothianidin y fipronil, con su riesgo para abejas, los polinizadores nativos de cada cultivo y la evidencia científica.
@@ -57,6 +57,8 @@ Logos: el de AGROSAVIA viene incluido. El del ICA se descarga una vez con `sourc
 | `R/fct_citas.R` | Citas y licencias (0.9): cita sugerida de Bee-alternative, fuentes generales con cita completa, enlace y licencia (`citas_app`), referencias del módulo de polinizadores usadas en una descarga (`referencias_usadas()`) y hoja Citas_y_licencias de cada Excel (`hoja_citas()`) |
 | `R/fct_evidencia.R`, `R/fct_evidencia_calidad.R`, `R/mod_evidencia.R` | Módulo 7: evidencia científica en OpenAlex. Catálogo v3 de 208 ecuaciones (incluye E4, efectos subletales en abejas) y ecuación a la medida; búsqueda en título y resumen o también en texto completo; búsqueda semántica complementaria; pertinencia de cada artículo; hasta 1.000 artículos; mapa de evidencia por alternativa registrada (eficacia o efectos subletales); caché compartida y tope diario (`R/fct_cache.R`); exportación para Context Analysis |
 | `dev/05_precalcular_evidencia.R` | Precalcula el catálogo en `inst/extdata/evidencia_catalogo.rds` (requiere `OPENALEX_API_KEY`) |
+| `R/fct_marca.R` | Imagen de la app (0.9.1): lee `inst/app/www/marca/marca.csv` y `consejos_erwin.csv` (`leer_marca()`, `leer_consejos()`, `revisar_marca()`); Erwin en la barra, la bienvenida de Panorama y los mensajes sin resultados; logo del DIyDCT en el pie |
+| `inst/app/www/marca/` | Erwin (cinco poses), logo del DIyDCT, favicon, `marca.csv`, `consejos_erwin.csv` y `LEEME.md`: se actualizan sin tocar el código (revisar con `dev/07_revisar_marca.R`) |
 | `inst/app/www/` | `logo_agrosavia.png` y `logo_agrosavia_blanco.png` (vector del brandbook a 600 dpi); `logo_ica.svg` se descarga con `dev/04_descargar_logos.R` |
 | `R/mod_en_construccion.R` | Marcador para módulos futuros (evidencia OpenAlex, fase 2) |
 | `R/app_ui.R`, `R/app_server.R`, `R/run_app.R` | Estructura de la app |
@@ -80,9 +82,9 @@ Logos: el de AGROSAVIA viene incluido. El del ICA se descarga una vez con `sourc
 ## Créditos
 **Diseño y conceptualización:** Diego Hernando Flórez Martínez, PhD · ORCID [0000-0002-3904-9543](https://orcid.org/0000-0002-3904-9543) ·
 AGROSAVIA, Departamento de Inteligencia y Divulgación Científica y Tecnológica.
-Validación técnica: equipo de apicultura de AGROSAVIA. Código y documentación asistidos por Claude (Anthropic) bajo la dirección del autor.
+Validación técnica: equipo de apicultura de AGROSAVIA. Imagen: Erwin, personaje del Departamento de Inteligencia y Divulgación Científica y Tecnológica (DIyDCT). Código y documentación asistidos por Claude (Anthropic) bajo la dirección del autor.
 Fuentes y licencias: ICA (información pública), ApisTox (CC BY-NC 4.0), ECOTOX (US EPA; uso no comercial, científico y educativo citando a la EPA y a Olker et al. 2022), PPDB/BPDB (solo enlaces), IRAC MoA v11.5, GBIF (CC BY 4.0), EPPO, OpenAlex (CC0), Siopa et al. 2024 y Lippi et al. 2026 (CC BY 4.0), Klein et al. 2007 y la Iniciativa Colombiana de Polinizadores – Abejas (Nates-Parra 2016; se citan los hechos), ICP 2018 (uso no comercial con cita). Cada descarga en Excel trae la hoja **Citas_y_licencias** con la cita completa, el enlace y la licencia de cada fuente que aporta datos; la bibliografía completa del módulo de polinizadores (110 obras) está en la tabla `nativos_referencias` y en la hoja 26 de la Base Unificada v12.
 
-**Licencia de Bee-alternative:** datos, contenidos y descargas bajo CC BY-NC-SA 4.0; código de uso institucional de AGROSAVIA (repositorio de acceso restringido). Ver `LICENSE`.
+**Licencia de Bee-alternative:** datos, contenidos y descargas bajo CC BY-NC-SA 4.0; código de uso institucional de AGROSAVIA (repositorio de acceso restringido). Erwin y los logos de AGROSAVIA y del DIyDCT: todos los derechos reservados (no se incluyen en la licencia CC BY-NC-SA 4.0). Ver `LICENSE`.
 
 **Integración continua:** `.github/workflows/pruebas.yaml` corre las pruebas en cada push; `secretos.yaml` revisa que no haya claves en el historial.

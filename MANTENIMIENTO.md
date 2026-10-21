@@ -1,6 +1,6 @@
 # Manual técnico de mantenimiento de Bee-alternative
 
-Versión 0.9.0 · modelo de datos v12 · 9 de octubre de 2026
+Versión 0.9.1 · modelo de datos v12 · 20 de octubre de 2026
 
 Este manual es para la persona o entidad que mantenga Bee-alternative junto con el autor o en su reemplazo: un **segundo mantenedor**, posiblemente del ICA. Explica:
 - qué hay en el proyecto;
@@ -21,6 +21,7 @@ Este manual es para la persona o entidad que mantenga Bee-alternative junto con 
 | Modelo de datos | 12 tablas en CSV, más las opcionales (efectos subletales, novedades y las nueve `nativos_*`, incluida la bibliografía `nativos_referencias`); se cargan en DuckDB y Parquet | `modelo_datos/` |
 | Insumos de polinizadores nativos | Fuentes extraídas (ICP, ICPA, Klein, Siopa) y tablas curadas (mapa de cultivos, polinizadores, toxicidad, prácticas, notas, fuentes) | `modelo_datos/insumos_nativos/` (ver `LEEME.md`) |
 | Paquete y app | Paquete de R `beealternative` con la app Shiny | `beealternative/` (repositorio privado de GitHub) |
+| Imagen de la app | Erwin (avatar), logo del DIyDCT, favicon y datos curiosos, configurables sin tocar el código | `beealternative/inst/app/www/marca/` (ver `LEEME.md`) |
 | Publicación | Posit Connect Cloud | https://01a0f3f1-23a0-e4b4-95a5-0d8d41de60ad.share.connect.posit.cloud/ |
 
 Flujo de los datos: **ICA → actualizador → base Excel y diccionarios → `construir_modelo.py` → CSV → DuckDB → paquete → Connect Cloud**. ECOTOX, la validación de expertos y los insumos de polinizadores nativos entran en el paso del modelo.
@@ -68,7 +69,7 @@ Hágala cuando el ICA publique listados nuevos o cada trimestre. Tiempo estimado
 
 ## 5. Ciclo de validación con expertos
 
-1. `python modelo_datos/plantilla_validacion.py` genera la plantilla de Excel: alternativas directas, asignaciones sujetas a validación y pertinencia de artículos.
+1. `python modelo_datos/plantilla_validacion.py` genera `Plantilla_validacion_expertos_v0.9.0.xlsx`: alternativas directas, asignaciones sujetas a validación, pertinencia de artículos y, desde la 0.9.0, cuatro hojas del módulo de polinizadores nativos (dependencia y horario, polinizadores registrados, faltantes y prácticas) y una de citas y licencias.
 2. Cada experto llena su copia.
 3. `python modelo_datos/aplicar_validacion.py CARPETA_CON_LAS_PLANTILLAS` consolida las decisiones por mayoría.
 4. `construir_modelo.py` las aplica en la siguiente reconstrucción:
@@ -77,6 +78,7 @@ Hágala cuando el ICA publique listados nuevos o cada trimestre. Tiempo estimado
    - *Corregir* lo deja como "Corrección propuesta".
 5. Las correcciones de valores (por ejemplo, otro taxón) las aplica el mantenedor en los diccionarios de `fase0/`, para conservar la trazabilidad.
 6. Para calibrar la pertinencia: `beealternative::evaluar_pertinencia()` sobre la hoja 3_Pertinencia (precisión por nivel).
+7. Hojas de nativos: `aplicar_validacion.py` escribe `validacion_nativos_expertos.csv` y `nativos_faltantes_expertos.csv`. No se aplican solas: el curador edita `insumos_nativos/` (sección 6) y cita "Equipo de apicultura de AGROSAVIA (validación 2026)"; esa cita se agrega también a `generar_referencias.py`.
 
 ## 6. Curaduría del módulo Polinizadores nativos
 
@@ -97,6 +99,19 @@ Después de editar: `python construir_nativos.py`, `python -m unittest discover 
 
 **Regla del módulo que no debe cambiar sin acuerdo con el autor:** el sello de calidad. Un valor extrapolado (△) se muestra solo para abejas, con el factor 10 sobre la clase ApisTox y la alerta para abejas sin aguijón; nunca se extrapola a moscas, escarabajos ni mariposas; para aves y murciélagos solo se muestra una especie sustituta; y "sin datos" nunca se presenta como inocuo.
 
+### Imagen de la app: Erwin, logo del DIyDCT y datos curiosos (0.9.1)
+
+Todo está en `inst/app/www/marca/` y se cambia sin tocar el código:
+
+| Tarea | Qué editar | Control |
+|---|---|---|
+| Cambiar el disfraz de Erwin o la imagen de "sin resultados" | `marca.csv`, columna `archivo` de las filas `avatar` o `avatar_busqueda` (hay cinco poses en la carpeta) | `dev/07_revisar_marca.R` marca "FALTA LA IMAGEN" si el nombre no coincide |
+| Actualizar el logo del DIyDCT | Reemplazar `logo_diydct.png` con el mismo nombre | Idem |
+| Quitar un elemento | `marca.csv`, columna `activo` = `No` | La app deja de mostrarlo; nada se rompe |
+| Agregar o cambiar datos curiosos | `consejos_erwin.csv` (tipo `consejo`, texto, pestaña, fuente, activo) | `revisar_marca()` avisa los datos sin fuente; la prueba `test-v091.R` exige fuente en todos |
+
+Después: revisar en local (`dev/03`) y publicar (`dev/06`). No hace falta reconstruir la base. Si se edita un CSV en Excel, guardarlo como CSV UTF-8 (la app acepta comas o punto y coma).
+
 ## 7. Solución de problemas
 
 | Síntoma | Causa probable | Qué hacer |
@@ -110,6 +125,8 @@ Después de editar: `python construir_nativos.py`, `python -m unittest discover 
 | Las pruebas fallan después de actualizar datos | Las cifras de referencia cambiaron | Comparar con `cifras_referencia.py` y actualizar las pruebas solo si el cambio es esperado |
 | Polinizadores nativos avisa que faltan las tablas | La base es anterior a v12 o no se corrió `construir_nativos.py` | Correr `construir_nativos.py` y `cargar_modelo_duckdb.R`; repetir `dev/02_copiar_datos.R` |
 | `construir_nativos.py` se detiene con "no están en cultivos.csv" | Cambió el diccionario de cultivos o hay un error en `mapa_cultivos.csv` | Corregir el `cultivo_id` en el insumo |
+| `devtools::test()` muestra "Waiting … for retry backoff" en evidencia | OpenAlex limitó la búsqueda semántica (429) por consultas seguidas | Nada que corregir: desde la 0.9.1 la prueba queda omitida (SKIP); repetirla unos minutos después. En la app se avisa y se muestran los resultados de la ecuación |
+| Erwin o el logo del DIyDCT no aparecen | Falta la imagen, el nombre en `marca.csv` no coincide (mayúsculas, extensión) o la fila está inactiva | Correr `dev/07_revisar_marca.R` y corregir `marca.csv`; verificar que la carpeta `inst/app/www/marca/` se subió a GitHub |
 | Connect Cloud no puede republicar | Repositorio privado con el plan gratuito | Ver `PUBLICAR_CONNECT.md`, sección "Repositorio de acceso restringido" |
 
 ## 8. Reglas que no deben cambiar sin acuerdo con el autor
@@ -125,6 +142,7 @@ Después de editar: `python construir_nativos.py`, `python -m unittest discover 
   - ApisTox y ECOTOX con uso no comercial y atribución visible;
   - toda descarga en Excel lleva la hoja Citas_y_licencias (`hoja_citas()`); un módulo o descarga nueva debe agregarla con las fuentes que use.
 - **El logo del ICA** se usa solo como atribución de la fuente, previa confirmación con el ICA.
+- **Erwin y los logos de AGROSAVIA y del DIyDCT** tienen todos los derechos reservados y no entran en la licencia CC BY-NC-SA 4.0; su uso en la app requiere la autorización del DIyDCT. Cada dato curioso de Erwin lleva su fuente.
 
 ## 9. Lista de traspaso al segundo mantenedor
 
@@ -134,4 +152,5 @@ Después de editar: `python construir_nativos.py`, `python -m unittest discover 
 - [ ] Copia de la línea de base vigente (zip con `SHA256SUMS.txt`).
 - [ ] Una actualización trimestral hecha en pareja con el autor.
 - [ ] Lectura de `README_pipeline.md`, `PUBLICAR_CONNECT.md` y este manual.
+- [ ] Contacto en el DIyDCT para las actualizaciones de Erwin y del logo del departamento.
 - [ ] Acuerdo de autoría y créditos: diseño y conceptualización de Diego Hernando Flórez Martínez, PhD; validación técnica del equipo de apicultura de AGROSAVIA.

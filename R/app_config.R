@@ -48,7 +48,7 @@ credito <- list(
   datos  = "Modelo de datos v12 · bioinsumos ICA 1/Sep/2026 · químicos ICA 11/Sep/2026"
 )
 
-version_app <- "0.9.0"
+version_app <- "0.9.1"
 contacto <- "dhflorez@agrosavia.co"
 
 # Licencias (0.8): AGROSAVIA es una entidad pública descentralizada sin ánimo de lucro. Los datos y contenidos se comparten
@@ -58,6 +58,7 @@ licencia <- list(
   datos  = "Datos, contenidos y descargas de Bee-alternative: CC BY-NC-SA 4.0 (AGROSAVIA)",
   url    = "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es",
   codigo = "Código fuente: uso institucional de AGROSAVIA, todos los derechos reservados (repositorio de acceso restringido)",
+  marca  = "Erwin y los logos de AGROSAVIA y de su Departamento de Inteligencia y Divulgación Científica y Tecnológica: todos los derechos reservados (no se incluyen en la licencia CC BY-NC-SA 4.0)",
   terceros = "Los datos de terceros conservan su licencia: ICA (información pública), ApisTox (CC BY-NC 4.0), ECOTOX (uso no comercial citando a la EPA), GBIF (CC BY 4.0), OpenAlex (CC0), EPPO (condiciones de EPPO), Siopa et al. 2024 y Lippi et al. 2026 (CC BY 4.0), Klein et al. 2007 e ICPA (Nates-Parra 2016) (se citan los hechos), ICP 2018 (uso no comercial con cita)"
 )
 

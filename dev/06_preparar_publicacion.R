@@ -14,6 +14,8 @@ ok(file.exists(db), paste("Base DuckDB en", db, if (file.exists(db)) sprintf("(%
 ok(file.exists(cat), paste("Catálogo de evidencia", if (file.exists(cat)) "precalculado" else "ausente — corre dev/05_precalcular_evidencia.R (opcional)"))
 ok(any(file.exists(ica)), paste("Logo del ICA", if (any(file.exists(ica))) "presente" else "ausente — corre dev/04_descargar_logos.R (opcional)"))
 stopifnot("Falta la base DuckDB" = file.exists(db))
+mc <- file.path("inst", "app", "www", "marca", "marca.csv")
+ok(file.exists(mc), paste("Marca (Erwin y logo del DIyDCT)", if (file.exists(mc)) "configurada — detalle con dev/07_revisar_marca.R" else "ausente: la app se verá sin avatar"))
 
 # 2. Ninguna clave dentro del repositorio
 sospechosos <- list.files(".", recursive = TRUE, all.files = TRUE,
